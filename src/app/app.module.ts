@@ -31,9 +31,9 @@ import { AppRoutingModule } from './app-routing.module';
     NgbModule,
     FormsModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // ),
     JsonpModule,
     AppRoutingModule
   ],

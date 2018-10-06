@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DoubanService } from '../utils/doubanService';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
+import { apiServer } from '../api-server';
 
 const show_time = 5000;
 
 class AddBookForm {
   public ISBN: string;
-  public loaded: boolean;
+  public bookNumber: number;
+
+  private location: string;
 
   private title: string;
   private subtitle: string;
   private author: string;
   private publisher: string;
   private summary: string;
-  private bookNumber: number;
+  private fromDouban: boolean;
 
-  constructor(num: number, loaded: boolean) {
-    this.bookNumber = num;
-    this.loaded = loaded;
-  }
+  constructor() { }
 
   // todo: pretty it.
   loadData(args) {
@@ -32,6 +32,23 @@ class AddBookForm {
     this.subtitle = subtitle;
     this.summary = summary;
   }
+
+  getLocation(locates: Array<string>): void {
+    this.location = locates.map((data) => data.replace('-', '_')).join('-');
+  }
+
+  submit(load1: boolean, load2: boolean, senddata: Function) {
+    if (load1) {
+      return senddata({
+        isbn: this.ISBN,
+        count: this.bookNumber,
+        location: this.location
+      });
+    } else {
+      this.fromDouban = load2;
+      return senddata(this);
+    }
+  }
 }
 
 @Component({
@@ -40,57 +57,102 @@ class AddBookForm {
   styleUrls: ['./librarian-add-book.component.css'],
   providers: [DoubanService, NgbModalConfig, NgbModal]
 })
-export class LibrarianAddBookComponent implements OnInit {
+export class LibrarianAddBookComponent {
 
   constructor(
     private http: HttpClient, private doubanapi: DoubanService,
     private modalService: NgbModal
   ) { }
 
-  data = new AddBookForm(1, false);
+  private barcodes: Array<string>;
+  private data: AddBookForm = new AddBookForm();
 
-  cacheISBN: string;
-  loadWords: string;
-  loadSucces = false;
-  results: object;
+  private cacheISBN: string;
+  
+  private floor: string;
+  private room: string;
+  private shelf: string;
 
-  ngOnInit() {
+  loadingWords: string;
+
+/**
+* isbnExist loadDouban  desc
+* true      Any         成功从自己数据库中找到对应isbn的meta book
+* false     true        自己数据库中meta book不存在，但是从豆瓣中加载到了元数据
+* false     false       自己数据库中meta book不存在，也未从豆瓣中加载数据，仅为用户自己输入。
+**/
+  isbnExist = false;
+  loadDouban = false;
+
+  buttonDisable = false;
+
+  check_isbn(closeTab: any) {
+    this.http
+      // search if this isbn in database
+      .get(`${apiServer.get_url()}/has_meta_book?isbn=${this.data.ISBN}`)
+      .subscribe(
+        // isbn exists in our database
+        res => {
+          this.isbnExist = true;
+          this.loadingWords = 'isbn exists in database, you can add it directly!'
+          this.http.put(`${apiServer.get_url()}/add_book`, {
+            isbn: this.data.ISBN,
+            count: this.data.bookNumber
+          }).subscribe(
+            val => console.log(val),
+            err => console.error(err)
+          );
+        },
+        // isbn not exist in our database
+        error => {
+          this.isbnExist = false;
+          this.loadingWords = 'isbn not exists! Search book info from Douban';
+          // search it in douban;
+          this.doubanapi.searchISBN(this.data.ISBN)
+            .then(res => { // load success from douban
+              this.loadDouban = true;
+              this.loadingWords = `sucessful load from Douban!`;
+              this.data.loadData(res);
+            })
+            .catch(err => { // not exists in douban
+              this.loadDouban = false;
+              this.loadingWords = `load error: ${err.message}`;
+              console.error(err);
+            });
+        },
+        // close the tab at last.
+        () => {
+          setTimeout(closeTab, show_time);
+          this.buttonDisable = true;
+        }
+      );
   }
 
-  search_douban(isbn: string, closeTab: any) {
-    this.doubanapi.searchISBN(isbn)
-      .then(res => {
-        this.loadWords = `sucessful load from douban!`;
-        this.data.loadData(res);
-        this.loadSucces = true;
-        setTimeout(closeTab, show_time);
-      })
-      .catch(err => {
-        console.log(err);
-        this.loadWords = `load error: ${err.message}`;
-        this.loadSucces = false;
-        setTimeout(closeTab, show_time);
-      });
-  }
-
-  load(content) {
+  isbnBlur(content) {
     const dismiss = () => {
+      // close the modal
       this.modalService.dismissAll(content);
-      this.data.loaded = true;
     };
     if (this.cacheISBN !== this.data.ISBN) {
+      // isbn is changed
       this.modalService.open(content);
-      this.loadWords = 'Loading ...';
+      this.loadingWords = 'Loading ...';
       this.cacheISBN = this.data.ISBN;
-      console.log(this.data.ISBN);
-      this.search_douban(this.data.ISBN, dismiss);
+      this.check_isbn(dismiss);
     }
   }
 
   submitAddBook(modal) {
-    this.http.post('', this.data)
-      .subscribe((res) => {
-        this.results = res;
+    // load location into data;
+    this.data.getLocation([this.floor, this.room, this.shelf]);
+    // how to use the api
+    const senddata = (data) => {
+      return this.http.put(`${apiServer.get_url()}/add_book`, data);
+    };
+    // send request and open the result modal
+    this.data.submit(this.isbnExist, this.loadDouban, senddata).then(
+      (res) => {
+        this.barcodes = res;
         this.modalService.open(modal);
         console.log(res);
       });
@@ -99,7 +161,7 @@ export class LibrarianAddBookComponent implements OnInit {
   downloadBarcode(event: Event) {
     const target = event.srcElement;
     const barcode = target.innerHTML;
-    console.log(barcode);
+    // console.log(barcode);
 
     const canvasElem = window.document.createElement('canvas');
     JsBarcode(canvasElem, barcode);

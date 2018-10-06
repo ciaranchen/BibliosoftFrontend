@@ -21,7 +21,7 @@
   </div>
   <div class="modal-body">
     <p>your new books' barcode is list below:</p>
-    <li ngFor="let barcode of result">
+    <li ngFor="let barcode of barcodes">
       <a (click)="downloadBarcode($event)" href="javascript:;">
         {{barcode}}
       </a>
@@ -42,7 +42,7 @@
         </div>
         <input type="text" class="form-control" id="isbn" 
           placeholder="Please input your isbn" required
-          [(ngModel)]="data.ISBN" (blur)="load(loadingModal)">
+          [(ngModel)]="data.ISBN" (blur)="isbnBlur(loadingModal)">
         <div class="invalid-feedback" style="width: 100%;">
           ISBN is required.
         </div>
@@ -62,7 +62,6 @@
       
     </div>
 
-    <!-- todo: form action -->
     <!-- todo: placeholder -->
     <!-- todo: form validate -->
     <form class="needs-validation" [hidden]="!(data.loaded)">
@@ -117,14 +116,33 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-4">
         <label for="summary">Summary<span class="text-muted">(Optional)</span></label>
         <textarea class="form-control" id="summary" name="summary" rows="10"
           [(ngModel)]="data.summary" placeholder="">
         </textarea>
       </div>
-      <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" (onclick)="submitAddBook(submitModal)">Continue to Submit</button>
     </form>
+    
+    <div class="mb-4">
+      <label for="location">Location<span class="text-muted">(Optional)</span></label>
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Floor" name="floor" [(ngModel)]="floor">
+        </div>
+        - 
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Room" name="room" [(ngModel)]="room">
+        </div>
+        - 
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Shelf" name="shelf" [(ngModel)]="shelf">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-lg btn-block" (onclick)="submitAddBook(submitModal)" [disabled]="buttonDisable">
+      Submit
+    </button>
   </div>
 </div>
