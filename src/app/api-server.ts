@@ -1,14 +1,12 @@
 class ApiServer {
-    addr: string;
-    port: number;
-    constructor(addr: string, port?: number) {
-        this.addr = addr;
+    constructor(private addr: string, private port?: number, public prefix?: string) {
         this.port = port? port : 80;
     }
 
     get_url(): string {
-        return `https://${this.addr}:${this.port}`;
+        const base_url = `https://${this.addr}:${this.port}`;
+        return this.prefix? base_url + `/${this.prefix}`: base_url;
     }
 }
 
-export const apiServer = new ApiServer('localhost', 3000);
+export const apiServer = new ApiServer('lms.boileryao.com', 8080);

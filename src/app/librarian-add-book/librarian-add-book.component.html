@@ -8,7 +8,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>{{loadWords}}</p>
+    <p>{{loadingWords}}</p>
   </div>
 </ng-template>
 
@@ -64,18 +64,18 @@
 
     <!-- todo: placeholder -->
     <!-- todo: form validate -->
-    <form class="needs-validation" [hidden]="!(data.loaded)">
+    <form class="needs-validation" [hidden]="isbnExist">
       <input type="text" hidden [value]="data.ISBN" name="isbn" required disabled>
       <input type="text" hidden [value]="data.bookNumber" name="number" required disabled>
       <h2 class="col-mb-3">book info</h2>
 
-      <div class="alert alert-success" role="alert" [hidden]="!loadSucces">
+      <div class="alert alert-success" role="alert" [hidden]="!(data.fromDouban)">
         <h4 class="alert-heading">Well done!</h4>
-        <p>{{loadWords}}</p>
+        <p>{{loadingWords}}</p>
       </div>
-      <div class="alert alert-danger" role="alert" [hidden]="loadSucces">
+      <div class="alert alert-danger" role="alert" [hidden]="(data.fromDouban)">
         <h4 class="alert-heading">Oops!</h4>
-        <p>{{loadWords}}</p>
+        <p>{{loadingWords}}</p>
         <hr>
         <p>retype the ISBN or input the book information manully</p>
       </div>
@@ -84,7 +84,7 @@
         <div class="col-md-6 mb-3">
           <label for="title">Title</label>
           <input type="text" class="form-control" name="title"
-            id="title" placeholder=""
+            id="title" placeholder="" [disabled]="(data.fromDouban)"
             [(ngModel)]="data.title" required>
           <div class="invalid-feedback">
             Valid book title is required.
@@ -92,7 +92,8 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="subtitle">Subtitle<span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="subtitle" name="subtitle"
+          <input type="text" class="form-control"
+            id="subtitle" name="subtitle" [disabled]="(data.fromDouban)"
             [(ngModel)]="data.subtitle" placeholder="">
         </div>
       </div>
@@ -100,7 +101,8 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="author">Author</label>
-          <input type="text" class="form-control" id="author" name="author"
+          <input type="text" class="form-control"
+            id="author" name="author" [disabled]="(data.fromDouban)"
             [(ngModel)]="data.author" placeholder="" required>
           <div class="invalid-feedback">
             Valid Author is required.
@@ -108,7 +110,8 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="publisher">Publisher</label>
-          <input type="text" class="form-control" id="publisher" name="publisher"
+          <input type="text" class="form-control"
+            id="publisher" name="publisher" [disabled]="(data.fromDouban)"
             [(ngModel)]="data.publisher" placeholder="" required>
           <div class="invalid-feedback">
             Valid Publisher is required.
@@ -119,13 +122,13 @@
       <div class="mb-4">
         <label for="summary">Summary<span class="text-muted">(Optional)</span></label>
         <textarea class="form-control" id="summary" name="summary" rows="10"
-          [(ngModel)]="data.summary" placeholder="">
+          [disabled]="(data.fromDouban)" [(ngModel)]="data.summary" placeholder="">
         </textarea>
       </div>
     </form>
     
     <div class="mb-4">
-      <label for="location">Location<span class="text-muted">(Optional)</span></label>
+      <label for="location">Location</label>
       <div class="form-row">
         <div class="col">
           <input type="text" class="form-control" placeholder="Floor" name="floor" [(ngModel)]="floor">
@@ -141,7 +144,8 @@
       </div>
     </div>
 
-    <button class="btn btn-primary btn-lg btn-block" (onclick)="submitAddBook(submitModal)" [disabled]="buttonDisable">
+    <button class="btn btn-primary btn-lg btn-block"
+      (click)="submitAddBook(submitModal)" [disabled]="buttonDisable">
       Submit
     </button>
   </div>

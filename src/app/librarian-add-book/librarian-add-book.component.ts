@@ -10,7 +10,8 @@ const show_time = 5000;
 
 class AddBookForm {
   public ISBN: string;
-  public bookNumber: number;
+  // default book number is 1
+  public bookNumber: number = 1;
 
   private location: string;
 
@@ -19,12 +20,13 @@ class AddBookForm {
   private author: string;
   private publisher: string;
   private summary: string;
-  private fromDouban: boolean;
+  public fromDouban: boolean = false;
 
   constructor() { }
 
   // todo: pretty it.
   loadData(args) {
+    this.fromDouban = true;
     const {title, author, publisher, subtitle= '', summary= '' } = args;
     this.title = title;
     this.author = author;
@@ -37,15 +39,14 @@ class AddBookForm {
     this.location = locates.map((data) => data.replace('-', '_')).join('-');
   }
 
-  submit(load1: boolean, load2: boolean, senddata: Function) {
-    if (load1) {
+  submit(exist: boolean, senddata: Function) {
+    if (exist) {
       return senddata({
         isbn: this.ISBN,
         count: this.bookNumber,
         location: this.location
       });
     } else {
-      this.fromDouban = load2;
       return senddata(this);
     }
   }
@@ -73,7 +74,7 @@ export class LibrarianAddBookComponent {
   private room: string;
   private shelf: string;
 
-  loadingWords: string;
+  private loadingWords: string;
 
 /**
 * isbnExist loadDouban  desc
@@ -81,8 +82,8 @@ export class LibrarianAddBookComponent {
 * false     true        自己数据库中meta book不存在，但是从豆瓣中加载到了元数据
 * false     false       自己数据库中meta book不存在，也未从豆瓣中加载数据，仅为用户自己输入。
 **/
-  isbnExist = false;
-  loadDouban = false;
+  isbnExist = true;
+  // loadDouban = false;
 
   buttonDisable = false;
 
@@ -110,12 +111,10 @@ export class LibrarianAddBookComponent {
           // search it in douban;
           this.doubanapi.searchISBN(this.data.ISBN)
             .then(res => { // load success from douban
-              this.loadDouban = true;
               this.loadingWords = `sucessful load from Douban!`;
               this.data.loadData(res);
             })
             .catch(err => { // not exists in douban
-              this.loadDouban = false;
               this.loadingWords = `load error: ${err.message}`;
               console.error(err);
             });
@@ -143,6 +142,7 @@ export class LibrarianAddBookComponent {
   }
 
   submitAddBook(modal) {
+    console.log('submit.');
     // load location into data;
     this.data.getLocation([this.floor, this.room, this.shelf]);
     // how to use the api
@@ -150,12 +150,16 @@ export class LibrarianAddBookComponent {
       return this.http.put(`${apiServer.get_url()}/add_book`, data);
     };
     // send request and open the result modal
-    this.data.submit(this.isbnExist, this.loadDouban, senddata).then(
+    this.data.submit(this.isbnExist, senddata).subscribe(
       (res) => {
         this.barcodes = res;
         this.modalService.open(modal);
         console.log(res);
-      });
+      },
+      (err) => {
+        console.error(err);
+      }
+    )
   }
 
   downloadBarcode(event: Event) {
