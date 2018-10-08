@@ -15,18 +15,33 @@
   
   <div class="row">
     <div class="input-group">
-      <input [(ngModel)]="search_text" (keyup.enter)="onClick('title')" class="form-control input-lg" placeholder="book information"
-        id="search_book" >
+      <input [(ngModel)]="search_text" 
+            
+              (keyup.enter)="onClick(search_type)" 
+              class="form-control input-lg" 
+              placeholder="book information"
+              id="search_book" >
       <!-- <button class="btn btn-info btn-search">查找</button> -->
-      <button data-loading-text="Loading..." placement="top" ngbTooltip="Search {{search_text}} by title "(click)="onClick('title')" value="title" class="btn btn-success btn-search" style="margin-left:5px">Search
-        title</button>
+      <button data-loading-text="Loading..." 
+              placement="top" 
+              ngbTooltip="Search {{search_text}} by title "
+              (click)="onClick()" value="title" 
+              class="btn btn-success btn-search" 
+              style="margin-left:5px;width: 100px">
+              Search
+      </button>
       <div ngbDropdown class="d-inline-block">
-        <span class="btn btn-outline-warning" style="margin-left:3px" id="dropdownBasic1" ngbDropdownToggle>Other Types</span>
+        <span class="btn btn-outline-warning" 
+              style="margin-left:3px;width: 100px" id="dropdownBasic1" 
+              ngbDropdownToggle>
+          <!-- Title</span> -->
+          {{search_type}}</span>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button (click)="onClick('ISBN')" class="dropdown-item" value="ISBN">ISBN</button>
-          <button (click)="onClick('author')" class="dropdown-item" value="author">Author</button>
-          <button (click)="onClick('date')" class="dropdown-item" value="date">Date</button>
-          <button (click)="onClick('summary')" class="dropdown-item" value="summary">Summary</button>
+          <button (click)="updateType('Title')" class="dropdown-item" value="title">Title</button>
+          <button (click)="updateType('ISBN')" class="dropdown-item" value="ISBN">ISBN</button>
+          <button (click)="updateType('Author')" class="dropdown-item" value="author">Author</button>
+          <button (click)="updateType('Date')" class="dropdown-item" value="date">Date</button>
+          <button (click)="updateType('Summary')" class="dropdown-item" value="summary">Summary</button>
         </div>
       </div>
     </div>
@@ -36,8 +51,8 @@
     <!-- 书籍详情 -->
     <p>
       <ngb-alert [dismissible]="true" type='info' (close)="closeAlert()">
-        <strong>{{selectedbook.title|uppercase}}'s Summary</strong> <span class="text">
-          {{selectedbook.summary}}
+        <strong>{{selectedbook.title|uppercase}}</strong> <span class="text">
+          {{selectedbook.Summary}}
         </span>
 
       </ngb-alert>
@@ -59,10 +74,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let x of books" (click)="onSelect(x)" [class.selected]="x===selectedbook">
-            <td><a routerLink="/detail/{{x.ISBN}}">{{x.title}}</a></td>
+            <td><a routerLink="/detail/{{x.ISBN}}">{{x.Title}}</a></td>
             <td>{{x.ISBN}}</td>
-            <td>{{x.author}}</td>
-            <td>{{x.date}}</td>
+            <td>{{x.Author}}</td>
+            <td>{{x.Date}}</td>
             <!-- <td>{{x.summary}}</td> -->
           </tr>
         </tbody>
@@ -70,7 +85,5 @@
     </div>
 
   </div>
-
-
 
 </div>
