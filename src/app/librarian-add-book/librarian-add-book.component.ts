@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DoubanService } from '../utils/doubanService';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
 import { apiServer } from '../api-server';
+import { send } from 'q';
 
 const show_time = 5000;
 
 class AddBookForm {
-  ISBN: string;
+  isbn: string;
   // default book number is 1
   bookNumber = 1;
 
@@ -20,6 +21,8 @@ class AddBookForm {
   author: string;
   publisher: string;
   summary: string;
+
+  // default is not loaded from Douban
   fromDouban = false;
 
   constructor() { }
@@ -40,15 +43,19 @@ class AddBookForm {
   }
 
   submit(exist: boolean, senddata: Function) {
-    if (exist) {
-      return senddata({
-        isbn: this.ISBN,
-        count: this.bookNumber,
-        location: this.location
-      });
-    } else {
-      return senddata(this);
+    // todo: pretty it
+    const body = new URLSearchParams();
+    body.set('isbn', this.isbn);
+    body.set('count', this.bookNumber.toString());
+    body.set('location', this.location);
+    if (!exist) {
+      body.set('title', this.title);
+      body.set('author', this.author);
+      body.set('subtitle', this.subtitle);
+      body.set('publisher', this.publisher);
+      body.set('summary', this.summary);
     }
+    return senddata(body.toString());
   }
 }
 
@@ -90,14 +97,14 @@ export class LibrarianAddBookComponent {
   check_isbn(closeTab: any) {
     this.http
       // search if this isbn in database
-      .get(`${apiServer.get_url()}/has_meta_book?isbn=${this.data.ISBN}`)
+      .get(`${apiServer.get_url()}/has_meta_book?isbn=${this.data.isbn}`)
       .subscribe(
         // isbn exists in our database
         res => {
           this.isbnExist = true;
           this.loadingWords = 'isbn exists in database, you can add it directly!';
           this.http.put(`${apiServer.get_url()}/add_book`, {
-            isbn: this.data.ISBN,
+            isbn: this.data.isbn,
             count: this.data.bookNumber
           }).subscribe(
             val => console.log(val),
@@ -109,7 +116,7 @@ export class LibrarianAddBookComponent {
           this.isbnExist = false;
           this.loadingWords = 'isbn not exists! Search book info from Douban';
           // search it in douban;
-          this.doubanapi.searchISBN(this.data.ISBN)
+          this.doubanapi.searchISBN(this.data.isbn)
             .then(res => { // load success from douban
               this.loadingWords = `sucessful load from Douban!`;
               this.data.loadData(res);
@@ -132,11 +139,11 @@ export class LibrarianAddBookComponent {
       // close the modal
       this.modalService.dismissAll(content);
     };
-    if (this.cacheISBN !== this.data.ISBN) {
+    if (this.cacheISBN !== this.data.isbn) {
       // isbn is changed
       this.modalService.open(content);
       this.loadingWords = 'Loading ...';
-      this.cacheISBN = this.data.ISBN;
+      this.cacheISBN = this.data.isbn;
       this.check_isbn(dismiss);
     }
   }
@@ -147,7 +154,9 @@ export class LibrarianAddBookComponent {
     this.data.getLocation([this.floor, this.room, this.shelf]);
     // how to use the api
     const senddata = (data) => {
-      return this.http.put(`${apiServer.get_url()}/add_book`, data);
+      return this.http.put(`${apiServer.get_url()}/add_book`, data, {
+        headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+      });
     };
     // send request and open the result modal
     this.data.submit(this.isbnExist, senddata).subscribe(

@@ -15,6 +15,8 @@ import { LibrarianSearchBookComponent } from './librarian-search-book/librarian-
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { LibrarianLoginComponent } from './librarian-login/librarian-login.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { AppRoutingModule } from './app-routing.module';
     LibrarianAddBookComponent,
     LibrarianSearchBookComponent,
     BookDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    AdminLoginComponent,
+    LibrarianLoginComponent
   ],
   imports: [
     BrowserModule,
