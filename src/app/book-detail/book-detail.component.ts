@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book: Book;
+  @Input() books: Book[];
 
   constructor(
     private route: ActivatedRoute,
@@ -25,7 +25,7 @@ export class BookDetailComponent implements OnInit {
 
   getBook(): void {
     const ISBN = this.route.snapshot.paramMap.get('ISBN');
-    this.bookService.getBook(ISBN).subscribe(book => this.book = book);
+    this.bookService.getBook(ISBN).subscribe(books => this.books = books);
   }
 
   goBack(): void {
