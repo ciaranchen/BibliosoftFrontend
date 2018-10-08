@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DoubanService } from '../utils/doubanService';
+
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
 import { apiServer } from '../api-server';
@@ -9,18 +9,18 @@ import { apiServer } from '../api-server';
 const show_time = 5000;
 
 class AddBookForm {
-  public ISBN: string;
+  ISBN: string;
   // default book number is 1
-  public bookNumber: number = 1;
+  bookNumber = 1;
 
-  private location: string;
+  location: string;
 
-  private title: string;
-  private subtitle: string;
-  private author: string;
-  private publisher: string;
-  private summary: string;
-  public fromDouban: boolean = false;
+  title: string;
+  subtitle: string;
+  author: string;
+  publisher: string;
+  summary: string;
+  fromDouban = false;
 
   constructor() { }
 
@@ -65,23 +65,23 @@ export class LibrarianAddBookComponent {
     private modalService: NgbModal
   ) { }
 
-  private barcodes: Array<string>;
-  private data: AddBookForm = new AddBookForm();
+  barcodes: Array<string>;
+  data: AddBookForm = new AddBookForm();
 
-  private cacheISBN: string;
-  
-  private floor: string;
-  private room: string;
-  private shelf: string;
+  cacheISBN: string;
 
-  private loadingWords: string;
+  floor: string;
+  room: string;
+  shelf: string;
+
+  loadingWords: string;
 
 /**
-* isbnExist loadDouban  desc
-* true      Any         成功从自己数据库中找到对应isbn的meta book
-* false     true        自己数据库中meta book不存在，但是从豆瓣中加载到了元数据
-* false     false       自己数据库中meta book不存在，也未从豆瓣中加载数据，仅为用户自己输入。
-**/
+  * isbnExist loadDouban  desc
+  * true      Any         成功从自己数据库中找到对应isbn的meta book
+  * false     true        自己数据库中meta book不存在，但是从豆瓣中加载到了元数据
+  * false     false       自己数据库中meta book不存在，也未从豆瓣中加载数据，仅为用户自己输入。
+  **/
   isbnExist = true;
   // loadDouban = false;
 
@@ -95,7 +95,7 @@ export class LibrarianAddBookComponent {
         // isbn exists in our database
         res => {
           this.isbnExist = true;
-          this.loadingWords = 'isbn exists in database, you can add it directly!'
+          this.loadingWords = 'isbn exists in database, you can add it directly!';
           this.http.put(`${apiServer.get_url()}/add_book`, {
             isbn: this.data.ISBN,
             count: this.data.bookNumber
@@ -159,7 +159,7 @@ export class LibrarianAddBookComponent {
       (err) => {
         console.error(err);
       }
-    )
+    );
   }
 
   downloadBarcode(event: Event) {

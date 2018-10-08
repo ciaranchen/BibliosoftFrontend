@@ -11,7 +11,6 @@ export class DoubanService {
     constructor() {}
 
     searchISBN(isbn: string) {
-
         return new Promise((resolve, reject) => {
             let timeId;
             const hash_str = Md5.init(isbn);
