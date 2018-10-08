@@ -41,20 +41,24 @@ export class BookService {
     };
   }
 
-  getBooks(): Observable<Book[]> {
-
-    return this.http.get<Book[]>(this.booksUrl)
+  getBooks(term: string,type: string): Observable<Book[]> {
+    // console.log(`${this.booksUrl}/?${type}=${term}`);
+    // const url = `${this.booksUrl}/${type}`;
+    // console.log(url)
+    // return this.http.get<Book[]>(`${this.booksUrl}/?${type}=${term}`)
+    return this.http.get<Book[]>(`${this.booksUrl}/?${type}=${term}`)
       .pipe(
         tap(books => this.log('fetch books')),
-        catchError(this.handleError('getHeroes', []))
+        catchError(this.handleError('getBooks', []))
       );
   }
 
-  getBook(ISBN: string): Observable<Book> {
+  getBook(ISBN: string): Observable<Book[]> {
     const url = `${this.booksUrl}/${ISBN}`;
-    return this.http.get<Book>(url).pipe(
+    // console.log(url)
+    return this.http.get<Book[]>(`${this.booksUrl}/?ISBN=${ISBN}`).pipe(
       tap(_ => this.log(`fetched book ISBN=${ISBN}`)),
-      catchError(this.handleError<Book>(`getBook ISBN=${ISBN}`))
+      catchError(this.handleError(`getBook ISBN=${ISBN}`,[]))
     );
   }
 }

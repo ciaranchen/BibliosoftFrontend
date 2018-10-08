@@ -33,6 +33,7 @@
   </div>
 
   <div *ngIf="selectedbook">
+    <!-- 书籍详情 -->
     <p>
       <ngb-alert [dismissible]="true" type='info' (close)="closeAlert()">
         <strong>{{selectedbook.title|uppercase}}'s Summary</strong> <span class="text">

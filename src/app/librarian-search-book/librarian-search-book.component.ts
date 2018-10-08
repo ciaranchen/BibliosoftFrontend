@@ -15,25 +15,44 @@ export class LibrarianSearchBookComponent implements OnInit {
   //   date: '2017.12',
   //   summary: '数学辅导书'
   // };
-  books: Book[];
+  books: Book[]=[];
   selectedbook: Book;
+  bookbyISBN:Book;
   UserName = 'WYJ';
   search_text: string;
+  search_type: string;
 
   constructor(private bookService: BookService) { }
 
   ngOnInit() {
   }
+  
+// 
+  getBook(ISBN: string): void {
+    // console.log(`this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN`);
+    this.bookService.getBook(ISBN).subscribe(Books => this.books=Books);
+    // this.books.push(this.bookbyISBN);
+    // console.log(this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN);
+  }
+  // 
 
-  getBooks(): void {
-    this.bookService.getBooks().subscribe(Books => this.books = Books);
+  getBooks(term: string,type: string): void {
+    this.bookService.getBooks(term,type).subscribe(Books => this.books = Books);
   }
   onSelect(b: Book): void {
     this.selectedbook = b;
   }
   onClick(type: string): void {
     console.log('start search: "' + this.search_text + '" by ' + type);
-    this.getBooks();
+
+// 
+    if(type=="ISBN"){;
+      this.getBook(this.search_text);
+    }
+
+
+    else 
+    this.getBooks(this.search_text,type);
   }
   closeAlert(): void {
     this.selectedbook = null;
