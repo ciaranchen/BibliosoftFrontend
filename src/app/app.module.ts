@@ -3,20 +3,19 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { JsonpModule, Jsonp, Response } from '@angular/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
+import { JsonpModule } from '@angular/http';
 
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { LibrarianAddBookComponent } from './librarian-add-book/librarian-add-book.component';
-import { LibrarianSearchBookComponent } from './librarian-search-book/librarian-search-book.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
-import { MessagesComponent } from './messages/messages.component';
+import { HomeComponent } from './routes/home/home.component';
+import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
+import { LibrarianSearchBookComponent } from './routes/librarian/librarian-search-book/librarian-search-book.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AdminLoginComponent } from './admin-login/admin-login.component';
-import { LibrarianLoginComponent } from './librarian-login/librarian-login.component';
+import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
+import { LibrarianLoginComponent } from './routes/librarian/librarian-login/librarian-login.component';
+import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
 
 
 @NgModule({
@@ -28,16 +27,14 @@ import { LibrarianLoginComponent } from './librarian-login/librarian-login.compo
     BookDetailComponent,
     MessagesComponent,
     AdminLoginComponent,
-    LibrarianLoginComponent
+    LibrarianLoginComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
-    // HttpClientInMemoryWebApiModule.forRoot(
-    //   InMemoryDataService, { dataEncapsulation: false }
-    // ),
     JsonpModule,
     AppRoutingModule
   ],

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { apiServer } from '../api-server';
+import { backendServer } from '../../../utils/backendServer';
 
 @Component({
   selector: 'app-admin-login',
@@ -15,10 +15,10 @@ export class AdminLoginComponent {
 
   admin_login(user?: string, pass?: string) {
     const body = new URLSearchParams();
-    body.set('user', user ? user : this.user);
-    body.set('pass', pass ? pass : this.pass);
+    body.set('username', user ? user : this.user);
+    body.set('password', pass ? pass : this.pass);
     console.log(body.toString());
-    this.http.post(`${apiServer.get_url()}/login`, body.toString(), {
+    this.http.post(`${backendServer.get_url()}/login`, body.toString(), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }).subscribe(
       val => {

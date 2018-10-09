@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DoubanService } from '../utils/doubanService';
+import { DoubanService } from '../../../utils/doubanService';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
-import { apiServer } from '../api-server';
-import { send } from 'q';
+import { backendServer } from '../../../utils/backendServer';
 
 const show_time = 5000;
 
@@ -97,13 +96,13 @@ export class LibrarianAddBookComponent {
   check_isbn(closeTab: any) {
     this.http
       // search if this isbn in database
-      .get(`${apiServer.get_url()}/has_meta_book?isbn=${this.data.isbn}`)
+      .get(`${backendServer.get_url()}/has_meta_book?isbn=${this.data.isbn}`)
       .subscribe(
         // isbn exists in our database
         res => {
           this.isbnExist = true;
           this.loadingWords = 'isbn exists in database, you can add it directly!';
-          this.http.put(`${apiServer.get_url()}/add_book`, {
+          this.http.put(`${backendServer.get_url()}/add_book`, {
             isbn: this.data.isbn,
             count: this.data.bookNumber
           }).subscribe(
@@ -154,7 +153,7 @@ export class LibrarianAddBookComponent {
     this.data.getLocation([this.floor, this.room, this.shelf]);
     // how to use the api
     const senddata = (data) => {
-      return this.http.put(`${apiServer.get_url()}/add_book`, data, {
+      return this.http.put(`${backendServer.get_url()}/add_book`, data, {
         headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
       });
     };

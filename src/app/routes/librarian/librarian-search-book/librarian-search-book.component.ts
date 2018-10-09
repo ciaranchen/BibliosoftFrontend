@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../book';
-import { BookService } from '../book.service';
+import { Book } from '../../../utils/book';
+import { BookService } from '../../../utils/book.service';
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -17,7 +17,7 @@ export class LibrarianSearchBookComponent implements OnInit {
   // };
   books: Book[] = [];
   selectedbook: Book;
-  bookbyISBN: Book;
+  // bookbyISBN: Book;
   UserName = 'WYJ';
   search_text: string;
   search_type = 'Title';

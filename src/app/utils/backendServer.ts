@@ -1,4 +1,4 @@
-class ApiServer {
+class BackendServer {
     constructor(private addr: string, private port?: number, public prefix?: string) {
         this.port = port ? port : 80;
     }
@@ -9,4 +9,4 @@ class ApiServer {
     }
 }
 
-export const apiServer = new ApiServer('lms.boileryao.com', 8080);
+export const backendServer = new BackendServer('lms.boileryao.com', 8080);

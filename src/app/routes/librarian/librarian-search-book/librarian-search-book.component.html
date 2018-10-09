@@ -2,37 +2,33 @@
 
   <div class="inputgroup">
     <div class="py-5 text-center">
-      <h1 class="display-4">Book Search <span class="badge badge-secondary">{{UserName}}</span>
-        <nav>
-          <h5 class="py-6" style="margin:10px">
-            <a routerLink='/add_book'>add_book</a>
-          </h5>
-        </nav>
-      </h1>
-
+      <h1 class="display-4">Book Search <span class="badge badge-secondary">{{UserName}}</span></h1>
+      <nav>
+        <h5 class="py-6" style="margin:10px">
+          <a routerLink='/add_book'>add_book</a>
+        </h5>
+      </nav>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="input-group">
-      <input [(ngModel)]="search_text" 
-            
-              (keyup.enter)="onClick()" 
-              class="form-control input-lg" 
+      <input [(ngModel)]="search_text"
+              (keyup.enter)="onClick()"
+              class="form-control input-lg"
               placeholder="book information"
               id="search_book" >
       <!-- <button class="btn btn-info btn-search">查找</button> -->
-      <button data-loading-text="Loading..." 
-              placement="top" 
+      <button data-loading-text="Loading..."
               ngbTooltip="Search {{search_text}} by title "
-              (click)="onClick()" value="title" 
-              class="btn btn-success btn-search" 
+              (click)="onClick()" value="title"
+              class="btn btn-success btn-search"
               style="margin-left:5px;width: 100px">
               Search
       </button>
       <div ngbDropdown class="d-inline-block">
-        <span class="btn btn-outline-warning" 
-              style="margin-left:3px;width: 100px" id="dropdownBasic1" 
+        <span class="btn btn-outline-warning"
+              style="margin-left:3px;width: 100px" id="dropdownBasic1"
               ngbDropdownToggle>
           <!-- Title</span> -->
           {{search_type}}</span>

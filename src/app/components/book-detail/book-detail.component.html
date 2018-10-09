@@ -1,0 +1,12 @@
+
+<div *ngIf="book" class="text-center">
+    <h2>{{book.title | uppercase}} <span class="badge badge-info badge-secondary">{{book.author}}</span></h2>
+    <div><span>ISBN: </span>{{book.ISBN}}</div>
+    <div class='text-info'>
+      <label>Summary:
+        {{book.summary}}
+        <!-- <input [(ngModel)]="selectedbook.title" placeholder="name"> -->
+      </label>
+    </div>
+</div>
+<button class='btn btn-primary' (click)="goBack()">Go Back!</button>
