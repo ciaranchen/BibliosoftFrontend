@@ -1,6 +1,6 @@
 <ng-template #loadingModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Wait a Minute ...</h4>
+    <h4 class="modal-title" id="loading-modal-title">Wait a Minute ...</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -12,18 +12,18 @@
 
 <ng-template #submitModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Add Book Successfully!!</h4>
+    <h4 class="modal-title" id="submit-modal-title">Add Book Successfully!!</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <p>your new books' barcode is list below:</p>
-    <li *ngFor="let barcode of barcodes">
-      <a (click)="downloadBarcode($event)" href="javascript:;">
-        {{barcode.barcode}}
+    <ul *ngFor="let barcode of barcodes">
+      <a (click)="downloadBarcode($event)" href="javascript:">
+        {{ barcode.barcode }}
       </a>
-    </li>
+    </ul>
   </div>
 </ng-template>
 
@@ -40,7 +40,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">ISBN</span>
         </div>
-        <input type="text" class="form-control" id="isbn" 
+        <input type="text" class="form-control" id="isbn"
           placeholder="Please input your isbn" required
           [(ngModel)]="data.isbn" (blur)="isbnBlur(loadingModal)">
         <div class="invalid-feedback" style="width: 100%;">
@@ -59,14 +59,18 @@
             Valid book number is required.
           </div>
         </div>
-      
+
     </div>
 
     <!-- todo: placeholder -->
     <!-- todo: form validate -->
     <form class="needs-validation" [hidden]="isbnExist">
-      <input type="text" hidden [value]="data.isbn" name="isbn" required disabled>
-      <input type="text" hidden [value]="data.bookNumber" name="number" required disabled>
+      <label>
+        <input type="text" hidden [value]="data.isbn" name="isbn" required disabled>
+      </label>
+      <label>
+        <input type="text" hidden [value]="data.bookNumber" name="number" required disabled>
+      </label>
       <h2 class="col-mb-3">book info</h2>
 
       <div class="alert alert-success" role="alert" [hidden]="!(data.fromDouban)">
@@ -126,18 +130,18 @@
         </textarea>
       </div>
     </form>
-    
+
     <div class="mb-4">
-      <label for="location">Location</label>
+      <label>Location</label>
       <div class="form-row">
         <div class="col">
           <input type="text" class="form-control" placeholder="Floor" name="floor" [(ngModel)]="floor">
         </div>
-        - 
+        -
         <div class="col">
           <input type="text" class="form-control" placeholder="Room" name="room" [(ngModel)]="room">
         </div>
-        - 
+        -
         <div class="col">
           <input type="text" class="form-control" placeholder="Shelf" name="shelf" [(ngModel)]="shelf">
         </div>

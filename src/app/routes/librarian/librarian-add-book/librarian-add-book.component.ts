@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DoubanService } from '../../../utils/doubanService';
+import { DoubanService } from '../../../utils/douban.service';
+
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
@@ -102,16 +103,10 @@ export class LibrarianAddBookComponent {
         res => {
           this.isbnExist = true;
           this.loadingWords = 'isbn exists in database, you can add it directly!';
-          this.http.put(`${backendServer.get_url()}/add_book`, {
-            isbn: this.data.isbn,
-            count: this.data.bookNumber
-          }).subscribe(
-            val => console.log(val),
-            err => console.error(err)
-          );
         },
         // isbn not exist in our database
         error => {
+          console.log(error);
           this.isbnExist = false;
           this.loadingWords = 'isbn not exists! Search book info from Douban';
           // search it in douban;
@@ -170,6 +165,7 @@ export class LibrarianAddBookComponent {
     );
   }
 
+  // noinspection JSMethodCanBeStatic
   downloadBarcode(event: Event) {
     const target = event.srcElement;
     const barcode = target.innerHTML;

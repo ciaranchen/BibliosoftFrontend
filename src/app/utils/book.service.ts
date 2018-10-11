@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Book } from './book';
+import { Book } from './DataStructs/book';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

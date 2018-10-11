@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { JsonpModule } from '@angular/http';
-
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './routes/home/home.component';
@@ -35,7 +33,6 @@ import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.compone
     NgbModule,
     FormsModule,
     HttpClientModule,
-    JsonpModule,
     AppRoutingModule
   ],
   providers: [],
