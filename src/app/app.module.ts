@@ -14,6 +14,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
 import { LibrarianLoginComponent } from './routes/librarian/librarian-login/librarian-login.component';
 import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
+import { LogoutComponent } from './routes/common/logout/logout.component';
+import { AboutComponent } from './routes/common/about/about.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.compone
     MessagesComponent,
     AdminLoginComponent,
     LibrarianLoginComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    LogoutComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

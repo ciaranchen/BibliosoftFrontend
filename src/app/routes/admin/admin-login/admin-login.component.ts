@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { backendServer } from '../../../utils/backendServer';
+import {ApiService} from "../../../utils/api.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-login',
@@ -11,24 +11,28 @@ export class AdminLoginComponent {
   user: string;
   pass: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   admin_login(user?: string, pass?: string) {
-    const body = new URLSearchParams();
-    body.set('username', user ? user : this.user);
-    body.set('password', pass ? pass : this.pass);
-    console.log(body.toString());
-    this.http.post(`${backendServer.get_url()}/login`, body.toString(), {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    }).subscribe(
-      val => {
-        console.log('login success!');
-        location.href = '/admin/home';
-      },
-      err => {
-        console.log('login failed');
-      },
-      () => {}
-    );
+    this.apiService.login(user ? user : this.user, pass ? pass : this.pass)
+      .then(res => {
+        if (res) {
+          localStorage.setItem('login', String(3));
+          localStorage.setItem('role', 'admin');
+          const path = this.activatedRoute.params['path'];
+          const url = path ? path : 'admin/login';
+          this.router.navigate([url, 1]);
+        } else {
+          // todo: show error;
+          console.log('login failed');
+          console.error(res);
+        }
+      }).catch((err) => {
+        console.error(err);
+      });
   }
 }
