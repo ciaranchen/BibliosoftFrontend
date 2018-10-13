@@ -17,7 +17,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Promise<boolean> {
+  login(username: string, password: string, type: number): Promise<boolean> {
     const url = `${this.base_url}/login`;
     const http = this.http;
     return new Promise<boolean>(
@@ -25,6 +25,7 @@ export class ApiService {
         const body = new URLSearchParams();
         body.set('username', username);
         body.set('password', password);
+        body.set('type', type.toString());
         http.post(url, body.toString(), {
           withCredentials: true,
           headers: postHeaders

@@ -4,12 +4,14 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-login',
-  templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class AdminLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
   user: string;
   pass: string;
+  role: string;
+  otherRole: string;
 
   constructor(
     private apiService: ApiService,
@@ -19,18 +21,32 @@ export class AdminLoginComponent implements OnInit {
 
   ngOnInit() {
     const login = localStorage.getItem('login');
+    console.log(login);
     if (login) {
       // redirect to other place
-      if (login == 'admin') {
-        this.router.navigate(['admin/', 1]);
+      if (login === 'admin') {
+        this.router.navigate(['admin/']);
+      } else if (login === 'librarian' || login === 'reader') {
+        this.router.navigate([login]);
       } else {
-        this.router.navigate(['login/' + login, 1]);
+        console.error('localStorage failed.');
+        this.router.navigate(['/'])
       }
+    }
+    const role: string = this.activatedRoute.snapshot.paramMap.get('role');
+    console.log(role);
+    if (role !== 'librarian' && role !== 'reader') {
+      console.log('404');
+      this.router.navigate(['/']);
+    } else {
+      this.role = role.charAt(0).toUpperCase() + role.substr(1);
+      console.log(this.role);
+      this.otherRole = role === 'reader' ? 'librarian' : 'reader';
     }
   }
 
   admin_login(user?: string, pass?: string) {
-    this.apiService.login(user ? user : this.user, pass ? pass : this.pass, 1)
+    this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader'? 3 : 2)
       .then(res => {
         if (res) {
           localStorage.setItem('login', 'admin');

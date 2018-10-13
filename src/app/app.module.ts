@@ -12,10 +12,10 @@ import { BookDetailComponent } from './routes/common/book-detail/book-detail.com
 import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
-import { LibrarianLoginComponent } from './routes/librarian/librarian-login/librarian-login.component';
 import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
 import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
+import { LoginComponent } from './routes/common/login/login.component';
 
 
 @NgModule({
@@ -27,10 +27,10 @@ import { AboutComponent } from './routes/common/about/about.component';
     BookDetailComponent,
     MessagesComponent,
     AdminLoginComponent,
-    LibrarianLoginComponent,
     AdminHomeComponent,
     LogoutComponent,
-    AboutComponent
+    AboutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
