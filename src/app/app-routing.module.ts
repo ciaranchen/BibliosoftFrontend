@@ -8,6 +8,7 @@ import { BookDetailComponent } from './routes/common/book-detail/book-detail.com
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
 import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
 import {LoginComponent} from "./routes/common/login/login.component";
+import {AdminManageLibrarianComponent} from "./routes/admin/admin-manage-librarian/admin-manage-librarian.component";
 
 const routes: Routes = [
   // common routes
@@ -23,6 +24,7 @@ const routes: Routes = [
 
   // testing url
   { path: 'search_book', component: LibrarianSearchBookComponent },
+  { path: 'admin_librarian', component: AdminManageLibrarianComponent }
 
 ];
 

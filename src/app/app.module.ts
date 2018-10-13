@@ -16,6 +16,8 @@ import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.compone
 import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
+import { PostComponent } from './components/post/post.component';
+import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { LoginComponent } from './routes/common/login/login.component';
     AdminHomeComponent,
     LogoutComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    PostComponent,
+    AdminManageLibrarianComponent
   ],
   imports: [
     BrowserModule,
