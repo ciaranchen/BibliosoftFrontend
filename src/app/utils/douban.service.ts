@@ -38,8 +38,9 @@ export class DoubanService {
         timeId = setTimeout(clearFunction, remove_timeout);
       };
       // fail
-      scriptElem.onerror = () => {
-        reject(new Error(`failed to get ${url}!`));
+      scriptElem.onerror = err => {
+        console.error(err);
+        reject(err);
         clearFunction();
         if (timeId) { clearTimeout(timeId); }
       };

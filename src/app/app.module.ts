@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './routes/home/home.component';
+import { HomeComponent } from './routes/common/home/home.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
 import { LibrarianSearchBookComponent } from './routes/librarian/librarian-search-book/librarian-search-book.component';
-import { BookDetailComponent } from './components/book-detail/book-detail.component';
+import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';

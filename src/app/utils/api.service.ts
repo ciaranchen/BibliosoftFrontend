@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { backendServer } from "./backendServer";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MetaBook} from "./DataStructs/MetaBook";
+import {AddBookRet} from "./DataStructs/AddBookRet";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  has_meta_book(isbn: string): Promise<boolean|Error> {
+  has_meta_book(isbn: string): Promise<boolean> {
     const url = `${this.base_url}/has_meta_book?isbn=${isbn}`;
     const http_client = this.http;
     return new Promise<boolean>(
@@ -33,25 +34,30 @@ export class ApiService {
     );
   }
 
-  add_book(isbn: string, count: number, location: string, metaBook?: MetaBook) {
-    const url = `${this.base_url}/has_meta_book?isbn=${isbn}`;
+  add_book(isbn: string, count: number, location: string, metaBook?: MetaBook): Promise<Array<AddBookRet>> {
+    const url = `${this.base_url}/add_book`;
     const http_client = this.http;
-    const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
-    return new Promise<object>(
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded')
+      .set('Accept', 'application/json');
+    return new Promise<Array<AddBookRet>>(
       function (resolve, reject) {
-        const params = new URLSearchParams();
-        params.append('isbn', isbn);
-        params.append('count', count.toString());
-        params.append('location', location);
+        const body = new URLSearchParams();
+        body.set('isbn', isbn);
+        body.set('count', count.toString());
+        body.set('location', location);
+
         if (metaBook) {
           // todo: check metaBook isbn is equal with this isbn;
           for (const key in metaBook) {
             if (metaBook.hasOwnProperty(key)) {
-              params.append(key, metaBook[key]);
+              body.set(key, metaBook[key]);
             }
           }
         }
-        http_client.put(url, params, { headers: headers })
+        console.log(body.toString());
+        // todo: return type;
+        http_client.put<Array<AddBookRet>>(url, body.toString(), { headers: headers })
           .subscribe(
             value => resolve(value),
             error1 => reject(error1)

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Book } from '../../utils/DataStructs/book';
-import { BookService } from '../../utils/book.service';
+import { BookService } from '../../../utils/book.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 
 @Component({
   selector: 'app-book-detail',
@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  @Input() book: Book;
+  book: MetaBook;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +23,9 @@ export class BookDetailComponent implements OnInit {
     this.getBook();
   }
 
-  getBook(): void {
+  getBook(): void { // to get metaBook information from backend
     const ISBN = this.route.snapshot.paramMap.get('ISBN');
-    this.bookService.getBook(ISBN).subscribe(books => this.book = books[0]);
+    // this.bookService.getBook(ISBN).subscribe(books => this.book = books[0]);
   }
 
   goBack(): void {
