@@ -1,46 +1,55 @@
 
-<div class="app-wrapper double-line">
-  <h2> {{ metaBook.title }} </h2>
-  <div class="lead">{{ metaBook.subtitle }}</div>
+<div class="app-wrapper double-line" >
+  <div *ngIf="metaBook">
+    <h2> {{ metaBook.title }} </h2>
+    <div class="lead">{{ metaBook.subtitle }}</div>
 
-  <div class="detail">
-    <div class="detail-attr">
-      <button class="badge badge-info">{{metaBook.author}}</button>
-      <div><span>ISBN: </span>{{metaBook.isbn}}</div>
-      <div><span>pages: </span>{{metaBook.pages}}</div>
-      <div><span>publisher: </span> {{metaBook.publisher}}</div>
-      <div><span>publish year: </span>{{metaBook.publish_year}}</div>
-      <div><span>keywords: </span>{{metaBook.keyword}}</div>
-    </div>
+    <div class="detail" >
+      <div class="detail-attr">
+        <button class="badge badge-info">{{metaBook.author}}</button>
+        <div><span>ISBN: </span>{{metaBook.isbn}}</div>
+        <div><span>pages: </span>{{metaBook.pages}}</div>
+        <div><span>publisher: </span> {{metaBook.publisher}}</div>
+        <div><span>publish year: </span>{{metaBook.publish_year}}</div>
+        <div><span>keywords: </span>{{metaBook.keyword}}</div>
+      </div>
 
-    <div class="detail-img">
-      <img src="{{ metaBook.cover }}" alt="cover">
+      <div class="detail-img">
+        <img src="{{ metaBook.cover }}" alt="cover">
+      </div>
     </div>
+    <div id="desc_html"></div>
   </div>
-
-
-  <div id="desc_html"></div>
 
   <br>
 
-  <div class="">
+  <div class="alert alert-info" role="alert" *ngIf="!books">
+    This book is not in Library!
+  </div>
+  <div class="" *ngIf="books">
     <table class="table table-hover table-striped">
       <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Barcode</th>
           <th scope="col">Location</th>
-          <th scope="col">operation</th>
+          <th scope="col">Add Time</th>
+          <th scope="col" *ngIf="login==='librarian'">operation</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let x of books; let i = index; first as isFirst">
           <th scope="row">{{i}}</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>
-            <button type="button" class="btn btn-sm">
+          <td>{{x.barcode}}</td>
+          <td>{{x.location}}</td>
+          <td>{{x.addTime}}</td>
+          <td *ngIf="login==='librarian'">
+            <button type="button" class="btn btn-sm" placement="top" (click)="edit_location($event)" ngbTooltip="edit location">
               <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-sm" placement="top" (click)="remove_book($event)" ngbTooltip="remove this book">
+              <i class="fa fa-eraser"></i>
             </button>
           </td>
         </tr>
