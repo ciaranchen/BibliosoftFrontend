@@ -1,57 +1,45 @@
 
-<!-- <html>
-<head></head> -->
-<!-- <div class="inputgroup">
-  <div class="py-5 text-center">
-    <h1 class="display-4">Book Search</h1>
+<div class="app-wrapper">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control form-control-lg"
+           placeholder="Search..."
+           [(ngModel)]="search_text"
+           (keyup.enter)="search_book()">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" placement="top" ngbTooltip="Search" (click)="search_book()"><i class="fa fa-search"></i></button>
+    </div>
   </div>
-</div> -->
-<!-- <body> -->
-<div class="container">
-  <input type="text" 
-	       placeholder="Search..."
-         [(ngModel)]="search_text"
-         (keyup.enter)="onClick()">
-  <div class="search"></div>
-</div>
 
-     <!-- 书籍详情 -->
-  <!-- <div *ngIf="selectedbook"></div>
-    <p>
-      <ngb-alert [dismissible]="true" type='info' (close)="closeAlert()">
-        <strong>{{selectedbook.title|uppercase}}</strong> <span class="text">
-          {{selectedbook.Summary}}
-        </span>
+  <div>
+    Search Result will show below:
+  </div>
 
-      </ngb-alert>
-    </p>
-  </div> -->
-  <div style="text-align:center;margin:50px 0;
-       font:normal 14px/24px 'MicroSoft YaHei';
-       color:#ffffff">
+  <div class="search_results">
     <div *ngIf="books">
       <div class="table-responsive table-hover">
         <table class="table">
           <thead>
-            <tr>
-              <th>Title</th>
-              <th>ISBN</th>
-              <th>Author</th>
-              <th>Date</th>
-            </tr>
+          <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Author</th>
+            <th>publisher</th>
+            <!--<th ngIf="">Operation</th>-->
+          </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let x of books" (click)="onSelect(x)" [class.selected]="x===selectedbook">
-              <td><a routerLink="/detail/{{x.ISBN}}">{{x.Title}}</a></td>
-              <td>{{x.ISBN}}</td>
-              <td>{{x.Author}}</td>
-              <td>{{x.Date}}</td>
-            </tr>
+          <!-- (click)="onSelect(x)" [class.selected]="x===selectedbook" -->
+          <tr *ngFor="let x of books"
+              ngbPopover="{{ format_book(x) }}">
+            <td><a routerLink="/book/{{x.isbn}}">{{x.title}}</a></td>
+            <td>{{x.isbn}}</td>
+            <td>{{x.author}}</td>
+            <td>{{x.publisher}}</td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
+</div>
 
-<!-- </body>
-</html> -->

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Md5} from 'md5-typescript';
+import { MetaBook } from './DataStructs/MetaBook';
 // import {MetaBook} from "./DataStructs/MetaBook";
 
 const remove_timeout = 20000;
@@ -12,15 +13,7 @@ export class DoubanService {
 
   constructor() {}
 
-  // RealseachISBN(isbn: string): Promise<MetaBook> {
-  //   return this.searchISBN(isbn)
-  //     .then(res => {
-  //       console.log(res);
-  //       return new MetaBook();
-  //     });
-  // }
-
-  searchISBN(isbn: string): Promise<any> {
+  searchISBN(isbn: string): Promise<MetaBook> {
     return new Promise((resolve, reject) => {
       let timeId;
       const hash_str = Md5.init(isbn);

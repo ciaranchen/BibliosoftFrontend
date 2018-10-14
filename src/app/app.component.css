@@ -21,6 +21,20 @@ footer, .navbar {
   background: linear-gradient(-135deg, #c850c0, #4158d0);
 }
 
+.app-wrapper {
+  width: 1080px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px 50px 33px 50px;
+}
+
 /*------------------------------------------------------------------
 [ Responsive ]*/
 
