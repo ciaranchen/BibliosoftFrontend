@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MetaBook} from "./DataStructs/MetaBook";
 import {AddBookRet} from "./DataStructs/AddBookRet";
 import {User} from "./DataStructs/User";
+import {Book} from "./DataStructs/Book";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -134,16 +135,44 @@ export class ApiService {
     );
   }
 
-
-  update_book() {
-    // todo: finish it
+  get_books(isbn: string): Promise<Array<Book>> {
+    const url = `${this.base_url}/get_books?isbn=${isbn}`;
+    const http = this.http;
+    return new Promise<Array<Book>>(
+      function (resolve, reject) {
+        http.get<Array<Book>>(url)
+          .subscribe(
+            value => resolve(value),
+            error1 => reject(error1)
+          );
+      }
+    );
   }
 
-  // todo: type it
+  update_book(book: Book): Promise<boolean> {
+    const url = `${this.base_url}/update_book`;
+    const http = this.http;
+    return new Promise<boolean>(
+      function (resolve, reject) {
+        const body = new URLSearchParams();
+        for (const key in book) {
+          if (book.hasOwnProperty(key)) {
+            body.set(key, book[key]);
+          }
+        }
+        http.post(url, body.toString(), {headers: postHeaders})
+          .subscribe(
+            value => resolve(true),
+            error => resolve(false)
+          )
+      }
+    )
+  }
+
   update_meta_book(metaBook: MetaBook): Promise<boolean> {
     const url = `${this.base_url}/update_meta_book`;
     const http = this.http;
-    return new Promise(
+    return new Promise<boolean> (
       function (resolve, reject) {
         const body = new URLSearchParams();
         for (const key in metaBook) {
@@ -154,7 +183,6 @@ export class ApiService {
         http.post(url, body.toString(), {headers: postHeaders})
           .subscribe(
             value => resolve(true),
-            // todo: more in error handler
             error1 => reject(false)
           );
       }
