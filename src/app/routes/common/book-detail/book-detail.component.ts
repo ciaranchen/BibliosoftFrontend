@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BookService } from '../../../utils/book.service';
 
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
+import {ApiService} from "../../../utils/api.service";
+import {Book} from "../../../utils/DataStructs/book";
 
 // todo: finish this page
 @Component({
@@ -12,24 +12,28 @@ import {MetaBook} from "../../../utils/DataStructs/MetaBook";
   styleUrls: ['./book-detail.component.css']
 })
 export class BookDetailComponent implements OnInit {
-  book: MetaBook;
+  metaBook: MetaBook;
+  books: Array<Book>;
+  isbn: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private bookService: BookService,
-    private location: Location
-  ) { }
+    private activateRoute: ActivatedRoute,
+    private apiService: ApiService
+  ) {
+    // todo: check status
+  }
 
   ngOnInit(): void {
-    this.getBook();
-  }
-
-  getBook(): void { // to get metaBook information from backend
-    const ISBN = this.route.snapshot.paramMap.get('ISBN');
-    // this.bookService.getBook(ISBN).subscribe(books => this.book = books[0]);
-  }
-
-  goBack(): void {
-    this.location.back();
+    // to get metaBook information from backend
+    this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
+    this.apiService.get_meta_book(this.isbn).then(
+      res => {
+        this.metaBook = res;
+        // todo: deal with metaBook's desc_html
+        // todo: deal with metaBook's cover url
+      }
+    );
+    // todo: get_books
+    // this.apiService.get_books();
   }
 }
