@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../../utils/DataStructs/book';
 // import { BookService } from '../../../utils/book.service';
-import {ApiService} from "../../../utils/api.service";
+import {ApiService} from '../../../utils/api.service';
 
 @Component({
   selector: 'app-librarian-search-book',

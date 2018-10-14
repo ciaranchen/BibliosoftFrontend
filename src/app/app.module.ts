@@ -18,6 +18,7 @@ import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
 import { PostComponent } from './components/post/post.component';
 import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
+import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-libra
     AboutComponent,
     LoginComponent,
     PostComponent,
-    AdminManageLibrarianComponent
+    AdminManageLibrarianComponent,
+    ReaderViewPaymentComponent
   ],
   imports: [
     BrowserModule,

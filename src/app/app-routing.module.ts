@@ -10,6 +10,8 @@ import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.compone
 import {LoginComponent} from "./routes/common/login/login.component";
 import {AdminManageLibrarianComponent} from "./routes/admin/admin-manage-librarian/admin-manage-librarian.component";
 
+import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
+
 const routes: Routes = [
   // common routes
   { path: '', component: HomeComponent },
@@ -21,7 +23,7 @@ const routes: Routes = [
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   // reader/*
-
+  { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   // testing url
   { path: 'search_book', component: LibrarianSearchBookComponent },
   { path: 'admin_librarian', component: AdminManageLibrarianComponent }
