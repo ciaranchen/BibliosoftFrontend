@@ -1,50 +1,22 @@
+
+<!-- <html>
+<head></head> -->
+<!-- <div class="inputgroup">
+  <div class="py-5 text-center">
+    <h1 class="display-4">Book Search</h1>
+  </div>
+</div> -->
+<!-- <body> -->
 <div class="container">
+  <input type="text" 
+	       placeholder="Search..."
+         [(ngModel)]="search_text"
+         (keyup.enter)="onClick()">
+  <div class="search"></div>
+</div>
 
-  <div class="inputgroup">
-    <div class="py-5 text-center">
-      <h1 class="display-4">Book Search <span class="badge badge-secondary">{{UserName}}</span></h1>
-      <nav>
-        <h5 class="py-6" style="margin:10px">
-          <a routerLink='/add_book'>add_book</a>
-        </h5>
-      </nav>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="input-group">
-      <input [(ngModel)]="search_text"
-              (keyup.enter)="onClick()"
-              class="form-control input-lg"
-              placeholder="book information"
-              id="search_book" >
-      <!-- <button class="btn btn-info btn-search">查找</button> -->
-      <button data-loading-text="Loading..."
-              ngbTooltip="Search {{search_text}} by title "
-              (click)="onClick()" value="title"
-              class="btn btn-success btn-search"
-              style="margin-left:5px;width: 100px">
-              Search
-      </button>
-      <div ngbDropdown class="d-inline-block">
-        <span class="btn btn-outline-warning"
-              style="margin-left:3px;width: 100px" id="dropdownBasic1"
-              ngbDropdownToggle>
-          <!-- Title</span> -->
-          {{search_type}}</span>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button (click)="updateType('Title')" class="dropdown-item" value="title">Title</button>
-          <button (click)="updateType('ISBN')" class="dropdown-item" value="ISBN">ISBN</button>
-          <button (click)="updateType('Author')" class="dropdown-item" value="author">Author</button>
-          <button (click)="updateType('Date')" class="dropdown-item" value="date">Date</button>
-          <button (click)="updateType('Summary')" class="dropdown-item" value="summary">Summary</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="selectedbook">
-    <!-- 书籍详情 -->
+     <!-- 书籍详情 -->
+  <!-- <div *ngIf="selectedbook"></div>
     <p>
       <ngb-alert [dismissible]="true" type='info' (close)="closeAlert()">
         <strong>{{selectedbook.title|uppercase}}</strong> <span class="text">
@@ -53,33 +25,33 @@
 
       </ngb-alert>
     </p>
-
-  </div>
-
-  <div *ngIf="books">
-   <div class="table-responsive table-hover">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>Author</th>
-            <th>Date</th>
-            <!-- <th>Summary</th> -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let x of books" (click)="onSelect(x)" [class.selected]="x===selectedbook">
-            <td><a routerLink="/detail/{{x.ISBN}}">{{x.Title}}</a></td>
-            <td>{{x.ISBN}}</td>
-            <td>{{x.Author}}</td>
-            <td>{{x.Date}}</td>
-            <!-- <td>{{x.summary}}</td> -->
-          </tr>
-        </tbody>
-      </table>
+  </div> -->
+  <div style="text-align:center;margin:50px 0;
+       font:normal 14px/24px 'MicroSoft YaHei';
+       color:#ffffff">
+    <div *ngIf="books">
+      <div class="table-responsive table-hover">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>ISBN</th>
+              <th>Author</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let x of books" (click)="onSelect(x)" [class.selected]="x===selectedbook">
+              <td><a routerLink="/detail/{{x.ISBN}}">{{x.Title}}</a></td>
+              <td>{{x.ISBN}}</td>
+              <td>{{x.Author}}</td>
+              <td>{{x.Date}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 
-</div>
+<!-- </body>
+</html> -->

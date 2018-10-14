@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../../utils/DataStructs/book';
-import { BookService } from '../../../utils/book.service';
+// import { BookService } from '../../../utils/book.service';
+import {ApiService} from "../../../utils/api.service";
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -20,25 +21,38 @@ export class LibrarianSearchBookComponent implements OnInit {
   // bookbyISBN: Book;
   UserName = 'WYJ';
   search_text: string;
-  search_type = 'Title';
+  // search_type = 'Title';
 
-  constructor(private bookService: BookService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+    document.body.style.background = '#252525';
   }
 
 
-  getBook(ISBN: string): void {
-    // console.log(`this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN`);
-    this.bookService.getBook(ISBN).subscribe(
-      Books => this.books = Books
-    );
-    // this.books.push(this.bookbyISBN);
-    // console.log(this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN);
-  }
+  // getBook(ISBN: string): void {
+  //   // console.log(`this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN`);
+  //   this.bookService.getBook(ISBN).subscribe(
+  //     Books => this.books = Books
+  //   );
+  //   // this.books.push(this.bookbyISBN);
+  //   // console.log(this.bookbyISBN.author,this.bookbyISBN.date,this.bookbyISBN.ISBN);
+  // }
 
-  getBooks(term: string, type: string): void {
-    this.bookService.getBooks(term, type).subscribe(Books => this.books = Books);
+  getBooks(term: string): void {
+    // this.bookService.getBooks(term, type).subscribe(Books => this.books = Books);
+    this.apiService.search(term)
+    .then( res => {  console.log(res); })
+    .catch( err => { console.error(err); });
+    // this.doubanService.searchISBN(this.isbn)
+    // .then(res => { // load success from douban
+    //   this.fromDouban = true;
+    //   this.book = res;
+    // }).catch(err => { // not exists in douban
+    //   this.fromDouban = false;
+    //   closeTab();
+    //   console.error(err);
+    // });
   }
 
   onSelect(b: Book): void {
@@ -46,17 +60,17 @@ export class LibrarianSearchBookComponent implements OnInit {
   }
   onClick(): void {
     // this.search_type = type;
-    console.log('start search: "' + this.search_text + '" by ' + this.search_type);
-
-    if (this.search_type === 'ISBN') {
-      this.getBook(this.search_text);
-    } else {
-      this.getBooks(this.search_text, this.search_type);
-    }
+    console.log('start search: "' + this.search_text);
+    this.getBooks(this.search_text);
+    // if (this.search_type === 'ISBN') {
+    //   // this.getBook(this.search_text);
+    // } else {
+    //   this.getBooks(this.search_text, this.search_type);
+    // }
   }
-  updateType(type: string) {
-    this.search_type = type;
-  }
+  // updateType(type: string) {
+  //   this.search_type = type;
+  // }
 
   closeAlert(): void {
     this.selectedbook = null;
