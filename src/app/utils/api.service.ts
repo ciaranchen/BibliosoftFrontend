@@ -17,7 +17,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Promise<boolean> {
+  login(username: string, password: string, type: number): Promise<boolean> {
     const url = `${this.base_url}/login`;
     const http = this.http;
     return new Promise<boolean>(
@@ -25,6 +25,7 @@ export class ApiService {
         const body = new URLSearchParams();
         body.set('username', username);
         body.set('password', password);
+        body.set('type', type.toString());
         http.post(url, body.toString(), {
           withCredentials: true,
           headers: postHeaders
@@ -139,7 +140,7 @@ export class ApiService {
   }
 
   // todo: type it
-  update_meta_book(metaBook: MetaBook) {
+  update_meta_book(metaBook: MetaBook): Promise<boolean> {
     const url = `${this.base_url}/update_meta_book`;
     const http = this.http;
     return new Promise(
@@ -152,8 +153,9 @@ export class ApiService {
         }
         http.post(url, body.toString(), {headers: postHeaders})
           .subscribe(
-            value => resolve(value),
-            error1 => reject(error1)
+            value => resolve(true),
+            // todo: more in error handler
+            error1 => reject(false)
           );
       }
     );
@@ -200,12 +202,12 @@ export class ApiService {
     );
   }
 
-  search(param: string) {
+  search(param: string): Promise<Array<MetaBook>> {
     const url = `${this.base_url}/search?param=${param}`;
     const http_client = this.http;
-    return new Promise(
+    return new Promise<Array<MetaBook>>(
       function (resolve, reject) {
-        http_client.get(url).subscribe(
+        http_client.get<Array<MetaBook>>(url).subscribe(
           value => {
             resolve(value);
           },

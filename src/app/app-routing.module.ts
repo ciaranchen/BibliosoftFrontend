@@ -6,23 +6,25 @@ import { HomeComponent } from "./routes/common/home/home.component";
 
 import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
-import { LibrarianLoginComponent } from './routes/librarian/librarian-login/librarian-login.component';
 import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
+import {LoginComponent} from "./routes/common/login/login.component";
+import {AdminManageLibrarianComponent} from "./routes/admin/admin-manage-librarian/admin-manage-librarian.component";
 
 const routes: Routes = [
   // common routes
   { path: '', component: HomeComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
+  { path: 'login/:role', component: LoginComponent },
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin/login', component: AdminLoginComponent },
   // librarian/*
-  { path: 'librarian/login', component: LibrarianLoginComponent },
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   // reader/*
 
   // testing url
   { path: 'search_book', component: LibrarianSearchBookComponent },
+  { path: 'admin_librarian', component: AdminManageLibrarianComponent }
 
 ];
 

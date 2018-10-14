@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 
+// todo: finish this page
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',

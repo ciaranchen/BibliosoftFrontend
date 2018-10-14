@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
 
@@ -15,13 +15,20 @@ const show_time = 5000;
   styleUrls: ['./librarian-add-book.component.css'],
   providers: [DoubanService, NgbModalConfig, NgbModal]
 })
-export class LibrarianAddBookComponent {
+export class LibrarianAddBookComponent implements OnInit {
 
   constructor(
     private doubanService: DoubanService,
     private apiService: ApiService,
     private modalService: NgbModal
   ) { }
+
+  ngOnInit() {
+    const status = localStorage.getItem('role');
+    if (status !== 'librarian') { // not login as librarian
+      // todo: redirect to correct pages.
+    }
+  }
 
   returnValues: Array<AddBookRet>;
 

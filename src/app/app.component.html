@@ -1,9 +1,41 @@
 
-<!-- todo: navigator -->
+<div class="app-container">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
+    <!-- todo: image brand -->
+    <a class="navbar-brand" routerLink="/">Bibliosoft</a>
 
-<router-outlet></router-outlet>
+    <!-- todo: nav bar switch with user type -->
+    <ul class="nav navbar-nav" routerLinkActive="active">
+      <li class="nav-item"><a class="nav-link" routerLink="/home">Home</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/courses">Courses</a></li>
+    </ul>
+  </nav>
 
-<app-messages></app-messages>
+  <app-message></app-message>
 
-<!-- todo: footer -->
+
+  <router-outlet></router-outlet>
+
+
+  <!-- Footer -->
+  <footer class="page-footer font-small bg-dark fixed-bottom">
+    <!-- Copyright -->
+    <div class="text-center py-3 text-white">
+      © 2018 Copyright
+      <a href="https://blog.ciaran.cn"> Bibliosoft group </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <a routerLink="/about">
+        <i class="fa fa-info-circle"></i>
+        About us
+      </a>
+    </div>
+    <!-- Copyright -->
+
+    <!-- About -->
+
+
+  </footer>
+  <!-- Footer -->
+</div>
 
