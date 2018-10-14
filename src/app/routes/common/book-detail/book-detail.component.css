@@ -1,0 +1,15 @@
+.detail {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-attr, .detail-img {
+  width: 316px;
+}
+

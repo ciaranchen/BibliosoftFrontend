@@ -1,3 +1,57 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
+
+
+.login-wrapper {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 130px 130px 33px 95px;
+}
+
+.app-wrapper {
+  width: 1080px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px 50px 33px 50px;
+}
+
+/*------------------------------------------------------------------
+[ Responsive ]*/
+
+@media (max-width: 992px) {
+  .app-wrapper {
+    padding: 177px 90px 33px 85px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-wrapper {
+    padding: 100px 80px 33px 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-wrapper {
+    padding: 100px 15px 33px 15px;
+  }
+}
+
+
