@@ -1,21 +1,12 @@
 
-/* @import url("https://fonts.googleapis.com/css?family=Inconsolata:700"); */
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+
+.search_results {
+  text-align: center;
+  margin: 50px 0;
+  font: normal 14px/24px 'MicroSoft YaHei';
 }
 
-html, body {
-  width: 100%;
-}
-
-body {
-  background: #252525;
-  /* #252525 */
-/* } */ 
-
-.container {
+.search_button {
   position: absolute;
   margin: auto;
   top: 0;
@@ -27,7 +18,7 @@ body {
   /* width: 100%;
   height: 100%; */
 }
-.container .search {
+.search_button .search {
   position: absolute;
   margin: auto;
   top: 0;
@@ -42,10 +33,10 @@ body {
   z-index: 4;
   box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
 }
-.container .search:hover {
+.search_button .search:hover {
   cursor: pointer;
 }
-.container .search::before {
+.search_button .search::before {
   content: "";
   position: absolute;
   margin: auto;
@@ -59,7 +50,7 @@ body {
   transform: rotate(45deg);
   transition: all .5s;
 }
-.container .search::after {
+.search_button .search::after {
   content: "";
   position: absolute;
   margin: auto;
@@ -73,7 +64,7 @@ body {
   border: 2px solid white;
   transition: all .5s;
 }
-.container input {
+.search_button input {
   font-family: 'Inconsolata', monospace;
   position: absolute;
   margin: auto;
@@ -97,25 +88,25 @@ body {
   font-weight: bolder;
   letter-spacing: 0.1em;
 }
-.container input:hover {
+.search_button input:hover {
   cursor: pointer;
 }
-.container input:focus {
+.search_button input:focus {
   width: 300px;
   opacity: 1;
   cursor: text;
 }
-.container input:focus ~ .search {
+.search_button input:focus ~ .search {
   right: -250px;
   background: #151515;
   z-index: 6;
 }
-.container input:focus ~ .search::before {
+.search_button input:focus ~ .search::before {
   top: 0;
   left: 0;
   width: 25px;
 }
-.container input:focus ~ .search::after {
+.search_button input:focus ~ .search::after {
   top: 0;
   left: 0;
   width: 25px;
@@ -125,7 +116,7 @@ body {
   border-radius: 0%;
   transform: rotate(-45deg);
 }
-.container input::placeholder {
+.search_button input::placeholder {
   color: white;
   opacity: 0.5;
   font-weight: bolder;

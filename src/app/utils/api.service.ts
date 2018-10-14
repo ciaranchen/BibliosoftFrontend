@@ -202,7 +202,7 @@ export class ApiService {
     );
   }
 
-  search(param: string): Promise<Array<MetaBook>> {
+  search_meta_book(param: string): Promise<Array<MetaBook>> {
     const url = `${this.base_url}/search?param=${param}`;
     const http_client = this.http;
     return new Promise<Array<MetaBook>>(
