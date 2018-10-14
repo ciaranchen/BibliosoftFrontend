@@ -1,50 +1,48 @@
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
-      <div class="login100-pic js-tilt" data-tilt>
-        <img src="assets/images/logo.png" alt="Biblisoft icon image">
-      </div>
+<link rel="stylesheet" href="assets/css/login.css">
 
-      <form class="login100-form validate-form">
-        <span class="login100-form-title">
-          Admin Login
-        </span>
-
-        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-          <input class="input100" type="text" name="user" placeholder="username" [(ngModel)]="user">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-user" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-          <input class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="pass">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-            <i class="fa fa-lock" aria-hidden="true"></i>
-          </span>
-        </div>
-
-        <div class="container-login100-form-btn">
-          <button type="button" class="login100-form-btn" (click)="admin_login()">
-            Login
-          </button>
-        </div>
-
-        <div class="text-center p-t-134">
-          <a class="txt2" routerLink="login/librarian">
-            login as a librarian
-            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-          </a>
-        </div>
-        <div class="text-center p-t-1">
-          <a class="txt2" routerLink="login/reader">
-            login as a reader
-            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-          </a>
-        </div>
-      </form>
-    </div>
+<div class="login-wrapper">
+  <div class="login100-pic js-tilt" data-tilt>
+    <img src="assets/images/logo.png" alt="Biblisoft icon image">
   </div>
+
+  <form class="login100-form validate-form">
+  <span class="login100-form-title">
+    Admin login
+  </span>
+
+    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+      <input class="input100" type="text" name="user" placeholder="username" [(ngModel)]="user">
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+    <i class="fa fa-user" aria-hidden="true"></i>
+  </span>
+    </div>
+
+    <div class="wrap-input100 validate-input" data-validate = "Password is required">
+      <input class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="pass">
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+    <i class="fa fa-lock" aria-hidden="true"></i>
+  </span>
+    </div>
+
+    <div class="container-login100-form-btn">
+      <button type="button" class="login100-form-btn" (click)="admin_login()">
+        Login
+      </button>
+    </div>
+
+    <div class="text-center p-t-74">
+      <a class="txt2" routerLink="login/librarian">
+        login as a librarian
+        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="text-center p-t-1">
+      <a class="txt2" routerLink="login/reader">
+        login as a reader
+        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+      </a>
+    </div>
+  </form>
 </div>
