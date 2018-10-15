@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
-import {copyObj} from "@angular/animations/browser/src/util";
 
 // todo: finish this page
 @Component({
@@ -22,9 +21,7 @@ export class BookDetailComponent implements OnInit {
     private router: Router,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
-  ) {
-    // todo: check status
-  }
+  ) { }
 
   ngOnInit(): void {
     // to get metaBook information from backend
@@ -33,7 +30,6 @@ export class BookDetailComponent implements OnInit {
       res => {
         this.metaBook = res;
         // todo: deal with metaBook's desc_html
-        // todo: deal with metaBook's cover url
       }
     ).catch(
       error => {

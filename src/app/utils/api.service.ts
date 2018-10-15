@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { backendServer } from "./backendServer";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MetaBook} from "./DataStructs/MetaBook";
-import {AddBookRet} from "./DataStructs/AddBookRet";
 import {User} from "./DataStructs/User";
 import {Book} from "./DataStructs/Book";
 
@@ -92,10 +91,10 @@ export class ApiService {
     );
   }
 
-  add_book(isbn: string, count: number, location: string, metaBook?: MetaBook): Promise<Array<AddBookRet>> {
+  add_book(isbn: string, count: number, location: string, metaBook?: MetaBook): Promise<Array<Book>> {
     const url = `${this.base_url}/add_book`;
     const http_client = this.http;
-    return new Promise<Array<AddBookRet>>(
+    return new Promise<Array<Book>>(
       function (resolve, reject) {
         const body = new URLSearchParams();
         body.set('isbn', isbn);
@@ -112,7 +111,7 @@ export class ApiService {
         }
         console.log(body.toString());
         // todo: return type;
-        http_client.put<Array<AddBookRet>>(url, body.toString(), { headers: postHeaders })
+        http_client.put<Array<Book>>(url, body.toString(), { headers: postHeaders })
           .subscribe(
             value => resolve(value),
             error1 => reject(error1)

@@ -1,47 +1,59 @@
-
 <div class="app-container">
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-    <!-- todo: image brand -->
     <a class="navbar-brand" routerLink="/">
       <img src="/assets/images/logo-sm-opc.png" width="30" height="30" class="d-inline-block align-top" alt="">
       Bibliosoft
     </a>
 
-    <!-- todo: nav bar switch with user type -->
     <ul class="nav navbar-nav" routerLinkActive="active">
-      <!-- common router-->
-      <li class="nav-item"><a class="nav-link" routerLink="/home">Home</a></li>
+      <!-- Common router-->
+      <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/courses">Courses</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
+    </ul>
+
+    <div class="collapse navbar-collapse justify-content-end">
+      <!-- Need login router -->
+      <ul class="nav navbar-nav navbar-right" *ngIf="!role">
+        <li class="nav-item"><a class="nav-link" routerLink="/login/reader">Reader Login</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="#">Register as a reader</a></li>
+      </ul>
 
       <!-- Admin router -->
-      <li class="nav-item"><a class="nav-link" routerLink="admin/home">Admin</a></li>
-    </ul>
+      <ul class="nav navbar-nav navbar-right"  *ngIf="role==='admin'">
+        <li class="nav-item"><a class="nav-link" routerLink="admin/home">Admin</a></li>
+      </ul>
+
+      <!-- Librarian router -->
+      <ul class="nav navbar-nav navbar-right" *ngIf="role==='librarian'">
+        <li class="nav-item"><a class="nav-link" routerLink="librarian/home">Librarian</a></li>
+      </ul>
+
+      <!-- Reader router -->
+      <ul class="nav navbar-nav navbar-right" *ngIf="role==='reader'">
+        <li class="nav-item"><a class="nav-link" routerLink="reader/home">Reader</a></li>
+      </ul>
+    </div>
   </nav>
 
   <app-message></app-message>
 
   <router-outlet></router-outlet>
 
-
-  <!-- Footer -->
   <footer class="page-footer font-small bg-dark fixed-bottom">
     <!-- Copyright -->
     <div class="text-center py-3 text-white">
       © 2018 Copyright
       <a href="https://blog.ciaran.cn"> Bibliosoft group </a>
       &nbsp;&nbsp;&nbsp;&nbsp;
+      <!-- About us -->
       <a routerLink="/about">
         <i class="fa fa-info-circle"></i>
         About us
       </a>
     </div>
-    <!-- Copyright -->
-
-    <!-- About -->
-
-
   </footer>
-  <!-- Footer -->
-</div>
 
+</div>

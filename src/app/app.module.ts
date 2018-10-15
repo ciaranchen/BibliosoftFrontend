@@ -18,6 +18,7 @@ import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
 import { PostComponent } from './components/post/post.component';
 import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
+import {LibrarianManageReaderComponent} from './routes/librarian/librarian-manage-reader/librarian-manage-reader.component';
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 
 
@@ -36,7 +37,8 @@ import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/
     LoginComponent,
     PostComponent,
     AdminManageLibrarianComponent,
-    ReaderViewPaymentComponent
+    ReaderViewPaymentComponent,
+    LibrarianManageReaderComponent
   ],
   imports: [
     BrowserModule,

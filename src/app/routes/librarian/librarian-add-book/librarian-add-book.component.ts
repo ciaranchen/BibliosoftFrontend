@@ -4,7 +4,7 @@ import * as JsBarcode from 'jsbarcode';
 
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
-import {AddBookRet} from "../../../utils/DataStructs/AddBookRet";
+import {Book} from "../../../utils/DataStructs/Book";
 import { DoubanService } from '../../../utils/douban.service';
 
 const show_time = 5000;
@@ -24,13 +24,13 @@ export class LibrarianAddBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const status = localStorage.getItem('role');
+    const status = localStorage.getItem('login');
     if (status !== 'librarian') { // not login as librarian
       // todo: redirect to correct pages.
     }
   }
 
-  returnValues: Array<AddBookRet>;
+  returnValues: Array<Book>;
 
   book: MetaBook = new MetaBook('', '', '', '');
   isbn: string;

@@ -8,12 +8,13 @@ import {Component, OnInit} from '@angular/core';
 export class AppComponent implements OnInit {
   // title = 'Bibliosoft';
 
-  private login: string;
+  role: string;
 
   ngOnInit() {
-    this.login = localStorage.getItem('login');
-    if (this.login) {
-
+    const login = localStorage.getItem('login');
+    if (login) {
+      this.role = login;
+      console.log(this.role);
     }
   }
 }

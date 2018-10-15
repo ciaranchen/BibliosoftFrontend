@@ -33,16 +33,21 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/'])
       }
     }
-    const role: string = this.activatedRoute.snapshot.paramMap.get('role');
-    console.log(role);
-    if (role !== 'librarian' && role !== 'reader') {
-      console.log('404');
-      this.router.navigate(['/']);
-    } else {
-      this.role = role.charAt(0).toUpperCase() + role.substr(1);
-      console.log(this.role);
-      this.otherRole = role === 'reader' ? 'librarian' : 'reader';
-    }
+    this.activatedRoute.paramMap
+      .subscribe(
+        res => {
+          const role = res.get('role');
+          // console.log(role);
+          if (role !== 'librarian' && role !== 'reader') {
+            console.log('404');
+            this.router.navigate(['/']);
+          } else {
+            this.role = role.charAt(0).toUpperCase() + role.substr(1);
+            console.log(this.role);
+            this.otherRole = role === 'reader' ? 'librarian' : 'reader';
+          }
+        });
+
   }
 
   admin_login(user?: string, pass?: string) {
