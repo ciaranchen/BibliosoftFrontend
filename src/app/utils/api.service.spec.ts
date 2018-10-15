@@ -13,11 +13,13 @@ describe('ApiService', () => {
   it('should login success', function () {
     const service: ApiService = TestBed.get(ApiService);
     // 'YiiPmt', 'YiiPmtvMYz0zGNMXVHq6'
-    service.login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6').then(res => { expect(res).toBe(true); });
+    // noinspection SpellCheckingInspection
+    service.login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res).toBe(true); });
   });
 
   it('should login failed', function () {
     const service: ApiService = TestBed.get(ApiService);
-    service.login('qweasd', 'qweasdzxc').then(res => expect(res).toBe(false));
+    // noinspection SpellCheckingInspection
+    service.login('qweasd', 'qweasdzxc', 3).then(res => expect(res).toBe(false));
   });
 });

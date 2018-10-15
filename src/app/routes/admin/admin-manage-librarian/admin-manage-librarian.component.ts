@@ -33,8 +33,8 @@ export class AdminManageLibrarianComponent implements OnInit {
     const tr = $event.srcElement.parentElement.parentNode;
     //
     const username = tr.childNodes[1].textContent;
-    const confim_remove = confirm(`Are you sure to delete "${username}"?`);
-    if (confim_remove) {
+    const confirm_remove = confirm(`Are you sure to delete "${username}"?`);
+    if (confirm_remove) {
       // todo: remove user
     }
   }

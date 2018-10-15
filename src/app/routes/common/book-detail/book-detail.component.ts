@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
 
-// todo: finish this page
 @Component({
   selector: 'app-book-detail',
   templateUrl: './book-detail.component.html',
