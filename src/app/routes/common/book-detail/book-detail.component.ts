@@ -32,8 +32,6 @@ export class BookDetailComponent implements OnInit {
     this.apiService.get_meta_book(this.isbn).then(
       res => {
         this.metaBook = res;
-        // todo: deal with metaBook's desc_html
-        // todo: deal with metaBook's cover url
       }
     ).catch(
       error => {

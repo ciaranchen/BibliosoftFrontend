@@ -1,5 +1,4 @@
-
-<div class="app-wrapper double-line" >
+<div class="app-wrapper" >
   <div *ngIf="metaBook">
     <h2> {{ metaBook.title }} </h2>
     <div class="lead">{{ metaBook.subtitle }}</div>
@@ -18,7 +17,11 @@
         <img src="{{ metaBook.cover }}" alt="cover">
       </div>
     </div>
-    <div id="desc_html"></div>
+    
+
+    <h4>Description</h4>
+    <hr>
+    <div id="desc_html blockquote" [innerHtml]="metaBook.desc_html"></div>
   </div>
 
   <br>
@@ -26,7 +29,8 @@
   <div class="alert alert-info" role="alert" *ngIf="!books">
     This book is not in Library!
   </div>
-  <div class="" *ngIf="books">
+
+  <div class="table-responsive" *ngIf="books">
     <table class="table table-hover table-striped">
       <thead class="thead-light">
         <tr>
@@ -56,6 +60,4 @@
       </tbody>
     </table>
   </div>
-
-
 </div>
