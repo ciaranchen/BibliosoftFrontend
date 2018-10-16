@@ -20,7 +20,7 @@ export class LibrarianAddBookComponent implements OnInit {
   constructor(
     private doubanService: DoubanService,
     private apiService: ApiService,
-    private modalService: NgbModal
+    public modalService: NgbModal
   ) { }
 
   ngOnInit() {

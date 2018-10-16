@@ -1,7 +1,7 @@
 <ng-template #loadingModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="loading-modal-title">Wait a Minute ...</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -13,7 +13,7 @@
 <ng-template #submitModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="submit-modal-title">Add Book Successfully!!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

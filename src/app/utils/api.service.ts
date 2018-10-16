@@ -32,7 +32,7 @@ export class ApiService {
         }).subscribe(
           value => resolve(true),
           error1 => {
-            if (error1.status == 401) {
+            if (error1.status === 401) {
               resolve(false);
             } else {
               reject(error1);
@@ -58,7 +58,7 @@ export class ApiService {
           .subscribe(
             value => resolve(true),
             error1 => {
-              if (error1.status == 401) {
+              if (error1.status === 401) {
                 resolve(false);
               } else {
                 reject(error1);
@@ -163,9 +163,9 @@ export class ApiService {
           .subscribe(
             value => resolve(true),
             error => resolve(false)
-          )
+          );
       }
-    )
+    );
   }
 
   update_meta_book(metaBook: MetaBook): Promise<boolean> {
@@ -242,5 +242,42 @@ export class ApiService {
         );
       }
     );
+  }
+
+  get_librarian(query: string): Promise<Array<User>> {
+    const url = `${this.base_url}/librarian?query=${query}`;
+    const http = this.http;
+    return new Promise<Array<User>>(
+      function (resolve, reject) {
+        http.get<Array<User>>(url)
+          .subscribe(
+            value => resolve(value),
+            error => reject(error)
+          );
+      }
+    );
+  }
+
+  reset_librarian_password(user: string, newpass: string): Promise<void> {
+    const url = `${this.base_url}/reset_librarian_password`;
+    const http = this.http;
+    return new Promise<void> (
+      function (resolve, reject) {
+        const body = new URLSearchParams();
+        body.set('username', user);
+        body.set('new_password', newpass);
+        http.post(url, body.toString(), {
+          headers: postHeaders,
+        }).subscribe(
+          val => resolve(),
+          error => reject(error)
+        );
+      }
+    );
+  }
+
+  // todo: finish it
+  update_librarian(diff: Object) {
+
   }
 }

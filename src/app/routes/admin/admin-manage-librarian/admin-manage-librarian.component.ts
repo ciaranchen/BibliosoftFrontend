@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../../../utils/DataStructs/User";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-admin-manage-librarian',
@@ -12,7 +13,9 @@ export class AdminManageLibrarianComponent implements OnInit {
 
   searchText: string;
 
-  constructor() {
+  constructor(
+    public modalService: NgbModal
+  ) {
     // todo: load librarian
   }
 
@@ -41,5 +44,9 @@ export class AdminManageLibrarianComponent implements OnInit {
 
   search_librarian() {
     // todo: search
+  }
+
+  submit_register() {
+    // todo: register librarian
   }
 }
