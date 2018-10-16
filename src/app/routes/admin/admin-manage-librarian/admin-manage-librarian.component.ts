@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../../../utils/DataStructs/User";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -9,7 +8,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class AdminManageLibrarianComponent implements OnInit {
 
-  data: Array<User>;
+  data: Array<Account>;
 
   searchText: string;
 
@@ -20,6 +19,10 @@ export class AdminManageLibrarianComponent implements OnInit {
   }
 
   ngOnInit() {
+    const login = localStorage.getItem('login');
+    if (!login || login !== 'admin') {
+      // todo: redirect
+    }
     // todo: check login status
     // todo: get librarian list
   }
