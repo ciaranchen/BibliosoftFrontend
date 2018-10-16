@@ -1,19 +1,64 @@
 <ng-template #registertModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="submit-modal-title">Add new librarian</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <!-- todo: add new librarian -->
-    <button type="button" (click)="submit_register()">add Librarian</button>
+    <div class="col-md order-md-1">
+      <div class="input-group mb-3 form-row">
+        <div class="input-group-prepend">
+          <label for="username"><span class="input-group-text">username</span></label>
+        </div>
+        <input type="text" class="form-control" id="username"
+               placeholder="username" required
+               [(ngModel)]="addAccount.username">
+        <div class="invalid-feedback">
+          username is required.
+        </div>
+      </div>
+
+      <div class="input-group mb-3 form-row">
+        <div class="input-group-prepend">
+          <label for="password"><span class="input-group-text">password</span></label>
+        </div>
+        <input type="password" class="form-control" id="password"
+               placeholder="password" [(ngModel)]="addPassword" required>
+        <div class="invalid-feedback">
+          Valid book number is required.
+        </div>
+      </div>
+
+      <div class="input-group mb-3 form-row">
+        <div class="input-group-prepend">
+          <label for="nickname"><span class="input-group-text">nickname</span></label>
+        </div>
+        <input type="text" class="form-control" id="nickname"
+               placeholder="nickname" [(ngModel)]="addAccount.nickname" required>
+      </div>
+
+      <div class="input-group mb-3 form-row">
+        <div class="input-group-prepend">
+          <label for="email"><span class="input-group-text">email</span></label>
+        </div>
+        <input type="email" class="form-control" id="email"
+               placeholder="email address" [(ngModel)]="addAccount.email" required>
+      </div>
+
+      <button type="button" class="btn btn-info" (click)="submit_register()">add Librarian</button>
+      <br>
+
+      <div id="add-alert" class="alert alert-success" *ngIf="addSuccess">register success!</div>
+    </div>
+
+
   </div>
 </ng-template>
 
 <div class="app-wrapper">
   <div class="">
-    <h4 class="title">Librarian Account</h4>
+    <h4 class="title">Librarian User</h4>
     <!--<p class="category"></p>-->
 
     <div class="row">
@@ -26,7 +71,6 @@
         </div>
       </div>
       <div>
-        <!-- todo: click to open modal -->
         <button type="button" class="btn btn-info" placement="top" ngbTooltip="add librarian" (click)="modalService.open(registertModal)">
           <i class="fa fa-plus-square"></i>
         </button>
@@ -41,37 +85,26 @@
       <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
+        <th scope="col">Email</th>
         <th scope="col">Username</th>
         <th scope="col">Nickname</th>
-        <!--<th scope="col">password</th>-->
-        <th scope="col">operation</th>
+        <th scope="col">Address</th>
+        <th scope="col">Operation</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let x of data; let i = index; first as isFirst">
+      <tr *ngFor="let x of data; let i = index; first as isFirst" ngbPopover="{{x.slogan}}">
         <th scope="row">{{i}}</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <!--<td>@mdo</td>-->
+        <td>{{x.email}}</td>
+        <td>{{x.username}}</td>
+        <td>{{x.nickname}}</td>
+        <td>{{x.address}}</td>
         <td>
           <button type="button" class="btn btn-sm" (click)="reset_password($event)">
             <i class="fa fa-edit"></i>
           </button>
-          <button type="button" class="btn btn-sm" (click)="remove_user($event)">
-            <i class="fa fa-eraser" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>
-          <button type="button" class="btn btn-sm" (click)="reset_password($event)" placement="top" ngbTooltip="reset password">
-            <i class="fa fa-edit"></i>
-          </button>
           &nbsp;
-          <button type="button" class="btn btn-sm" (click)="remove_user($event)"  placement="top" ngbTooltip="delete user">
+          <button type="button" class="btn btn-sm" (click)="remove_user($event)">
             <i class="fa fa-eraser" aria-hidden="true"></i>
           </button>
         </td>

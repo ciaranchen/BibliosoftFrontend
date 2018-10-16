@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 @Component({
   selector: 'app-admin-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css', '../../../login.css']
 })
 export class LoginComponent implements OnInit {
   user: string;
@@ -59,9 +59,8 @@ export class LoginComponent implements OnInit {
           const url = path ? path : 'admin/';
           this.router.navigate([url, 1]);
         } else {
-          // todo: show error;
-          console.log('login failed');
-          console.error(res);
+          alert('login failed! try it again after refresh.');
+          // console.error(res);
         }
       }).catch((err) => {
         console.error(err);

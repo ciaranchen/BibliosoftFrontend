@@ -19,6 +19,8 @@ import { LoginComponent } from './routes/common/login/login.component';
 import { PostComponent } from './components/post/post.component';
 import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
 import { LibrarianManageReaderComponent } from './routes/librarian/librarian-manage-reader/librarian-manage-reader.component';
+import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
+import {ReaderViewPaymentComponent} from "./routes/reader/reader-view-payment/reader-view-payment.component";
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { LibrarianManageReaderComponent } from './routes/librarian/librarian-man
     LoginComponent,
     PostComponent,
     AdminManageLibrarianComponent,
-    LibrarianManageReaderComponent
+    LibrarianManageReaderComponent,
+    LibrarianBorrowComponent,
+    ReaderViewPaymentComponent
   ],
   imports: [
     BrowserModule,

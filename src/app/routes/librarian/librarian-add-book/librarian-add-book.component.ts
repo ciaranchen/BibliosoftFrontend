@@ -6,6 +6,7 @@ import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
 import { DoubanService } from '../../../utils/douban.service';
+import {Router} from "@angular/router";
 
 const show_time = 5000;
 
@@ -18,6 +19,7 @@ const show_time = 5000;
 export class LibrarianAddBookComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private doubanService: DoubanService,
     private apiService: ApiService,
     public modalService: NgbModal
@@ -26,7 +28,7 @@ export class LibrarianAddBookComponent implements OnInit {
   ngOnInit() {
     const status = localStorage.getItem('login');
     if (status !== 'librarian') { // not login as librarian
-      // todo: redirect to correct pages.
+      this.router.navigate(['']);
     }
   }
 
@@ -36,9 +38,9 @@ export class LibrarianAddBookComponent implements OnInit {
   isbn: string;
   bookNumber = 1;
 
-  floor: string;
-  room: string;
-  shelf: string;
+  floor = '';
+  room = '';
+  shelf = '';
 
   loadingWords: string;
   cacheISBN: string;
@@ -69,6 +71,7 @@ export class LibrarianAddBookComponent implements OnInit {
               this.book = res;
             }).catch(err => { // not exists in douban
               this.fromDouban = false;
+              this.book.isbn = this.isbn;
               closeTab();
               console.error(err);
             });
@@ -92,14 +95,30 @@ export class LibrarianAddBookComponent implements OnInit {
     }
   }
 
+  form_validate(): boolean {
+    if (!(this.book.title && this.book.author && this.book.publisher)) { // empty
+      return false;
+    }
+    if (this.isbn.length !== 10) {
+      alert('We use 10 characters isbn');
+    }
+    return true;
+  }
+
   submitAddBook(modal) {
-    // console.log('submit.');
     // load location into data;
     if (! (this.floor && this.room && this.shelf)) {
       // one is empty
-      // todo: sure it?
+      if (!confirm('location may be not right. Are you sure?')) {
+        return;
+      }
     }
+    if (!this.form_validate()) {
+      return;
+    }
+
     const location = [this.floor, this.room, this.shelf].map((data) => data.replace('-', '_')).join('-');
+
     let service;
     if (this.isbnExist) {
       // service = this.apiService.add_book('7101003044', 1, '1-2-3')

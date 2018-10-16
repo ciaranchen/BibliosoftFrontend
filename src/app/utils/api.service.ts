@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MetaBook} from "./DataStructs/MetaBook";
 import {Book} from "./DataStructs/Book";
 import {Fine} from "./DataStructs/Fine";
+import {User} from "./DataStructs/User";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -39,7 +40,7 @@ export class ApiService {
     );
   }
 
-  register(password: string, role: number, account: Account): Promise<boolean> {
+  register(password: string, role: number, account: User): Promise<boolean> {
     const url = `${this.base_url}/register`;
     const http = this.http;
     const body = new URLSearchParams();
@@ -50,7 +51,6 @@ export class ApiService {
         body.set(key, account[key]);
       }
     }
-
     return new Promise<boolean>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
@@ -225,12 +225,12 @@ export class ApiService {
     );
   }
 
-  get_librarian(query: string): Promise<Array<Account>> {
-    const url = `${this.base_url}/librarian?query=${query}`;
+  get_librarian(query: string): Promise<Array<User>> {
+    const url = `${this.base_url}/librarians?query=${query}`;
     const http = this.http;
-    return new Promise<Array<Account>>(
+    return new Promise<Array<User>>(
       function (resolve, reject) {
-        http.get<Array<Account>>(url)
+        http.get<Array<User>>(url)
           .subscribe(
             value => resolve(value),
             error => reject(error));
@@ -272,12 +272,12 @@ export class ApiService {
     );
   }
 
-  get_reader(query: string): Promise<Array<Account>> {
+  get_reader(query: string): Promise<Array<User>> {
     const url = `${this.base_url}/reader?query=${query}`,
       http = this.http;
-    return new Promise<Array<Account>>(
+    return new Promise<Array<User>>(
       function (resolve, reject) {
-        http.get<Array<Account>>(url)
+        http.get<Array<User>>(url)
           .subscribe(
             value => resolve(value),
             error => reject(error));
