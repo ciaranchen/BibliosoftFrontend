@@ -1,2 +1,34 @@
 <div class="app-wrapper">
+  <div class="py-5 text-center">
+    <h1 class="display-4">Borrow Book</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <label for="reader">Reader username</label>
+      <input type="text" id="reader" class="form-control"
+             [(ngModel)]="readerId" placeholder="username" (blur)="search_reader()">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <label for="reader">Book barcode</label>
+      <input type="text" id="barcode" class="form-control"
+             [(ngModel)]="barcode" placeholder="barcode" (blur)="search_book()">
+    </div>
+  </div>
+
+  <div class="all-info">
+    check information below:
+
+    <div id="reader-info">
+      {{ reader | json }}
+    </div>
+    <div id="book-info">
+      {{ book | json }}
+    </div>
+  </div>
+
+  <button class="btn btn-info" (click)="borrow()">Borrow Book</button>
 </div>

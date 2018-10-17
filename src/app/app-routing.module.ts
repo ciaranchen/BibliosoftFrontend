@@ -8,11 +8,11 @@ import { BookDetailComponent } from './routes/common/book-detail/book-detail.com
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
 import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
 import { LoginComponent } from './routes/common/login/login.component';
-import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
 
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
-import {LibrarianManageReaderComponent} from "./routes/librarian/librarian-manage-reader/librarian-manage-reader.component";
 import {AboutComponent} from "./routes/common/about/about.component";
+import {LibrarianBorrowComponent} from "./routes/librarian/librarian-borrow/librarian-borrow.component";
+import {ManageUserComponent} from "./routes/common/manage-user/manage-user.component";
 
 const routes: Routes = [
   // common routes
@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'search', component: LibrarianSearchBookComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
+  { path: 'manage/:role', component: ManageUserComponent },
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin/login', component: AdminLoginComponent },
@@ -28,9 +29,8 @@ const routes: Routes = [
   // reader/*
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   // testing url
-  { path: 'admin_librarian', component: AdminManageLibrarianComponent },
-  { path: 'librarian_reader', component: LibrarianManageReaderComponent },
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: 'librarian_book', component: LibrarianBorrowComponent }
 ];
 
 @NgModule({

@@ -17,12 +17,11 @@ import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
 import { PostComponent } from './components/post/post.component';
-import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
-import { LibrarianManageReaderComponent } from './routes/librarian/librarian-manage-reader/librarian-manage-reader.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { MessageService } from './utils/message.service';
+import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +37,10 @@ import { MessageService } from './utils/message.service';
     AboutComponent,
     LoginComponent,
     PostComponent,
-    AdminManageLibrarianComponent,
-    LibrarianManageReaderComponent,
     LibrarianBorrowComponent,
     ReaderViewPaymentComponent,
-    ReaderFineComponent
+    ReaderFineComponent,
+    ManageUserComponent
   ],
   imports: [
     BrowserModule,

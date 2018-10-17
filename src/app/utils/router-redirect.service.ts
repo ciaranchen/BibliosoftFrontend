@@ -9,11 +9,23 @@ export class RouterRedirectService {
   constructor(
     private router: Router
   ) { }
+  
+  need_login() {
+    if (!localStorage.getItem('login')) {
+      this.to_login();
+    }
+  }
+
+  need_not_login() {
+    if (localStorage.getItem('login')) {
+      this.back_home();
+    }
+  }
 
   only2(role1: string, role2: string, toLogin: boolean = false) {
     const role = localStorage.getItem('login');
     if (toLogin && !role) {
-      this.to_login('reader');
+      this.to_login();
     }
     if (!role || role !== role1 || role !== role2) {
       this.back_home();
@@ -23,7 +35,7 @@ export class RouterRedirectService {
   only(role: string, toLogin: boolean = false) {
     const login = localStorage.getItem('login');
     if (toLogin && !role) {
-      this.to_login('reader');
+      return this.to_login();
     }
     if (!login || login !== role) {
       this.back_home();
@@ -43,7 +55,14 @@ export class RouterRedirectService {
     }
   }
 
-  to_login(role: string) {
+  to_login() {
+    const pathname = location.pathname;
+    console.log(pathname);
+    // todo: define where it should go
+    return this._to_login('reader', pathname, location.search);
+  }
+
+  _to_login(role: string, path?: string, search?: string) {
     if (role === 'admin') {
       this.router.navigate(['admin/login']);
     } else {

@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { }
 
+  upper_role() {
+    return this.role.charAt(0).toUpperCase() + this.role.substr(1);
+  }
+
   ngOnInit() {
     const login = localStorage.getItem('login');
     console.log(login);
@@ -43,8 +47,7 @@ export class LoginComponent implements OnInit {
             console.log('404');
             this.router.navigate(['/']);
           } else {
-            this.role = role.charAt(0).toUpperCase() + role.substr(1);
-            console.log(this.role);
+            this.role = role;
             this.otherRole = role === 'reader' ? 'librarian' : 'reader';
           }
         });
@@ -55,12 +58,10 @@ export class LoginComponent implements OnInit {
     this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader'? 3 : 2)
       .then(res => {
         if (res) {
-          localStorage.setItem('login', 'admin');
-          // localStorage.setItem('username', res.username);
-          // localStorage.setItem('nickname', res.nickname);
+          localStorage.setItem('login', this.role);
           const path = this.activatedRoute.params['path'];
-          const url = path ? path : 'admin/';
-          this.router.navigate([url, 1]);
+          const url = path ? path : this.role;
+          // this.router.navigate([url]);
         } else {
           alert('login failed! try it again after refresh.');
           // console.error(res);

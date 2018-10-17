@@ -1,6 +1,6 @@
 <ng-template #registertModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title" id="submit-modal-title">Add new librarian</h4>
+    <h4 class="modal-title" id="submit-modal-title">Add new {{ managedRole }}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -46,7 +46,7 @@
                placeholder="email address" [(ngModel)]="addAccount.email" required>
       </div>
 
-      <button type="button" class="btn btn-info" (click)="submit_register()">add Librarian</button>
+      <button type="button" class="btn btn-info" (click)="submit_register()">add Account</button>
       <br>
 
       <div id="add-alert" class="alert alert-success" *ngIf="addSuccess">register success!</div>
@@ -58,20 +58,20 @@
 
 <div class="app-wrapper">
   <div class="">
-    <h4 class="title">Librarian User</h4>
+    <h4 class="title">{{ managedRole }} User</h4>
     <!--<p class="category"></p>-->
 
     <div class="row">
       <div class="input-group col-md-3">
         <input type="text" class="form-control" placeholder="search account" [(ngModel)]="searchText">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="search_librarian()" placement="top" ngbTooltip="search librarian">
+          <button class="btn btn-outline-secondary" type="button" (click)="search_user()" placement="top" ngbTooltip="search {{ managedRole }}">
             Search
           </button>
         </div>
       </div>
       <div>
-        <button type="button" class="btn btn-info" placement="top" ngbTooltip="add librarian" (click)="modalService.open(registertModal)">
+        <button type="button" class="btn btn-info" placement="top" ngbTooltip="add {{ managedRole }}" (click)="modalService.open(registertModal)">
           <i class="fa fa-plus-square"></i>
         </button>
       </div>

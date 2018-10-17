@@ -18,28 +18,24 @@
       <ul class="nav navbar-nav navbar-right" *ngIf="!role">
         <li class="nav-item"><a class="nav-link" routerLink="/login/reader">Reader Login</a></li>
         <li class="nav-item"><a class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="#">Register as a reader</a></li>
       </ul>
 
       <!-- Admin router -->
       <ul class="nav navbar-nav navbar-right"  *ngIf="role==='admin'">
-        <li class="nav-item"><a class="nav-link" routerLink="admin/home">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="admin/">Admin</a></li>
       </ul>
 
       <!-- Librarian router -->
       <ul class="nav navbar-nav navbar-right" *ngIf="role==='librarian'">
-        <li class="nav-item"><a class="nav-link" routerLink="librarian/home">Librarian</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="librarian/">Librarian</a></li>
       </ul>
 
       <!-- Reader router -->
       <ul class="nav navbar-nav navbar-right" *ngIf="role==='reader'">
-        <li class="nav-item"><a class="nav-link" routerLink="reader/home">Reader</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="reader/">Reader</a></li>
       </ul>
     </div>
   </nav>
-
-  <my-nav></my-nav>
-  <obs-comp></obs-comp>
 
   <div class="message-top">
     <app-message></app-message>

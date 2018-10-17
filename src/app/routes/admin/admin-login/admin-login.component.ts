@@ -22,9 +22,9 @@ export class AdminLoginComponent implements OnInit {
     if (login) {
       // redirect to other place
       if (login == 'admin') {
-        this.router.navigate(['admin/', 1]);
+        this.router.navigate(['admin/']);
       } else {
-        this.router.navigate(['login/' + login, 1]);
+        this.router.navigate(['login/' + login]);
       }
     }
   }

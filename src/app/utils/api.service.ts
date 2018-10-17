@@ -23,7 +23,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  static body_object(body: URLSearchParams, object: Object) {
+  static reader_and_librarian(role: string): boolean {
+    return role === 'reader' || role === 'librarian';
+  }
+
+  static body_object(body: URLSearchParams, object: Object): void {
     for (let key in object) {
       if (object.hasOwnProperty(key) && object[key]) {
         body.set(key, object[key]);
@@ -196,11 +200,11 @@ export class ApiService {
   borrow(reader: string, barcode: string): Promise<void> {
     const url = `${this.base_url}/borrow`;
     const http = this.http;
+    const body = new URLSearchParams();
+    body.set('reader', reader);
+    body.set('barcode', barcode);
     return new Promise<void>(
       function (resolve, reject) {
-        const body = new URLSearchParams();
-        body.set('reader', reader);
-        body.set('barcode', barcode);
         http.post(url, body.toString(), postOptions).subscribe(
           value => resolve(),
           error1 => reject(error1)
@@ -234,13 +238,13 @@ export class ApiService {
     );
   }
 
-  add_librarian(password: string, user: User): Promise<boolean> {
-    const url = `${this.base_url}/add_librarian`;
+  // todo: check user type
+  add_account(role: string, password: string, user: User): Promise<boolean> {
+    const url = `${this.base_url}/add_${role}`;
     const http = this.http;
     const body = new URLSearchParams();
     body.set('password', password);
     ApiService.body_object(body, user);
-    console.log(body.toString());
     return new Promise<boolean> (
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
@@ -251,8 +255,8 @@ export class ApiService {
     );
   }
 
-  get_librarian(query: string): Promise<Array<User>> {
-    const url = `${this.base_url}/librarians?query=${query}`;
+  get_account(role: string, query: string): Promise<Array<User>> {
+    const url = `${this.base_url}/${role}s?query=${query}`;
     const http = this.http;
     return new Promise<Array<User>>(
       function (resolve, reject) {
@@ -264,12 +268,12 @@ export class ApiService {
     );
   }
 
-  reset_librarian_password(user: string, newpass: string): Promise<void> {
-    const url = `${this.base_url}/reset_librarian_password`,
+  reset_password(role: string, username: string, newPass: string): Promise<void> {
+    const url = `${this.base_url}/reset_${role}_password`,
       http = this.http,
       body = new URLSearchParams();
-    body.set('username', user);
-    body.set('new_password', newpass);
+    body.set('username', username);
+    body.set('new_password', newPass);
     return new Promise<void> (
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
@@ -279,84 +283,12 @@ export class ApiService {
     );
   }
 
-  update_librarian(username: string, diff: Object): Promise<void> {
-    const url = `${this.base_url}/update_librarian`,
+  update_account(role: string, username: string, diff: Object) {
+    const url = `${this.base_url}/update_${role}`,
       http = this.http;
-    return new Promise<void>(
-      function (resolve, reject) {
-        const body = new URLSearchParams();
-        body.set('username', username);
-        for (const key in diff) {
-          if (diff.hasOwnProperty(key)) {
-            body.set(key, diff[key]);
-          }
-        }
-        http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(),
-          error1 => reject(error1));
-      }
-    );
-  }
-
-  get_reader(query: string): Promise<Array<User>> {
-    const url = `${this.base_url}/reader?query=${query}`,
-      http = this.http;
-    return new Promise<Array<User>>(
-      function (resolve, reject) {
-        http.get<Array<User>>(url)
-          .subscribe(
-            value => resolve(value),
-            error => reject(error));
-      }
-    );
-  }
-
-  add_reader(password: string, user: User): Promise<boolean> {
-    const url = `${this.base_url}/add_reader`;
-    const http = this.http;
-    const body = new URLSearchParams();
-    body.set('password', password);
-    for (const key in user) {
-      if (user.hasOwnProperty(key)) {
-        body.set(key, body.get(key));
-      }
-    }
-    return new Promise<boolean> (
-      function (resolve, reject) {
-        http.post(url, body.toString(), postOptions).subscribe(
-          val => resolve(true),
-          err => err.status === 407? resolve(false): reject(err)
-        );
-      }
-    );
-  }
-
-  reset_reader_password(user: string, newpass: string): Promise<void> {
-    const url = `${this.base_url}/reset_reader_password`,
-      http = this.http,
-      body = new URLSearchParams();
-    body.set('username', user);
-    body.set('new_password', newpass);
-    return new Promise<void> (
-      function (resolve, reject) {
-
-        http.post(url, body.toString(), postOptions).subscribe(
-          val => resolve(),
-          error => reject(error));
-      }
-    );
-  }
-
-  update_reader(username:string, diff: Object): Promise<void> {
-    const url = `${this.base_url}/update_reader`;
-    const http = this.http;
     const body = new URLSearchParams();
     body.set('username', username);
-    for (const key in diff) {
-      if (diff.hasOwnProperty(key)) {
-        body.set(key, diff[key]);
-      }
-    }
+    ApiService.body_object(body, diff);
     return new Promise<void>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(

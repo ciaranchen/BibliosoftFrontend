@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../../utils/message.service';
+import {Message, MessageService} from '../../utils/message.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-message',
@@ -7,10 +8,28 @@ import { MessageService } from '../../utils/message.service';
   styleUrls: ['./messages.component.css']
 })
 export class MessagesComponent implements OnInit {
+  message: Message = new Message('', '');
 
-  constructor(public messageService: MessageService) { }
+  constructor(
+    public messageService: MessageService,
+    public router: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    // get url param
+    this.router
+      .queryParams.subscribe(
+      value => {
+        const msg = value['msg'];
+        if (!msg) {
+          return;
+        }
+        this.message.msg = msg;
+        this.message.title = value['msg_title'] ? value['msg_title'] : '';
+        const type = value['msg_type'];
+        this.message.type =  (type && Message.isAlert(type)) ? 'alert-' + type: 'alert-info';
+      }
+    );
   }
 
 }
