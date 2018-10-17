@@ -59,7 +59,8 @@ export class AdminManageLibrarianComponent implements OnInit {
   }
 
   submit_register() {
-    this.apiService.register(this.addPassword, 2, this.addAccount)
+    console.log(this.addAccount);
+    this.apiService.add_librarian(this.addPassword, this.addAccount)
       .then((res) => {
         if (res) {
           alert('successfully register');

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {User} from "../../../utils/DataStructs/User";
 
 @Component({
   selector: 'app-admin-login',
@@ -55,6 +56,8 @@ export class LoginComponent implements OnInit {
       .then(res => {
         if (res) {
           localStorage.setItem('login', 'admin');
+          // localStorage.setItem('username', res.username);
+          // localStorage.setItem('nickname', res.nickname);
           const path = this.activatedRoute.params['path'];
           const url = path ? path : 'admin/';
           this.router.navigate([url, 1]);

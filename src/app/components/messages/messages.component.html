@@ -1,5 +1,8 @@
-<div *ngIf="messageService.messages.length">
-  <ul class="list-group">
-    <li *ngFor="let message of messageService.messages" class="list-group-item">{{message}}</li>
-  </ul>
+<div *ngFor="let message of messageService.messages">
+  <div [ngClass]="['alert', 'alert-dismissible', 'fade', 'show', message.type]" role="alert">
+    <strong>{{ message.title }}</strong>{{ message.msg }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
 </div>

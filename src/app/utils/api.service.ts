@@ -23,6 +23,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  static body_object(body: URLSearchParams, object: Object) {
+    for (let key in object) {
+      if (object.hasOwnProperty(key) && object[key]) {
+        body.set(key, object[key]);
+      }
+    }
+  }
+
   login(username: string, password: string, type: number): Promise<boolean> {
     const url = `${this.base_url}/login`;
     const http = this.http;
@@ -40,6 +48,7 @@ export class ApiService {
     );
   }
 
+  // todo: abort it
   register(password: string, role: number, account: User): Promise<boolean> {
     const url = `${this.base_url}/register`;
     const http = this.http;
@@ -225,6 +234,23 @@ export class ApiService {
     );
   }
 
+  add_librarian(password: string, user: User): Promise<boolean> {
+    const url = `${this.base_url}/add_librarian`;
+    const http = this.http;
+    const body = new URLSearchParams();
+    body.set('password', password);
+    ApiService.body_object(body, user);
+    console.log(body.toString());
+    return new Promise<boolean> (
+      function (resolve, reject) {
+        http.post(url, body.toString(), postOptions).subscribe(
+          val => resolve(true),
+          err => err.status === 407? resolve(false): reject(err)
+        );
+      }
+    );
+  }
+
   get_librarian(query: string): Promise<Array<User>> {
     const url = `${this.base_url}/librarians?query=${query}`;
     const http = this.http;
@@ -281,6 +307,26 @@ export class ApiService {
           .subscribe(
             value => resolve(value),
             error => reject(error));
+      }
+    );
+  }
+
+  add_reader(password: string, user: User): Promise<boolean> {
+    const url = `${this.base_url}/add_reader`;
+    const http = this.http;
+    const body = new URLSearchParams();
+    body.set('password', password);
+    for (const key in user) {
+      if (user.hasOwnProperty(key)) {
+        body.set(key, body.get(key));
+      }
+    }
+    return new Promise<boolean> (
+      function (resolve, reject) {
+        http.post(url, body.toString(), postOptions).subscribe(
+          val => resolve(true),
+          err => err.status === 407? resolve(false): reject(err)
+        );
       }
     );
   }

@@ -20,8 +20,9 @@ import { PostComponent } from './components/post/post.component';
 import { AdminManageLibrarianComponent } from './routes/admin/admin-manage-librarian/admin-manage-librarian.component';
 import { LibrarianManageReaderComponent } from './routes/librarian/librarian-manage-reader/librarian-manage-reader.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
-import {ReaderViewPaymentComponent} from "./routes/reader/reader-view-payment/reader-view-payment.component";
-
+import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
+import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
+import { MessageService } from './utils/message.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {ReaderViewPaymentComponent} from "./routes/reader/reader-view-payment/re
     AdminManageLibrarianComponent,
     LibrarianManageReaderComponent,
     LibrarianBorrowComponent,
-    ReaderViewPaymentComponent
+    ReaderViewPaymentComponent,
+    ReaderFineComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ import {ReaderViewPaymentComponent} from "./routes/reader/reader-view-payment/re
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
