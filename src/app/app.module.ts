@@ -24,6 +24,9 @@ import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
 import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/librarian-return.component";
+import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
+import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
+import { BorrowRecordsComponent } from './routes/common/borrow-records/borrow-records.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,11 @@ import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/li
     ReaderViewPaymentComponent,
     ReaderFineComponent,
     ManageUserComponent,
-    LibrarianReturnComponent
+    LibrarianReturnComponent,
+    ManageUserComponent,
+    ReaderBorrowingComponent,
+    ReaderProfileComponent,
+    BorrowRecordsComponent
   ],
   imports: [
     BrowserModule,

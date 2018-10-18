@@ -54,7 +54,7 @@ export class ManageUserComponent implements OnInit {
     const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader'? '12345678': '00010001');
     this.apiService.reset_password(this.managedRole, username, new_pass)
       .then(() => {
-        messageService.messages.push(new Message('fail to reset password', username, 'danger'));
+        this.messageService.messages.push(new Message('fail to reset password', username, 'danger'));
       }).catch(err => {
         console.error(err);
       });

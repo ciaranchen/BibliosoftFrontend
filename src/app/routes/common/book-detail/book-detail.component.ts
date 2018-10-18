@@ -25,17 +25,12 @@ export class BookDetailComponent implements OnInit {
   ngOnInit(): void {
     // to get metaBook information from backend
     this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
-    this.apiService.get_meta_book(this.isbn).then(
-      res => {
-        this.metaBook = res;
-      }
-    ).catch(
-      error => {
-        if (error) {
-          console.error('404');
-          console.error(error);
-          // this.router.navigate(['']);
-        }
+    this.apiService.get_meta_book(this.isbn)
+      .then(res => {this.metaBook = res})
+      .catch(error => {
+        console.error('404');
+        console.error(error);
+        // this.router.navigate(['']);
       }
     );
     this.apiService.get_books(this.isbn).then(

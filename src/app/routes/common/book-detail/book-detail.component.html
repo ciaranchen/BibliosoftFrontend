@@ -38,6 +38,7 @@
           <th scope="col">Barcode</th>
           <th scope="col">Location</th>
           <th scope="col">Add Time</th>
+          <th scope="col">Available</th>
           <th scope="col" *ngIf="login==='librarian'">operation</th>
         </tr>
       </thead>
@@ -47,6 +48,7 @@
           <td>{{x.barcode}}</td>
           <td>{{x.location}}</td>
           <td>{{x.add_time}}</td>
+          <td>{{x.available}}</td>
           <td *ngIf="login==='librarian'">
             <button type="button" class="btn btn-sm" placement="top" (click)="edit_location($event)" ngbTooltip="edit location">
               <i class="fa fa-edit"></i>

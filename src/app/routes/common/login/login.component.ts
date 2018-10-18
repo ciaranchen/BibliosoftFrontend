@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../../utils/DataStructs/User";
+import {RouterRedirectService} from "../../../utils/router-redirect.service";
 
 @Component({
   selector: 'app-admin-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   otherRole: string;
 
   constructor(
+    private routerRedirect: RouterRedirectService,
     private apiService: ApiService,
     private router: Router,
     private activatedRoute: ActivatedRoute
@@ -25,19 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    const login = localStorage.getItem('login');
-    console.log(login);
-    if (login) {
-      // redirect to other place
-      if (login === 'admin') {
-        this.router.navigate(['admin/']);
-      } else if (login === 'librarian' || login === 'reader') {
-        this.router.navigate([login]);
-      } else {
-        console.error('localStorage failed.');
-        this.router.navigate(['/'])
-      }
-    }
+    // this.routerRedirect.need_not_login();
     this.activatedRoute.paramMap
       .subscribe(
         res => {

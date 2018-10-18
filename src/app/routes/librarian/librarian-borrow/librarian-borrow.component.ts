@@ -3,6 +3,8 @@ import {ApiService} from "../../../utils/api.service";
 import {User} from "../../../utils/DataStructs/User";
 import {RouterRedirectService} from "../../../utils/router-redirect.service";
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
+import {Book} from "../../../utils/DataStructs/Book";
+import {Message, MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-librarian-borrow',
@@ -18,9 +20,11 @@ export class LibrarianBorrowComponent implements OnInit {
   cacheBarcode: string;
 
   reader: User;
-  book: MetaBook;
+  book: Book;
+  metaBook: MetaBook;
 
   constructor(
+    private messageService: MessageService,
     private routerRedirect: RouterRedirectService,
     private apiService: ApiService
   ) { }
@@ -33,6 +37,7 @@ export class LibrarianBorrowComponent implements OnInit {
     if (this.readerId === this.cacheReaderId) {
       return;
     }
+    this.cacheReaderId = this.readerId;
     this.apiService.get_account('reader', this.readerId)
       .then(res => {
         if (res.length === 0 || res[0].username !== this.readerId) {
@@ -50,14 +55,34 @@ export class LibrarianBorrowComponent implements OnInit {
     if (this.cacheBarcode === this.barcode) {
       return;
     }
+    this.cacheBarcode = this.barcode;
+    this.apiService.get_book(this.barcode)
+      .then(res => {
+        this.book = res;
+        console.log(res);
+        this.apiService.get_meta_book(res.isbn)
+          .then(res => {
+            this.metaBook = res;
+          }).catch(err => {
+            // todo: do sth
+          });
+      }).catch(err => {
+        // todo: do sth
+      });
   }
 
   borrow() {
     this.apiService.borrow(this.readerId, this.barcode)
-      .then(() => {
-        // todo: do sth
-      })
-      .catch(err => {
+      .then(res => {
+        if (res) {
+          this.messageService.messages.push(new Message('borrow success!', '', 'success'));
+        } else {
+          this.messageService.messages.push(
+            new Message(
+              'borrow fail! check book status: http://bibliosoft.ciaran.cn/book-detail/' + this.book.isbn,
+              'May be this book is be borrowed by other.', 'danger'));
+        }
+      }).catch(err => {
         console.error(err);
       });
   }

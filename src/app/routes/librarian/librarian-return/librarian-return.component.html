@@ -1,3 +1,5 @@
+<!-- todo: modal -->
+
 <div class="app-wrapper">
   <div class="py-5 text-center">
     <h1 class="display-4">Return Book</h1>
@@ -11,19 +13,13 @@
     </div>
   </div>
 
-  <div>
-    <label for="borrow-book">Borrow</label>
-    <div id="borrow-book" *ngFor="let x of borrowed">
-        <div class="form-check" >
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            {{ x.barcode }}
-          </label>
-        </div>
-    </div>
-    
-  </div>
-  
+  <label class="mr-lg-auto" for="borrowed">Borrowed Books</label>
+  <select class="custom-select mr-lg-6" id="borrowed">
+    <option *ngFor="let x of borrowed" class="form-check-label" value="{{ x.id }}">
+      {{ x | json }}
+    </option>
+  </select>
+
 
   <div class="all-info">
     check information below:
@@ -31,10 +27,7 @@
     <div id="reader-info">
       {{ reader | json }}
     </div>
-    <div id="book-info">
-      {{ borrowed | json }}
-    </div>
   </div>
 
-  <button class="btn btn-info" (click)="return()">Borrow Book</button>
+  <button class="btn btn-info" (click)="click_return()">Return Book</button>
 </div>

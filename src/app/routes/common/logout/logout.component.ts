@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {ApiService} from "../../../utils/api.service";
 
 @Component({
   selector: 'app-logout',
@@ -9,12 +10,13 @@ import {Router} from "@angular/router";
 export class LogoutComponent implements OnInit {
 
   constructor(
+    private apiService: ApiService,
     private router: Router
   ) { }
 
   ngOnInit() {
     localStorage.removeItem('login');
-    // todo: a signal for backend;
+    this.apiService.logout();
     this.router.navigate(['/']);
   }
 }

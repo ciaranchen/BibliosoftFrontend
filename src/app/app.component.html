@@ -34,6 +34,10 @@
       <ul class="nav navbar-nav navbar-right" *ngIf="role==='reader'">
         <li class="nav-item"><a class="nav-link" routerLink="reader/">Reader</a></li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="role">
+        <li class="nav-item"><a class="nav-link" routerLink="/logout">Logout</a></li>
+      </ul>
     </div>
   </nav>
 

@@ -13,6 +13,9 @@ import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/
 import {AboutComponent} from "./routes/common/about/about.component";
 import {LibrarianBorrowComponent} from "./routes/librarian/librarian-borrow/librarian-borrow.component";
 import {ManageUserComponent} from "./routes/common/manage-user/manage-user.component";
+import {BorrowRecordsComponent} from "./routes/common/borrow-records/borrow-records.component";
+import {LogoutComponent} from "./routes/common/logout/logout.component";
+import {LibrarianReturnComponent} from "./routes/librarian/librarian-return/librarian-return.component";
 
 const routes: Routes = [
   // common routes
@@ -21,6 +24,7 @@ const routes: Routes = [
   { path: 'book/:ISBN', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
   { path: 'manage/:role', component: ManageUserComponent },
+  { path: 'logout', component: LogoutComponent },
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin/login', component: AdminLoginComponent },
@@ -30,7 +34,9 @@ const routes: Routes = [
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   // testing url
   { path: 'about', component: AboutComponent },
-  { path: 'librarian_book', component: LibrarianBorrowComponent }
+  { path: 'librarian_borrow', component: LibrarianBorrowComponent },
+  { path: 'librarian_return', component: LibrarianReturnComponent },
+  { path: 'borrow_record/:reader', component: BorrowRecordsComponent }
 ];
 
 @NgModule({
