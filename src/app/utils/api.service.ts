@@ -15,6 +15,10 @@ const postOptions = {
   withCredentials: true
 };
 
+const getOptions = {
+  withCredentials: true
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -78,7 +82,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<boolean>(
       function (resolve, reject) {
-        http.get(url).subscribe(
+        http.get(url, getOptions).subscribe(
           val => resolve(true),
           error1 => error1.status === 404? resolve(false) : reject(error1));
       }
@@ -118,7 +122,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<MetaBook>(
       function (resolve, reject) {
-        http.get<MetaBook>(url).subscribe(
+        http.get<MetaBook>(url, getOptions).subscribe(
           value => resolve(value),
           error1 => reject(error1));
       }
@@ -130,7 +134,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<Array<Book>>(
       function (resolve, reject) {
-        http.get<Array<Book>>(url).subscribe(
+        http.get<Array<Book>>(url, getOptions).subscribe(
           value => resolve(value),
           error1 => reject(error1));
       }
@@ -218,7 +222,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<Fine>(
       function (resolve, reject) {
-        http.get<Fine>(url).subscribe(
+        http.get<Fine>(url, getOptions).subscribe(
           value => resolve(value),
           error1 => reject(error1)
         );
@@ -231,7 +235,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<Array<MetaBook>>(
       function (resolve, reject) {
-        http.get<Array<MetaBook>>(url).subscribe(
+        http.get<Array<MetaBook>>(url, getOptions).subscribe(
           value => resolve(value),
           error1 => reject(error1));
       }
@@ -260,7 +264,7 @@ export class ApiService {
     const http = this.http;
     return new Promise<Array<User>>(
       function (resolve, reject) {
-        http.get<Array<User>>(url)
+        http.get<Array<User>>(url, getOptions)
           .subscribe(
             value => resolve(value),
             error => reject(error));

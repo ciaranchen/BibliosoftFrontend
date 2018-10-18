@@ -35,8 +35,8 @@ export class AdminLoginComponent implements OnInit {
         if (res) {
           localStorage.setItem('login', 'admin');
           const path = this.activatedRoute.params['path'];
-          const url = path ? path : 'admin/';
-          this.router.navigate([url, 1]);
+          // const url = path ? path : 'admin/';
+          // this.router.navigate([url]);
         } else {
           // todo: show error;
           console.log('login failed');

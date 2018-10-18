@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { MessageService } from './utils/message.service';
+
 import { HomeComponent } from './routes/common/home/home.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
 import { LibrarianSearchBookComponent } from './routes/librarian/librarian-search-book/librarian-search-book.component';
@@ -20,8 +22,8 @@ import { PostComponent } from './components/post/post.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
-import { MessageService } from './utils/message.service';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
+import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/librarian-return.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { ManageUserComponent } from './routes/common/manage-user/manage-user.com
     LibrarianBorrowComponent,
     ReaderViewPaymentComponent,
     ReaderFineComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    LibrarianReturnComponent
   ],
   imports: [
     BrowserModule,

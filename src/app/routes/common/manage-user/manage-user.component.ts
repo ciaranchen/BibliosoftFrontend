@@ -48,18 +48,21 @@ export class ManageUserComponent implements OnInit {
 
   reset_password($event: Event) {
     const tr = $event.srcElement.parentElement.parentNode;
-    // console.log(tr);
-    const username = tr.childNodes[1].textContent;
-    const new_pass = prompt('please input new password', this.managedRole === 'reader'? '12345678': '00010001');
+    console.log(tr);
+    const username = tr.childNodes[2].textContent;
+    console.log(username);
+    const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader'? '12345678': '00010001');
     this.apiService.reset_password(this.managedRole, username, new_pass)
-      .catch(err => {
+      .then(() => {
+        messageService.messages.push(new Message('fail to reset password', username, 'danger'));
+      }).catch(err => {
         console.error(err);
       });
   }
 
   remove_user($event: Event) {
     const tr = $event.srcElement.parentElement.parentNode;
-    const username = tr.childNodes[1].textContent;
+    const username = tr.childNodes[2].textContent;
     const confirm_remove = confirm(`Are you sure to delete "${username}"?`);
     if (confirm_remove) {
       // todo: remove user
@@ -83,7 +86,7 @@ export class ManageUserComponent implements OnInit {
           this.messageService.messages.push(new Message('register account success!', 'Success ', 'success'));
           setTimeout(location.reload, waitTime);
         } else {
-          this.messageService.messages.push(new Message('this username may be used by other user', 'Fail: ', 'fail'));
+          this.messageService.messages.push(new Message('this username may be used by other user', 'Fail: ', 'danger'));
         }
       }).catch(err => {
         console.error(err);
