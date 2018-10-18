@@ -22,6 +22,7 @@ import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { MessageService } from './utils/message.service';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
+import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ManageUserComponent } from './routes/common/manage-user/manage-user.com
     LibrarianBorrowComponent,
     ReaderViewPaymentComponent,
     ReaderFineComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    AdminChangePasswordComponent
   ],
   imports: [
     BrowserModule,
