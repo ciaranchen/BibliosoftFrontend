@@ -27,6 +27,7 @@ import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/li
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { BorrowRecordsComponent } from './routes/common/borrow-records/borrow-records.component';
+import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { BorrowRecordsComponent } from './routes/common/borrow-records/borrow-re
     ManageUserComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
-    BorrowRecordsComponent
+    BorrowRecordsComponent,
+    AdminChangePasswordComponent
   ],
   imports: [
     BrowserModule,

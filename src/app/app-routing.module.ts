@@ -16,6 +16,7 @@ import {ManageUserComponent} from "./routes/common/manage-user/manage-user.compo
 import {BorrowRecordsComponent} from "./routes/common/borrow-records/borrow-records.component";
 import {LogoutComponent} from "./routes/common/logout/logout.component";
 import {LibrarianReturnComponent} from "./routes/librarian/librarian-return/librarian-return.component";
+import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component'
 
 const routes: Routes = [
   // common routes
@@ -28,6 +29,7 @@ const routes: Routes = [
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin/login', component: AdminLoginComponent },
+  { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   // reader/*
