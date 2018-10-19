@@ -51,11 +51,12 @@ export class ManageUserComponent implements OnInit {
     console.log(tr);
     const username = tr.childNodes[2].textContent;
     console.log(username);
-    const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader'? '12345678': '00010001');
+    const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader' ? '12345678' : '00010001');
     this.apiService.reset_password(this.managedRole, username, new_pass)
       .then(() => {
-        this.messageService.messages.push(new Message('fail to reset password', username, 'danger'));
+        this.messageService.messages.push(new Message('Success to reset password', username, 'success'));
       }).catch(err => {
+        this.messageService.messages.push(new Message('fail to reset password', username, 'danger'));
         console.error(err);
       });
   }

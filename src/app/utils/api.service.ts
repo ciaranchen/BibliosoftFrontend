@@ -252,7 +252,7 @@ export class ApiService {
     );
   }
 
-  return_book(borrowId: number): Promise<Fine> {
+  return_book(borrowId: string): Promise<Fine> {
     const url = `${this.base_url}/return_book`,
       http = this.http;
     return new Promise<Fine>(
@@ -362,7 +362,7 @@ export class ApiService {
     ) : undefined;
   }
 
-  update_account(role: string, username: string, diff: Object) {
+  update_account(role: string, username: string, diff: Object): Promise<void> {
     const url = `${this.base_url}/update_${role}`,
       http = this.http;
     const body = new URLSearchParams();

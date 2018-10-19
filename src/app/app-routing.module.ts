@@ -10,13 +10,15 @@ import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.compone
 import { LoginComponent } from './routes/common/login/login.component';
 
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
-import {AboutComponent} from "./routes/common/about/about.component";
-import {LibrarianBorrowComponent} from "./routes/librarian/librarian-borrow/librarian-borrow.component";
-import {ManageUserComponent} from "./routes/common/manage-user/manage-user.component";
-import {BorrowRecordsComponent} from "./routes/common/borrow-records/borrow-records.component";
-import {LogoutComponent} from "./routes/common/logout/logout.component";
-import {LibrarianReturnComponent} from "./routes/librarian/librarian-return/librarian-return.component";
-import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component'
+import {AboutComponent} from './routes/common/about/about.component';
+import {LibrarianBorrowComponent} from './routes/librarian/librarian-borrow/librarian-borrow.component';
+import {ManageUserComponent} from './routes/common/manage-user/manage-user.component';
+import {BorrowRecordsComponent} from './routes/common/borrow-records/borrow-records.component';
+import {LogoutComponent} from './routes/common/logout/logout.component';
+import {LibrarianReturnComponent} from './routes/librarian/librarian-return/librarian-return.component';
+import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component';
+import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
+import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 
 const routes: Routes = [
   // common routes
@@ -38,7 +40,9 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'librarian_borrow', component: LibrarianBorrowComponent },
   { path: 'librarian_return', component: LibrarianReturnComponent },
-  { path: 'borrow_record/:reader', component: BorrowRecordsComponent }
+  { path: 'borrow_record/:reader', component: BorrowRecordsComponent },
+  { path: 'reader/profile/:reader', component: ReaderProfileComponent },
+  { path: 'reader/borrowed/:reader', component: ReaderBorrowingComponent },
 ];
 
 @NgModule({

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../../utils/api.service";
-import {User} from "../../../utils/DataStructs/User";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
-import {Borrow} from "../../../utils/DataStructs/Borrow";
+import {ApiService} from '../../../utils/api.service';
+import {User} from '../../../utils/DataStructs/User';
+import {RouterRedirectService} from '../../../utils/router-redirect.service';
+import {Borrow} from '../../../utils/DataStructs/Borrow';
+import { MessageService, Message } from '../../../utils/message.service';
 
 @Component({
   selector: 'app-librarian-return',
@@ -18,9 +19,10 @@ export class LibrarianReturnComponent implements OnInit {
   borrowed: Array<Borrow>;
 
   willReturn: Array<Borrow> = [];
-  totalFine: number = 0;
+  totalFine = 0;
 
   constructor(
+    private messageService: MessageService,
     private routerRedirect: RouterRedirectService,
     private apiService: ApiService
   ) { }
@@ -46,41 +48,26 @@ export class LibrarianReturnComponent implements OnInit {
     this.apiService.borrow_records(this.readerId, true)
       .then(res => {
         // filter not return_time
-        this.borrowed = res.filter((val) => {return val.return_time === null})
+        this.borrowed = res.filter(val => val.return_time === null);
       }).catch(err => {
         console.error(err);
       });
     // todo: get the book he is borrow;
   }
 
-  sure_return() {
-    // todo: pay fine
-    // ids.forEach(val => {
-    //   this.apiService.return_book(val).then(
-    //     () => {
-    //       // todo: remove this id from borrowed;
-    //     }
-    //   );
-    // });
-  }
-
-  onChangeSelect() {
-    //
-  }
-
   click_return() {
-    const inputs = document.getElementById('borrowed').getElementsByClassName('form-check-input');
-    console.log(inputs);
+    const selectedOptions = (<HTMLSelectElement>document.getElementById('borrowed')).selectedOptions;
+    // todo: deal with selectedOtions.length === 0
+    const optionElem = selectedOptions[0];
+    console.log(optionElem);
 
-    // todo: fix it
-    for (let i = 0; i < inputs.length; i++) {
-      if ((<HTMLInputElement>inputs.item(i))) {
-        const id = inputs.item(i).getAttribute('value');
-        const borrowObject = this.borrowed.find(value => value.id.toString() === id);
-        this.willReturn.push(borrowObject);
-      }
-    }
-    // console.log(this.willReturn);
-    // todo: get fine
+    const borrowId = optionElem.value;
+    console.log(borrowId);
+    // return book
+    this.apiService.return_book(borrowId)
+      .then(res => {
+        console.log(res);
+        // todo: show payment pages;
+      });
   }
 }

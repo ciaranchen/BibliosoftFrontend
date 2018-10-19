@@ -45,10 +45,18 @@ export class LoginComponent implements OnInit {
   }
 
   admin_login(user?: string, pass?: string) {
-    this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader'? 3 : 2)
+    this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader' ? 3 : 2)
       .then(res => {
         if (res) {
+          localStorage.clear();
           localStorage.setItem('login', this.role);
+          console.log(res);
+          for (const key in res) {
+            if (res.hasOwnProperty(key) && res[key] !== null) {
+              console.log(res[key]);
+              localStorage.setItem(key, res[key]);
+            }
+          }
           const path = this.activatedRoute.params['path'];
           const url = path ? path : this.role;
           // this.router.navigate([url]);
