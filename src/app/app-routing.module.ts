@@ -14,7 +14,7 @@ import {AboutComponent} from "./routes/common/about/about.component";
 import {LibrarianBorrowComponent} from "./routes/librarian/librarian-borrow/librarian-borrow.component";
 import {ManageUserComponent} from "./routes/common/manage-user/manage-user.component";
 import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component'
-
+import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component'
 const routes: Routes = [
   // common routes
   { path: '', component: HomeComponent },
@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
+  { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   // reader/*
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   // testing url
