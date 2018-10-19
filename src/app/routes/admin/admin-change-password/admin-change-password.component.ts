@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../utils/api.service';
+import { MessageService, Message } from '../../../utils/message.service';
+import { RouterRedirectService } from '../../../utils/router-redirect.service';
 
 @Component({
   selector: 'app-admin-change-password',
@@ -10,21 +13,28 @@ export class AdminChangePasswordComponent implements OnInit {
   old_pwd: string;
   new_pwd1: string;
   new_pwd2: string;
-  constructor() { }
+
+  constructor(
+    private routerRedirect: RouterRedirectService,
+    private messageService: MessageService,
+    private apiService: ApiService
+  ) { }
 
   ngOnInit() {
+    this.routerRedirect.only('admin');
   }
-  onClick(){
-    if(this.check_oldPwd()){
-      this.change_pwd();
-    }
-    // console.log(this.old_pwd,this.new_pwd1,this.new_pwd2);
+
+  submit_available(): boolean {
+    return this.new_pwd1 !== this.new_pwd2;
   }
-  check_oldPwd(): boolean {
-    // to check the old pwd
-    return true;
-  }
-  change_pwd() {
-    //to change pwd
+
+  change_password() {
+    // to change pwd
+    this.apiService.reset_admin_password(this.old_pwd, this.new_pwd1)
+      .then(res => {
+        this.messageService.messages.push(
+          new Message('success change password', '', 'success')
+        );
+      });
   }
 }
