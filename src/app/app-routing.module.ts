@@ -19,6 +19,7 @@ import {LibrarianReturnComponent} from './routes/librarian/librarian-return/libr
 import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
+import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 
 const routes: Routes = [
   // common routes
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
+  { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   // reader/*
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   // testing url

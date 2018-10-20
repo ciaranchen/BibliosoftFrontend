@@ -28,6 +28,7 @@ import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reade
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { BorrowRecordsComponent } from './routes/common/borrow-records/borrow-records.component';
 import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
+import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AdminChangePasswordComponent } from './routes/admin/admin-change-passwo
     ReaderBorrowingComponent,
     ReaderProfileComponent,
     BorrowRecordsComponent,
-    AdminChangePasswordComponent
+    AdminChangePasswordComponent,
+    LibrarianViewFineComponent
   ],
   imports: [
     BrowserModule,
