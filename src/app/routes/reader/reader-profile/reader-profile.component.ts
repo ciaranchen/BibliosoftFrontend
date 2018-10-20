@@ -27,36 +27,30 @@ export class ReaderProfileComponent implements OnInit {
   ngOnInit() {
     // this.routerRedirect.only2('reader', 'librarian');
     // get url params
-    this.activedRoute.paramMap.subscribe(
+    this.activedRoute.params.subscribe(
       val => {
-        const readerId = val.get('reader');
-        const login = localStorage.getItem('login');
-        if (login === 'librarian') {
+        // console.log(val);
+        const readerId = val['forlibrarian'];
+        if (!readerId) {
+          // should login as reader
+          this.routerRedirect.only('reader');
+          // get user information
+          this.reader = new User(
+            localStorage.getItem('username'),
+            localStorage.getItem('email'),
+            localStorage.getItem('nickname'),
+            localStorage.getItem('address') !== null ? localStorage.getItem('address') : '',
+            localStorage.getItem('slogan') !== null ? localStorage.getItem('slogan') : '');
+        } else {
           this.apiService.get_account('reader', readerId)
             .then(res => {
               // todo: check res[0].username and readerId;
               this.reader = res[0];
             });
-        } else {
-          if (readerId === localStorage.getItem('username')) {
-            this.reader = new User(
-              readerId,
-              localStorage.getItem('email'),
-              localStorage.getItem('nickname'),
-              localStorage.getItem('address') !== null ? localStorage.getItem('address') : '',
-              localStorage.getItem('slogan') !== null ? localStorage.getItem('slogan') : '');
-          } else {
-            // todo: deal with error
-          }
         }
-      },
-      err => {
-        // todo: deal with error
-      },
-      () => {
-        console.log(this.reader);
+        // console.log(this.reader);
         Object.assign(this.showReader, this.reader);
-      }
+      },
     );
   }
 

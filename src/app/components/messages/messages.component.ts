@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Message, MessageService} from '../../utils/message.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-message',
@@ -21,15 +21,16 @@ export class MessagesComponent implements OnInit {
       .queryParams.subscribe(
       value => {
         const msg = value['msg'];
-        if (!msg) {
-          return;
+        if (msg) {
+          this.message.msg = msg;
+          this.message.title = value['msg_title'] ? value['msg_title'] : '';
+          const type = value['msg_type'];
+          this.message.type =  (type && Message.isAlert(type)) ? 'alert-' + type : 'alert-info';
         }
-        this.message.msg = msg;
-        this.message.title = value['msg_title'] ? value['msg_title'] : '';
-        const type = value['msg_type'];
-        this.message.type =  (type && Message.isAlert(type)) ? 'alert-' + type: 'alert-info';
-      }
-    );
+      });
   }
 
+  render_message(message) {
+    return (message.title === '' || message === undefined) ? message.msg : `<strong>${message.title} </strong> ${message.msg}`;
+  }
 }

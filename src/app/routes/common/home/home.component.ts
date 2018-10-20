@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService, Message } from '../../../utils/message.service';
 
 
 @Component({
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private messageService: MessageService
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.messageService.messages.push(new Message('test msg', 'test title', 'info'));
+  }
 }

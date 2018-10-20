@@ -22,8 +22,12 @@ import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reade
 import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 
 const routes: Routes = [
-  // common routes
+  // home pages
   { path: '', component: HomeComponent },
+  { path: 'librarian', component: LibrarianBorrowComponent },
+  { path: 'admin', component: AdminChangePasswordComponent },
+  { path: 'reader', component: ReaderProfileComponent },
+  // common routes
   { path: 'search', component: LibrarianSearchBookComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
@@ -32,19 +36,20 @@ const routes: Routes = [
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
   { path: 'admin/login', component: AdminLoginComponent },
-  { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
-  { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   // reader/*
-  { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
+
   // testing url
   { path: 'about', component: AboutComponent },
-  { path: 'librarian_borrow', component: LibrarianBorrowComponent },
-  { path: 'librarian_return', component: LibrarianReturnComponent },
+  { path: 'librarian/borrow', component: LibrarianBorrowComponent },
+  { path: 'librarian/return', component: LibrarianReturnComponent },
   { path: 'borrow_record/:reader', component: BorrowRecordsComponent },
-  { path: 'reader/profile/:reader', component: ReaderProfileComponent },
+  { path: 'reader/profile', component: ReaderProfileComponent },
   { path: 'reader/borrowed/:reader', component: ReaderBorrowingComponent },
+  { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
+  { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
+  { path: 'admin/change_password', component: AdminChangePasswordComponent },
 ];
 
 @NgModule({

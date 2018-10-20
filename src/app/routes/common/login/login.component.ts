@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../../utils/api.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {User} from "../../../utils/DataStructs/User";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
+import {ApiService} from '../../../utils/api.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../../../utils/DataStructs/User';
+import {RouterRedirectService} from '../../../utils/router-redirect.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
         if (res) {
           localStorage.clear();
           localStorage.setItem('login', this.role);
-          console.log(res);
+          // console.log(res);
           for (const key in res) {
             if (res.hasOwnProperty(key) && res[key] !== null) {
-              console.log(res[key]);
+              // console.log(res[key]);
               localStorage.setItem(key, res[key]);
             }
           }

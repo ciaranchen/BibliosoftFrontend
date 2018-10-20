@@ -21,7 +21,7 @@ export class AdminLoginComponent implements OnInit {
     const login = localStorage.getItem('login');
     if (login) {
       // redirect to other place
-      if (login == 'admin') {
+      if (login === 'admin') {
         this.router.navigate(['admin/']);
       } else {
         this.router.navigate(['login/' + login]);

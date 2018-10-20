@@ -1,6 +1,6 @@
 <!-- message from last page -->
 <div [ngClass]="['alert', 'alert-dismissible', 'fade', 'show', message.type]" role="alert" *ngIf="message.msg!==''">
-  <strong>{{ message.title }}</strong>{{ message.msg }}
+  <p [innerHtml]="render_message(message)" style="margin: 0"></p>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -9,7 +9,7 @@
 <!-- messageService -->
 <div *ngFor="let message of messageService.messages">
   <div [ngClass]="['alert', 'alert-dismissible', 'fade', 'show', message.type]" role="alert">
-    <strong>{{ message.title }}</strong>{{ message.msg }}
+    <p [innerHtml]="render_message(message)" style="margin: 0"></p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
