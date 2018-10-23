@@ -6,8 +6,8 @@
 
   <ul class="nav navbar-nav" routerLinkActive="active">
     <!-- Common activatedRoute-->
-    <li class="nav-item"><a mat-menu-item class="nav-link" routerLink="/">Home</a></li>
-    <li class="nav-item"><a mat-menu-item class="nav-link" routerLink="/about">About</a></li>
+    <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
+    <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
     <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
   </ul>
 
@@ -29,6 +29,9 @@
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
       <li class="nav-item"><a class="nav-link" routerLink="/librarian/">Librarian</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/manage/reader/">Manage Reader</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/add_book/">Add Book</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/borrow/">Borrow</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/return/">Return</a></li>
     </ul>
 
     <!-- Reader activatedRoute -->

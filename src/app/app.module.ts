@@ -11,7 +11,7 @@ import { MessageService } from './utils/message.service';
 
 import { HomeComponent } from './routes/common/home/home.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
-import { LibrarianSearchBookComponent } from './routes/librarian/librarian-search-book/librarian-search-book.component';
+import { SearchBookComponent } from './routes/common/search-book/search-book.component';
 import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +38,7 @@ import {StateService} from "./utils/state.service";
     AppComponent,
     HomeComponent,
     LibrarianAddBookComponent,
-    LibrarianSearchBookComponent,
+    SearchBookComponent,
     BookDetailComponent,
     MessagesComponent,
     AdminLoginComponent,

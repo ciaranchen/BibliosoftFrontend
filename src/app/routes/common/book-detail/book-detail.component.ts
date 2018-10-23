@@ -21,7 +21,7 @@ export class BookDetailComponent implements OnInit {
   showMetaBook: MetaBook;
 
   constructor(
-    private modalService: NgbModal,
+    public modalService: NgbModal,
     private stateService: StateService,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
@@ -110,7 +110,7 @@ export class BookDetailComponent implements OnInit {
     );
   }
 
-  disable_book() {
+  disable_reserve() {
     return this.books.findIndex(val => val.available === true) === -1;
   }
 

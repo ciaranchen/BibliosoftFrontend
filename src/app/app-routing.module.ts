@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LibrarianSearchBookComponent } from './routes/librarian/librarian-search-book/librarian-search-book.component';
+import { SearchBookComponent } from './routes/common/search-book/search-book.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
 import { HomeComponent } from './routes/common/home/home.component';
 
@@ -13,7 +13,6 @@ import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/
 import {AboutComponent} from './routes/common/about/about.component';
 import {LibrarianBorrowComponent} from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import {ManageUserComponent} from './routes/common/manage-user/manage-user.component';
-// import {BorrowRecordsComponent} from './routes/common/borrow-records/borrow-records.component';
 import {LogoutComponent} from './routes/common/logout/logout.component';
 import {LibrarianReturnComponent} from './routes/librarian/librarian-return/librarian-return.component';
 import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component';
@@ -29,7 +28,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminChangePasswordComponent },
   { path: 'reader', component: ReaderProfileComponent },
   // common routes
-  { path: 'search', component: LibrarianSearchBookComponent },
+  { path: 'search', component: SearchBookComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
   { path: 'manage/:role', component: ManageUserComponent },

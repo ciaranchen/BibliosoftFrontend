@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
-import { RouterRedirectService } from '../../../utils/router-redirect.service';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-librarian-search-book',
-  templateUrl: './librarian-search-book.component.html',
-  styleUrls: ['./librarian-search-book.component.css']
+  templateUrl: './search-book.component.html',
+  styleUrls: ['./search-book.component.css']
 })
-export class LibrarianSearchBookComponent implements OnInit {
+export class SearchBookComponent implements OnInit {
   books: Array<MetaBook>;
   search_text: string;
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.routerRedirect.only2('reader', 'librarain');
-    document.body.style.background = '#252525';
+    this.stateService.only_rl();
+    // document.body.style.background = '#252525';
   }
 
   search_book(): void {
