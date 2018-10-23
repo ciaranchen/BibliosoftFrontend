@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
-import {RouterRedirectService} from '../../../utils/router-redirect.service';
 import {Borrow} from '../../../utils/DataStructs/Borrow';
 import { MessageService, Message } from '../../../utils/message.service';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-librarian-return',
@@ -23,12 +23,12 @@ export class LibrarianReturnComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    // this.routerRedirect.only('librarian');
+    this.stateService.only('librarian');
   }
 
   search_reader() {

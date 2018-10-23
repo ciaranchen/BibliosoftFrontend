@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
 import {ApiService} from "../../../utils/api.service";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-logout',
@@ -11,13 +10,15 @@ import {RouterRedirectService} from "../../../utils/router-redirect.service";
 export class LogoutComponent implements OnInit {
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private loginService: StateService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    localStorage.removeItem('login');
-    this.apiService.logout();
-    this.routerRedirect.back_home();
+    this.apiService.logout()
+      .then(() => {
+        this.loginService.logout();
+        this.loginService.back_home();
+      });
   }
 }

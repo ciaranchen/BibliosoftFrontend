@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../../utils/api.service";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
 import {Borrow} from "../../../utils/DataStructs/Borrow";
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-reader-borrowing',
@@ -17,7 +17,7 @@ export class ReaderBorrowingComponent implements OnInit {
   borrowed: Array<Borrow> = [];
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -28,7 +28,7 @@ export class ReaderBorrowingComponent implements OnInit {
 
   ngOnInit() {
     // get reader id;
-    // this.routerRedirect.only2('reader', 'librarian');
+    // this.stateService.only2('reader', 'librarian');
     if (localStorage.getItem('login') === 'reader') {
       this.readerId = localStorage.getItem('username');
     } else {

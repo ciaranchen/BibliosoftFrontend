@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../../../utils/DataStructs/User';
-import {RouterRedirectService} from '../../../utils/router-redirect.service';
 import { ApiService } from '../../../utils/api.service';
 import { ActivatedRoute } from '@angular/router';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-reader-profile',
@@ -15,17 +15,13 @@ export class ReaderProfileComponent implements OnInit {
   showReader: User = new User('', '');
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService,
     private activedRoute: ActivatedRoute
   ) { }
 
-  load_user_data() {
-
-  }
-
   ngOnInit() {
-    // this.routerRedirect.only2('reader', 'librarian');
+    // this.stateService.only2('reader', 'librarian');
     // get url params
     this.activedRoute.params.subscribe(
       val => {
@@ -33,21 +29,15 @@ export class ReaderProfileComponent implements OnInit {
         const readerId = val['forlibrarian'];
         if (!readerId) {
           // should login as reader
-          this.routerRedirect.only('reader');
+          this.stateService.only('reader');
           // get user information
-          this.reader = new User(
-            localStorage.getItem('username'),
-            localStorage.getItem('email'),
-            localStorage.getItem('nickname'),
-            localStorage.getItem('address') !== null ? localStorage.getItem('address') : '',
-            localStorage.getItem('slogan') !== null ? localStorage.getItem('slogan') : '');
+          this.reader = this.stateService.user;
         } else {
           this.apiService.get_account('reader', readerId)
             .then(res => {
-              // todo: check res[0].username and reader;
               if (res[0].username !== readerId) {
                 console.error('no such a user');
-                this.routerRedirect.back_home();
+                this.stateService.back_home();
               }
               this.reader = res[0];
             });
@@ -69,7 +59,7 @@ export class ReaderProfileComponent implements OnInit {
     delete diff['username'];
     this.apiService.update_account('reader', this.reader.username, diff)
       .then(res => {
-
+        // todo: do sth
       });
   }
 }

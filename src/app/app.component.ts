@@ -11,10 +11,5 @@ export class AppComponent implements OnInit {
   role: string;
 
   ngOnInit() {
-    const login = localStorage.getItem('login');
-    if (login) {
-      this.role = login;
-      console.log(this.role);
-    }
   }
 }

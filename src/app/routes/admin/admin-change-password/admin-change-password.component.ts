@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
 import { MessageService, Message } from '../../../utils/message.service';
-import { RouterRedirectService } from '../../../utils/router-redirect.service';
+import { StateService } from "../../../utils/state.service";
 
 @Component({
   selector: 'app-admin-change-password',
@@ -15,13 +15,13 @@ export class AdminChangePasswordComponent implements OnInit {
   new_pwd2: string;
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private messageService: MessageService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    this.routerRedirect.only('admin');
+    this.stateService.only('admin');
   }
 
   submit_available(): boolean {

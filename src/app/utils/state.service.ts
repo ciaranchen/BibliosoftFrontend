@@ -1,29 +1,42 @@
 import { Injectable } from '@angular/core';
+import {User} from "./DataStructs/User";
 import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RouterRedirectService {
+export class StateService {
+  role: string;
+  user: User;
 
   constructor(
     private router: Router
-  ) { }
+  ) {}
+
+  login(role: string, user: User) {
+    this.role = role;
+    this.user = user;
+  }
+
+  logout() {
+    delete this.user;
+    delete this.role;
+  }
 
   need_login() {
-    if (!localStorage.getItem('login')) {
+    if (!(this.role)) {
       this.to_login();
     }
   }
 
   need_not_login() {
-    if (localStorage.getItem('login')) {
+    if ((this.role)) {
       this.back_home();
     }
   }
 
   only2(role1: string, role2: string, toLogin: boolean = false) {
-    const role = localStorage.getItem('login');
+    const role = (this.role);
     if (toLogin && !role) {
       this.to_login();
     }
@@ -33,7 +46,7 @@ export class RouterRedirectService {
   }
 
   only(role: string, toLogin: boolean = false) {
-    const login = localStorage.getItem('login');
+    const login = (this.role);
     if (toLogin && !role) {
       return this.to_login();
     }
@@ -43,13 +56,9 @@ export class RouterRedirectService {
   }
 
   back_home() {
-    const role = localStorage.getItem('login');
-    if (role === 'admin') {
-      this.router.navigate(['/admin/']);
-    } else if (role === 'librarian') {
-      this.router.navigate(['/librarian/']);
-    } else if (role === 'reader') {
-      this.router.navigate(['/reader/']);
+    const role = (this.role);
+    if (role) {
+      this.router.navigate([`/${role}/`])
     } else {
       this.router.navigate(['/']);
     }
@@ -68,5 +77,9 @@ export class RouterRedirectService {
     } else {
       this.router.navigate(['login/' + role]);
     }
+  }
+
+  only_rl() {
+    this.only2('reader', 'librarian');
   }
 }

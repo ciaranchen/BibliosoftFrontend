@@ -6,7 +6,7 @@ import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
 import { DoubanService } from '../../../utils/douban.service';
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
+import {StateService} from "../../../utils/state.service";
 
 const waitTime = 5000;
 
@@ -19,15 +19,14 @@ const waitTime = 5000;
 export class LibrarianAddBookComponent implements OnInit {
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private doubanService: DoubanService,
     private apiService: ApiService,
     public modalService: NgbModal
   ) { }
 
   ngOnInit() {
-    const status = localStorage.getItem('login');
-    this.routerRedirect.only('librarian');
+    this.stateService.only('librarian');
   }
 
   returnValues: Array<Book>;

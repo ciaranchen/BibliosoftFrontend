@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
 import {User} from "../../../utils/DataStructs/User";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute} from "@angular/router";
 import {Message, MessageService} from "../../../utils/message.service";
+import {StateService} from "../../../utils/state.service";
 
 const waitTime = 5000;
 
@@ -28,7 +28,7 @@ export class ManageUserComponent implements OnInit {
   constructor(
     private messageService: MessageService,
     private activatedRoute: ActivatedRoute,
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     public apiService: ApiService,
     public modalService: NgbModal
   ) { }
@@ -43,7 +43,7 @@ export class ManageUserComponent implements OnInit {
             this.role = role === 'reader' ? 'librarian' : 'admin';
           }
         });
-    // this.routerRedirect.only(this.role);
+    this.stateService.only(this.role);
   }
 
   reset_password($event: Event) {

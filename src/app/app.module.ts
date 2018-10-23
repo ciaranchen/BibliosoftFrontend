@@ -4,6 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppComponent } from './app.component';
 import { MessageService } from './utils/message.service';
 
@@ -28,6 +30,8 @@ import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reade
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
 import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {StateService} from "./utils/state.service";
 
 @NgModule({
   declarations: [
@@ -52,16 +56,18 @@ import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fi
     ReaderBorrowingComponent,
     ReaderProfileComponent,
     AdminChangePasswordComponent,
-    LibrarianViewFineComponent
+    LibrarianViewFineComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, StateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

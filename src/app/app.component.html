@@ -1,51 +1,6 @@
 <div class="app-container">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-    <a class="navbar-brand" routerLink="/">
-      <img src="/assets/images/logo-sm-opc.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      Bibliosoft
-    </a>
-
-    <ul class="nav navbar-nav" routerLinkActive="active">
-      <!-- Common router-->
-      <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
-    </ul>
-
-    <div class="collapse navbar-collapse justify-content-end">
-      <!-- Need login router -->
-      <ul class="nav navbar-nav navbar-right" *ngIf="!role">
-        <li class="nav-item"><a class="nav-link" routerLink="/login/reader">Reader Login</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
-      </ul>
-
-      <!-- Admin router -->
-      <ul class="nav navbar-nav navbar-right"  *ngIf="role==='admin'">
-        <li class="nav-item"><a class="nav-link" routerLink="/admin/">Admin</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/manage/librarian">Manage Librarian</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/manage/change_password">Change password</a></li>
-      </ul>
-
-      <!-- Librarian router -->
-      <ul class="nav navbar-nav navbar-right" *ngIf="role==='librarian'">
-        <li class="nav-item"><a class="nav-link" routerLink="/librarian/">Librarian</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/manage/reader/">Manage Reader</a></li>
-      </ul>
-
-      <!-- Reader router -->
-      <ul class="nav navbar-nav navbar-right" *ngIf="role==='reader'">
-        <li class="nav-item"><a class="nav-link" routerLink="/reader/">Reader</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/reader/fined">Fine Records</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/reader/profile">Profile</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right" *ngIf="role">
-        <li class="nav-item"><a class="nav-link" routerLink="/logout">Logout</a></li>
-      </ul>
-    </div>
-  </nav>
+  <app-navbar></app-navbar>
 
   <div class="message-top">
     <app-message></app-message>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
 import {Message, MessageService} from "../../../utils/message.service";
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-admin-login',
@@ -14,7 +14,7 @@ export class AdminLoginComponent implements OnInit {
   pass: string;
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private messageService: MessageService,
     private apiService: ApiService,
     private router: Router,
@@ -22,18 +22,19 @@ export class AdminLoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.routerRedirect.need_not_login();
+    this.stateService.need_not_login();
   }
 
   admin_login(user?: string, pass?: string) {
     this.apiService.login(user ? user : this.user, pass ? pass : this.pass, 1)
       .then(res => {
         if (res) {
+          this.stateService.login('admin', res);
           localStorage.setItem('login', 'admin');
           const path = this.activatedRoute.params['path'];
           // const url = path ? path : 'admin/';
           // this.router.navigate([url]);
-          this.routerRedirect.back_home();
+          this.stateService.back_home();
         } else {
           this.messageService.messages.push(new Message(
             'login failed',

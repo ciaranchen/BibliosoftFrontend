@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '../../../utils/DataStructs/User';
-import {RouterRedirectService} from '../../../utils/router-redirect.service';
+import {ActivatedRoute } from '@angular/router';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-admin-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   otherRole: string;
 
   constructor(
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.routerRedirect.need_not_login();
+    this.stateService.need_not_login();
     this.activatedRoute.paramMap
       .subscribe(
         res => {
@@ -34,7 +33,7 @@ export class LoginComponent implements OnInit {
           // console.log(role);
           if (role !== 'librarian' && role !== 'reader') {
             console.log('404');
-            this.routerRedirect.back_home();
+            this.stateService.back_home();
           } else {
             this.role = role;
             this.otherRole = role === 'reader' ? 'librarian' : 'reader';
@@ -47,18 +46,10 @@ export class LoginComponent implements OnInit {
     this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader' ? 3 : 2)
       .then(res => {
         if (res) {
-          localStorage.clear();
-          localStorage.setItem('login', this.role);
-          // console.log(res);
-          for (const key in res) {
-            if (res.hasOwnProperty(key) && res[key] !== null) {
-              // console.log(res[key]);
-              localStorage.setItem(key, res[key]);
-            }
-          }
+          this.stateService.login(this.role, res);
           const path = this.activatedRoute.params['path'];
           const url = path ? path : this.role;
-          this.routerRedirect.back_home();
+          this.stateService.back_home();
         } else {
           alert('login failed! try it again after refresh.');
           // console.error(res);

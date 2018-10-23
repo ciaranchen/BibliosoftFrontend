@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {User} from "../../../utils/DataStructs/User";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {Book} from "../../../utils/DataStructs/Book";
 import {Message, MessageService} from "../../../utils/message.service";
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-librarian-borrow',
@@ -25,12 +25,12 @@ export class LibrarianBorrowComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
-    // this.routerRedirect.only('librarian');
+    this.stateService.only('librarian');
   }
 
   search_reader() {

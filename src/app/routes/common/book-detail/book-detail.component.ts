@@ -4,8 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {ApiService} from '../../../utils/api.service';
 import {Book} from '../../../utils/DataStructs/Book';
-import { RouterRedirectService } from '../../../utils/router-redirect.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-book-detail',
@@ -22,7 +22,7 @@ export class BookDetailComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private router: Router,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
@@ -36,7 +36,7 @@ export class BookDetailComponent implements OnInit {
       .catch(error => {
         console.error('404');
         console.error(error);
-        this.routerRedirect.back_home();
+        this.stateService.back_home();
       }
     );
     this.apiService.get_books(this.isbn).then(
@@ -116,13 +116,12 @@ export class BookDetailComponent implements OnInit {
   }
 
   reserve_book() {
-    // this.routerRedirect.only('reader');
-    const readerId = localStorage.getItem('username');
-    // this.apiService.reserve_book(readerId, this.isbn);
+    this.stateService.only('reader');
+    // this.apiService.reserve_book(stateService.user.username, this.isbn);
   }
 
   delete_meta_book() {
-    this.routerRedirect.only('librarian');
+    this.stateService.only('librarian');
     this.apiService.delete_meta_book(this.metaBook.isbn)
       .then(() => {
         console.log('delete success!');
