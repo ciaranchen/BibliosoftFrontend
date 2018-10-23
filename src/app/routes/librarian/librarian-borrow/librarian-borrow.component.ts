@@ -75,12 +75,12 @@ export class LibrarianBorrowComponent implements OnInit {
     this.apiService.borrow(this.readerId, this.barcode)
       .then(res => {
         if (res) {
-          this.messageService.messages.push(new Message('borrow success!', '', 'success'));
+          this.messageService.messages.push(new Message('borrow success!', 'success'));
         } else {
-          this.messageService.messages.push(
-            new Message(
-              'borrow fail! check book status: http://bibliosoft.ciaran.cn/book-detail/' + this.book.isbn,
-              'May be this book is be borrowed by other.', 'danger'));
+          this.messageService.messages.push(new Message(
+            'borrow fail! May be this book is be borrowed by other. check book status: ' +
+              'http://bibliosoft.ciaran.cn/book-detail/' + this.book.isbn,
+            'danger'));
         }
       }).catch(err => {
         console.error(err);

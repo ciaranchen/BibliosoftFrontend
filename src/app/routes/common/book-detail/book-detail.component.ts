@@ -23,7 +23,6 @@ export class BookDetailComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private stateService: StateService,
-    private router: Router,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
   ) { }
@@ -64,14 +63,14 @@ export class BookDetailComponent implements OnInit {
     if (!newLocation) {
       return;
     }
-    let i: number;
+    let i: number = undefined;
     this.books.forEach((book, index) => {
       if (book.barcode.toString() === barcode.toString()) {
         i = index;
       }
     });
 
-    let editBook: Book;
+    let editBook: Book = undefined;
     Object.assign(this.books[i], editBook);
     editBook.location = newLocation;
     this.apiService.update_book(editBook).then(
@@ -124,15 +123,17 @@ export class BookDetailComponent implements OnInit {
     this.stateService.only('librarian');
     this.apiService.delete_meta_book(this.metaBook.isbn)
       .then(() => {
+        // todo: show message
         console.log('delete success!');
-        // todo: redirect to Home;
+        this.stateService.back_home();
       });
   }
 
   submit_edit_meta_book() {
+    this.stateService.only('librarian');
     this.apiService.update_meta_book(this.showMetaBook)
       .then(() => {
-        // todo: refresh this page
+        this.showMetaBook = this.metaBook;
       });
   }
 }

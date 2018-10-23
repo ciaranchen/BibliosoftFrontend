@@ -102,6 +102,8 @@
           <!--<button type="button" class="btn btn-sm" (click)="remove_user($event)">-->
             <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
           <!--</button>-->
+          &nbsp;
+          <button type="button" class="btn btn-sm" routerLink="/reader/borrowed/{{x.username}}" *ngIf="managedRole==='reader'">User Borrowed</button>
         </td>
       </tr>
       </tbody>

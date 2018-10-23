@@ -29,7 +29,7 @@ export class ReaderBorrowingComponent implements OnInit {
   ngOnInit() {
     // get reader id;
     // this.stateService.only2('reader', 'librarian');
-    if (localStorage.getItem('login') === 'reader') {
+    if (localStorage.getItem('user_login') === 'reader') {
       this.readerId = localStorage.getItem('username');
     } else {
       this.activatedRoute.params

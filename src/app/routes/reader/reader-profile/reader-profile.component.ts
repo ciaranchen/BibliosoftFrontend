@@ -28,7 +28,7 @@ export class ReaderProfileComponent implements OnInit {
         // console.log(val);
         const readerId = val['forlibrarian'];
         if (!readerId) {
-          // should login as reader
+          // should user_login as reader
           this.stateService.only('reader');
           // get user information
           this.reader = this.stateService.user;

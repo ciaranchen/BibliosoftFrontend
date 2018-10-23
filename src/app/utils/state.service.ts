@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {User} from "./DataStructs/User";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,14 @@ export class StateService {
   user: User;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private activatedRouter: ActivatedRoute
   ) {}
 
   login(role: string, user: User) {
     this.role = role;
     this.user = user;
+    this.after_login();
   }
 
   logout() {
@@ -73,13 +75,26 @@ export class StateService {
 
   _to_login(role: string, path?: string, search?: string) {
     if (role === 'admin') {
-      this.router.navigate(['admin/login']);
+      this.router.navigate(['admin/user_login']);
     } else {
-      this.router.navigate(['login/' + role]);
+      this.router.navigate(['user_login/' + role]);
     }
   }
 
   only_rl() {
     this.only2('reader', 'librarian');
+  }
+
+  after_login() {
+    const path = this.activatedRouter.snapshot.queryParams['path'];
+    if (path) {
+      console.log(path);
+      this.router.navigate([path])
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      this.back_home();
+    }
   }
 }

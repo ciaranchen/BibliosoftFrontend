@@ -41,6 +41,9 @@ export class ManageUserComponent implements OnInit {
           if (ApiService.reader_and_librarian(role)) {
             this.managedRole = role;
             this.role = role === 'reader' ? 'librarian' : 'admin';
+          } else {
+            console.error('404');
+            this.stateService.back_home();
           }
         });
     this.stateService.only(this.role);
@@ -54,9 +57,9 @@ export class ManageUserComponent implements OnInit {
     const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader' ? '12345678' : '00010001');
     this.apiService.reset_password(this.managedRole, username, new_pass)
       .then(() => {
-        this.messageService.messages.push(new Message('Success to reset password', username, 'success'));
+        this.messageService.messages.push(new Message(`<strong>${username}</strong> Success to reset password`, 'success'));
       }).catch(err => {
-        this.messageService.messages.push(new Message('fail to reset password', username, 'danger'));
+        this.messageService.messages.push(new Message(`<strong>${username}</strong> fail to reset password`, 'danger'));
         console.error(err);
       });
   }
@@ -75,8 +78,8 @@ export class ManageUserComponent implements OnInit {
       .then(res => {
         this.data = res;
       }).catch(err => {
-      console.error(err);
-    });
+        console.error(err);
+      });
   }
 
   submit_register() {
@@ -84,10 +87,10 @@ export class ManageUserComponent implements OnInit {
     this.apiService.add_account(this.managedRole, this.addPassword, this.addAccount)
       .then((res) => {
         if (res) {
-          this.messageService.messages.push(new Message('register account success!', 'Success ', 'success'));
+          this.messageService.messages.push(new Message('register account success!', 'success'));
           setTimeout(location.reload, waitTime);
         } else {
-          this.messageService.messages.push(new Message('this username may be used by other user', 'Fail: ', 'danger'));
+          this.messageService.messages.push(new Message('this username may be used by other user', 'danger'));
         }
       }).catch(err => {
         console.error(err);

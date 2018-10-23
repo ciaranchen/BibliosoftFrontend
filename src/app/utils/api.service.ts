@@ -40,6 +40,12 @@ export class ApiService {
     }
   }
 
+  static get_params(object: Object) {
+    const body = new URLSearchParams();
+    this.body_object(body, object);
+    return body.toString();
+  }
+
   login(username: string, password: string, type: number): Promise<User> {
     const url = `${this.base_url}/login`;
     const http = this.http;
@@ -167,11 +173,7 @@ export class ApiService {
     const url = `${this.base_url}/update_book`;
     const http = this.http;
     const body = new URLSearchParams();
-    for (const key in book) {
-      if (book.hasOwnProperty(key)) {
-        body.set(key, book[key]);
-      }
-    }
+    ApiService.body_object(body, book);
     return new Promise<void>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
@@ -185,11 +187,7 @@ export class ApiService {
     const url = `${this.base_url}/update_meta_book`;
     const http = this.http;
     const body = new URLSearchParams();
-    for (const key in metaBook) {
-      if (metaBook.hasOwnProperty(key)) {
-        body.set(key, metaBook[key]);
-      }
-    }
+    ApiService.body_object(body, metaBook);
     return new Promise<void> (
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
@@ -240,6 +238,7 @@ export class ApiService {
   }
 
   borrow_records(reader_id: string, returned?: boolean): Promise<Array<Borrow>> {
+    // todo: check returned api
     const url = `${this.base_url}/borrows?reader_id=${reader_id}`,
       http = this.http;
     return new Promise<Array<Borrow>> (
@@ -280,7 +279,7 @@ export class ApiService {
 
   // todo: add type support
   get_fines(readerId: string, unpaid?: boolean) {
-    const url = `${this.base_url}/fines?reader_id=${readerId}${ unpaid ? '&unpaid_only=' + unpaid.toString() : '' }`,
+    const url = `${this.base_url}/fines?${ApiService.get_params({reader_id: readerId, unpaid_only: unpaid.toString()})}`,
       http = this.http;
     return new Promise<any>(
       function (resolve, reject) {
@@ -306,7 +305,7 @@ export class ApiService {
   }
 
   search_meta_book(param: string): Promise<Array<MetaBook>> {
-    const url = `${this.base_url}/search?param=${param}`;
+    const url = `${this.base_url}/search?param=${param?param:''}`;
     const http = this.http;
     return new Promise<Array<MetaBook>>(
       function (resolve, reject) {
@@ -335,7 +334,7 @@ export class ApiService {
   }
 
   get_account(role: string, query: string): Promise<Array<User>> {
-    const url = `${this.base_url}/${role}s?query=${query}`;
+    const url = `${this.base_url}/${role}s?${ ApiService.get_params({query: query}) }`;
     const http = this.http;
     return new Promise<Array<User>>(
       function (resolve, reject) {

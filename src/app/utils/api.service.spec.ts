@@ -10,16 +10,16 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should login success', function () {
+  it('should user_login success', function () {
     const service: ApiService = TestBed.get(ApiService);
     // 'YiiPmt', 'YiiPmtvMYz0zGNMXVHq6'
     // noinspection SpellCheckingInspection
-    // service.login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res).toBe(true); });
+    // service.user_login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res).toBe(true); });
   });
 
-  it('should login failed', function () {
+  it('should user_login failed', function () {
     const service: ApiService = TestBed.get(ApiService);
     // noinspection SpellCheckingInspection
-    // service.login('qweasd', 'qweasdzxc', 3).then(res => expect(res).toBe(false));
+    // service.user_login('qweasd', 'qweasdzxc', 3).then(res => expect(res).toBe(false));
   });
 });

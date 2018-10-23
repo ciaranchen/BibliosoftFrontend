@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
-  { path: 'admin/login', component: AdminLoginComponent },
+  { path: 'admin/user_login', component: AdminLoginComponent },
   { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'librarian/borrow', component: LibrarianBorrowComponent },
   { path: 'librarian/return', component: LibrarianReturnComponent },
-  { path: 'borrow_record/:reader', component: ReaderBorrowingComponent },
+  { path: 'reader/borrowed/:reader', component: ReaderBorrowingComponent },
   { path: 'reader/profile', component: ReaderProfileComponent },
   { path: 'reader/borrowed', component: ReaderBorrowingComponent },
   { path: 'reader/fined', component: ReaderFineComponent },

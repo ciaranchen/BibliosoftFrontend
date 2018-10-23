@@ -57,7 +57,7 @@ export class LibrarianReturnComponent implements OnInit {
   click_return() {
     const selectedOptions = (<HTMLSelectElement>document.getElementById('borrowed')).selectedOptions;
     if (selectedOptions.length === 0) {
-      this.messageService.messages.push(new Message('You have not chose any book yet', '', 'danger'));
+      this.messageService.messages.push(new Message('You have not chose any book yet', 'danger'));
       return;
     }
     const optionElem = selectedOptions[0];

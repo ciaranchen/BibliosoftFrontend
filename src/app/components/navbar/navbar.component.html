@@ -5,33 +5,33 @@
   </a>
 
   <ul class="nav navbar-nav" routerLinkActive="active">
-    <!-- Common router-->
+    <!-- Common activatedRoute-->
     <li class="nav-item"><a mat-menu-item class="nav-link" routerLink="/">Home</a></li>
     <li class="nav-item"><a mat-menu-item class="nav-link" routerLink="/about">About</a></li>
     <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
   </ul>
 
   <div class="collapse navbar-collapse justify-content-end">
-    <!-- Need login router -->
+    <!-- Need user_login activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="!(loginService.role)">
       <li class="nav-item"><a class="nav-link" routerLink="/login/reader">Reader Login</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
     </ul>
 
-    <!-- Admin router -->
+    <!-- Admin activatedRoute -->
     <ul class="nav navbar-nav navbar-right"  *ngIf="(loginService.role)==='admin'">
       <li class="nav-item"><a class="nav-link" routerLink="/admin/">Admin</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/manage/librarian">Manage Librarian</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/manage/change_password">Change password</a></li>
     </ul>
 
-    <!-- Librarian router -->
+    <!-- Librarian activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
       <li class="nav-item"><a class="nav-link" routerLink="/librarian/">Librarian</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/manage/reader/">Manage Reader</a></li>
     </ul>
 
-    <!-- Reader router -->
+    <!-- Reader activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='reader'">
       <li class="nav-item"><a class="nav-link" routerLink="/reader/">Reader</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
