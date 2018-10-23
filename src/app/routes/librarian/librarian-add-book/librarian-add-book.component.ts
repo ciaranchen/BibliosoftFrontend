@@ -111,9 +111,9 @@ export class LibrarianAddBookComponent implements OnInit {
         return;
       }
     }
-    if (!this.form_validate()) {
-      return;
-    }
+    // if (!this.form_validate()) {
+    //   return;
+    // }
 
     const location = [this.floor, this.room, this.shelf].map((data) => data.replace('-', '_')).join('-');
 

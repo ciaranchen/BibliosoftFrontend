@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
+import { RouterRedirectService } from '../../../utils/router-redirect.service';
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -12,10 +13,12 @@ export class LibrarianSearchBookComponent implements OnInit {
   search_text: string;
 
   constructor(
+    private routerRedirect: RouterRedirectService,
     private apiService: ApiService
   ) { }
 
   ngOnInit() {
+    this.routerRedirect.only2('reader', 'librarain');
     document.body.style.background = '#252525';
   }
 
