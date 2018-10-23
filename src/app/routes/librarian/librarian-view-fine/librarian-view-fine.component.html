@@ -2,15 +2,15 @@
     <div class="py-4 text-center">
         <h1 class="display-6">View reader's fine</h1>
     </div>
-      
+
     <form class="form-inline">
       <div class="form-group mb-2">
-        <label for="reader's id">Please input reader's id</label>
+        <label>Please input reader's id</label>
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <label for="inputPassword2" class="sr-only">Password</label>
-        <input [(ngModel)]="userId" (keyup.enter)="getFine()"
-              class="form-control" name="id" 
+        <label for="reader-id" class="sr-only">Password</label>
+        <input [(ngModel)]="userId" (keyup.enter)="getFine()" id="reader-id"
+              class="form-control" name="id"
               placeholder="Please input reader's id">
       </div>
       <button type="submit" (click)="getFine()" class="btn btn-primary mb-2">Submit</button>

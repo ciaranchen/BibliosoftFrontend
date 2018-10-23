@@ -44,7 +44,11 @@ export class ReaderProfileComponent implements OnInit {
         } else {
           this.apiService.get_account('reader', readerId)
             .then(res => {
-              // todo: check res[0].username and readerId;
+              // todo: check res[0].username and reader;
+              if (res[0].username !== readerId) {
+                console.error('no such a user');
+                this.routerRedirect.back_home();
+              }
               this.reader = res[0];
             });
         }

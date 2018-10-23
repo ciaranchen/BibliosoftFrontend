@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MetaBook } from '../../../utils/DataStructs/MetaBook';
 import { Payment} from '../../../utils/DataStructs/Payment';
 
+
+// todo: fix it
 @Component({
   selector: 'app-reader-view-payment',
   templateUrl: './reader-view-payment.component.html',

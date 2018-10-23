@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {RouterRedirectService} from "../../../utils/router-redirect.service";
+import {Message, MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-admin-login',
@@ -12,21 +14,15 @@ export class AdminLoginComponent implements OnInit {
   pass: string;
 
   constructor(
+    private routerRedirect: RouterRedirectService,
+    private messageService: MessageService,
     private apiService: ApiService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    const login = localStorage.getItem('login');
-    if (login) {
-      // redirect to other place
-      if (login === 'admin') {
-        this.router.navigate(['admin/']);
-      } else {
-        this.router.navigate(['login/' + login]);
-      }
-    }
+    this.routerRedirect.need_not_login();
   }
 
   admin_login(user?: string, pass?: string) {
@@ -37,9 +33,12 @@ export class AdminLoginComponent implements OnInit {
           const path = this.activatedRoute.params['path'];
           // const url = path ? path : 'admin/';
           // this.router.navigate([url]);
+          this.routerRedirect.back_home();
         } else {
-          // todo: show error;
-          console.log('login failed');
+          this.messageService.messages.push(new Message(
+            'login failed',
+            '', 'danger'
+          ));
           console.error(res);
         }
       }).catch((err) => {

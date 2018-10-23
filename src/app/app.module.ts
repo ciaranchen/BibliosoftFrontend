@@ -26,7 +26,6 @@ import { ManageUserComponent } from './routes/common/manage-user/manage-user.com
 import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/librarian-return.component";
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
-import { BorrowRecordsComponent } from './routes/common/borrow-records/borrow-records.component';
 import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
 import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 
@@ -52,7 +51,6 @@ import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fi
     ManageUserComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
-    BorrowRecordsComponent,
     AdminChangePasswordComponent,
     LibrarianViewFineComponent
   ],

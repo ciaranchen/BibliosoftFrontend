@@ -14,6 +14,6 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.messageService.messages.push(new Message('test msg', 'test title', 'info'));
+    // this.messageService.messages.push(new Message('test msg', 'test title', 'info'));
   }
 }

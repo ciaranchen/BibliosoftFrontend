@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
+import {RouterRedirectService} from "../../../utils/router-redirect.service";
 
 @Component({
   selector: 'app-book-detail',
@@ -17,7 +18,7 @@ export class BookDetailComponent implements OnInit {
   login: string;
 
   constructor(
-    private router: Router,
+    private routerRedirect: RouterRedirectService,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
   ) { }
@@ -30,7 +31,7 @@ export class BookDetailComponent implements OnInit {
       .catch(error => {
         console.error('404');
         console.error(error);
-        // this.router.navigate(['']);
+        this.routerRedirect.back_home();
       }
     );
     this.apiService.get_books(this.isbn).then(

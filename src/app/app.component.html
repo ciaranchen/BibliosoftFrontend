@@ -22,17 +22,23 @@
 
       <!-- Admin router -->
       <ul class="nav navbar-nav navbar-right"  *ngIf="role==='admin'">
-        <li class="nav-item"><a class="nav-link" routerLink="admin/">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/admin/">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/manage/librarian">Manage Librarian</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/manage/change_password">Change password</a></li>
       </ul>
 
       <!-- Librarian router -->
       <ul class="nav navbar-nav navbar-right" *ngIf="role==='librarian'">
-        <li class="nav-item"><a class="nav-link" routerLink="librarian/">Librarian</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/librarian/">Librarian</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/manage/reader/">Manage Reader</a></li>
       </ul>
 
       <!-- Reader router -->
       <ul class="nav navbar-nav navbar-right" *ngIf="role==='reader'">
-        <li class="nav-item"><a class="nav-link" routerLink="reader/">Reader</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/reader/">Reader</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/reader/fined">Fine Records</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/reader/profile">Profile</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right" *ngIf="role">

@@ -46,7 +46,7 @@ export class ApiService {
     const body = new URLSearchParams();
     body.set('username', username);
     body.set('password', password);
-    body.set('type', type.toString());
+    body.set('role', type.toString());
 
     return new Promise<User>(
       function (resolve, reject) {

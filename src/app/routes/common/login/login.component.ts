@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private routerRedirect: RouterRedirectService,
     private apiService: ApiService,
-    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.routerRedirect.need_not_login();
+    this.routerRedirect.need_not_login();
     this.activatedRoute.paramMap
       .subscribe(
         res => {
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
           // console.log(role);
           if (role !== 'librarian' && role !== 'reader') {
             console.log('404');
-            this.router.navigate(['/']);
+            this.routerRedirect.back_home();
           } else {
             this.role = role;
             this.otherRole = role === 'reader' ? 'librarian' : 'reader';
@@ -59,7 +58,7 @@ export class LoginComponent implements OnInit {
           }
           const path = this.activatedRoute.params['path'];
           const url = path ? path : this.role;
-          // this.router.navigate([url]);
+          this.routerRedirect.back_home();
         } else {
           alert('login failed! try it again after refresh.');
           // console.error(res);

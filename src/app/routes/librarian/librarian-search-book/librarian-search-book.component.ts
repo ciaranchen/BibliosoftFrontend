@@ -11,7 +11,9 @@ export class LibrarianSearchBookComponent implements OnInit {
   books: Array<MetaBook>;
   search_text: string;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService
+  ) { }
 
   ngOnInit() {
     document.body.style.background = '#252525';

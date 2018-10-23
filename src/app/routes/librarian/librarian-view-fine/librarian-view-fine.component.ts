@@ -17,8 +17,8 @@ export class LibrarianViewFineComponent implements OnInit {
   }
 
   getFine() {
-    //get this.name and this.fine by this,id
-    console.log(this.userId,this.userName,this.userFine);
+    //get this.name and this.fine by this id
+    console.log(this.userId, this.userName, this.userFine);
   }
 
 }
