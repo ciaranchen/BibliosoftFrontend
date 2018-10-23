@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { backendServer } from "./backendServer";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {MetaBook} from "./DataStructs/MetaBook";
-import {Book} from "./DataStructs/Book";
-import {Fine} from "./DataStructs/Fine";
-import {User} from "./DataStructs/User";
-import {Borrow} from "./DataStructs/Borrow";
+import { backendServer } from './backendServer';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MetaBook} from './DataStructs/MetaBook';
+import {Book} from './DataStructs/Book';
+import {Fine} from './DataStructs/Fine';
+import {User} from './DataStructs/User';
+import {Borrow} from './DataStructs/Borrow';
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -115,7 +115,7 @@ export class ApiService {
     if (metaBook) {
       // todo: check metaBook isbn is equal with this isbn;
       for (const key in metaBook) {
-        if (metaBook.hasOwnProperty(key)) {
+        if (metaBook.hasOwnProperty(key) && metaBook[key]) {
           body.set(key, metaBook[key]);
         }
       }

@@ -20,7 +20,7 @@ import {AdminChangePasswordComponent} from './routes/admin/admin-change-password
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
-import {ReaderFineComponent} from "./routes/reader/reader-fine/reader-fine.component";
+import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
 
 const routes: Routes = [
   // home pages
@@ -52,7 +52,6 @@ const routes: Routes = [
   { path: 'reader/fined', component: ReaderFineComponent },
   { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
-
 ];
 
 @NgModule({
