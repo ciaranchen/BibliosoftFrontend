@@ -1,3 +1,29 @@
+<ng-template #editMetaBookModal let-c="close" let-d="dismiss" *ngIf="lgoin==='librarian'">
+  <div class="modal-header">
+    <h4 class="modal-title" id="submit-modal-title">edit meta book</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md order-md-1">
+      <div class="input-group col-md-12">
+        <div class="input-group-prepend">
+          <span class="input-group-text">ISBN</span>
+        </div>
+        <input type="text" class="form-control" id="isbn"
+          placeholder="Please input your isbn" disabled required
+          [(ngModel)]="showMetaBook.isbn">
+      </div>
+
+      <!-- todo: finish this modal -->
+
+      <button type="button" class="btn btn-info" (click)="submit_edit_meta_book()">add Account</button>
+    </div>
+  </div>
+</ng-template>
+
+
 <div class="app-wrapper" >
   <div *ngIf="metaBook">
     <h2> {{ metaBook.title }} </h2>
@@ -61,5 +87,19 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <div id="reader_operation" *ngIf="login==='reader'">
+    <button type="button" class="btn btn-info" (click)="resever_book()" [disabled]="disable_reserve()">
+      reserve this book
+    </button>
+  </div>
+  <div id="librarian_operation" *ngIf="login==='librarian'">
+    <button type="button" class="btn btn-info" (click)="modalService.open(editMetaBookModal)">
+      edit this meta book information
+    </button>
+    <button type="button" class="btn btn-danger" (click)="delete_meta_book()">
+      delete this meta book (danger)
+    </button>
   </div>
 </div>

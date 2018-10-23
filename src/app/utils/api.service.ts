@@ -262,7 +262,7 @@ export class ApiService {
           error1 => reject(error1)
         );
       }
-    )
+    );
   }
 
   borrow_fine(borrowId: number): Promise<Fine> {

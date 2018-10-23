@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import {ActivatedRoute, Router} from '@angular/router';
-import {MetaBook} from "../../../utils/DataStructs/MetaBook";
-import {ApiService} from "../../../utils/api.service";
-import {Book} from "../../../utils/DataStructs/Book";
-import {RouterRedirectService} from "../../../utils/router-redirect.service";
+import {MetaBook} from '../../../utils/DataStructs/MetaBook';
+import {ApiService} from '../../../utils/api.service';
+import {Book} from '../../../utils/DataStructs/Book';
+import { RouterRedirectService } from '../../../utils/router-redirect.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-book-detail',
@@ -17,8 +18,12 @@ export class BookDetailComponent implements OnInit {
   isbn: string;
   login: string;
 
+  showMetaBook: MetaBook;
+
   constructor(
+    private modalService: NgbModal,
     private routerRedirect: RouterRedirectService,
+    private router: Router,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
   ) { }
@@ -27,7 +32,7 @@ export class BookDetailComponent implements OnInit {
     // to get metaBook information from backend
     this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
     this.apiService.get_meta_book(this.isbn)
-      .then(res => {this.metaBook = res})
+      .then(res => {this.metaBook = res; })
       .catch(error => {
         console.error('404');
         console.error(error);
@@ -39,11 +44,11 @@ export class BookDetailComponent implements OnInit {
         this.books = res;
       }
     );
+    this.login = localStorage.getItem('login');
 
-    // check login
-    const login = localStorage.getItem('login');
-    if (login) {
-      this.login = login;
+    // this.routerRedirect.only2('librarian', 'reader');
+    if (this.login === 'librarian') {
+      Object.assign(this.showMetaBook, this.metaBook);
     }
   }
 
@@ -104,5 +109,31 @@ export class BookDetailComponent implements OnInit {
         }
       }
     );
+  }
+
+  disable_book() {
+    return this.books.findIndex(val => val.available === true) === -1;
+  }
+
+  reserve_book() {
+    // this.routerRedirect.only('reader');
+    const readerId = localStorage.getItem('username');
+    // this.apiService.reserve_book(readerId, this.isbn);
+  }
+
+  delete_meta_book() {
+    this.routerRedirect.only('librarian');
+    this.apiService.delete_meta_book(this.metaBook.isbn)
+      .then(() => {
+        console.log('delete success!');
+        // todo: redirect to Home;
+      });
+  }
+
+  submit_edit_meta_book() {
+    this.apiService.update_meta_book(this.showMetaBook)
+      .then(() => {
+        // todo: refresh this page
+      });
   }
 }
