@@ -25,7 +25,7 @@ const routes: Routes = [
   // home pages
   { path: '', component: HomeComponent },
   { path: 'librarian', component: LibrarianBorrowComponent },
-  { path: 'admin', component: AdminChangePasswordComponent },
+  { path: 'admin', component: AdminHomeComponent },
   { path: 'reader', component: ReaderProfileComponent },
   // common routes
   { path: 'search', component: SearchBookComponent },
