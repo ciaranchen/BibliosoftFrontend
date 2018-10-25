@@ -32,48 +32,41 @@ export class ApiService {
     return role === 'reader' || role === 'librarian';
   }
 
-  static body_object(body: URLSearchParams, object: Object): void {
-    for (let key in object) {
-      if (object.hasOwnProperty(key) && object[key]) {
-        body.set(key, object[key]);
+  static body_object(body: URLSearchParams, obj: object, empty: boolean=false): void {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key) && (empty || obj[key])) {
+        body.set(key, obj[key]);
       }
     }
   }
 
-  static get_params(object: Object) {
+  static query2json(query: string): object {
+    const pairs = query.slice(1).split('&');
+    let res = {};
+    pairs.forEach(val => {
+      let p = val.split('=');
+      res[p[0]] = decodeURIComponent(p[1] || '');
+    });
+    return JSON.parse(JSON.stringify(res));
+  }
+
+  static json2query(obj: object): string {
     const body = new URLSearchParams();
-    this.body_object(body, object);
+    this.body_object(body, obj, false);
     return body.toString();
   }
 
   login(username: string, password: string, type: number): Promise<User> {
     const url = `${this.base_url}/login`;
-    const http = this.http;
     const body = new URLSearchParams();
     body.set('username', username);
     body.set('password', password);
     body.set('role', type.toString());
-
-    return new Promise<User>(
-      function (resolve, reject) {
-        http.post<User>(url, body.toString(), postOptions).subscribe(
-          value => resolve(value),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.post<User>(url, body.toString(), postOptions).toPromise();
   }
 
   logout(): Promise<void> {
-    const url = `${this.base_url}/logout`,
-      http = this.http;
-    return new Promise<void>(
-      function (resolve, reject) {
-        http.post(url, postOptions).subscribe(
-          value => resolve(),
-          error1 => reject(error1)
-        );
-      }
-    );
+    return this.http.post<void>(`${this.base_url}/logout`, postOptions).toPromise();
   }
 
   reset_admin_password(oldPass: string, newPass: string): Promise<boolean> {
@@ -113,112 +106,52 @@ export class ApiService {
     body.set('location', location);
 
     if (metaBook) {
-      // todo: check metaBook isbn is equal with this isbn;
-      for (const key in metaBook) {
-        if (metaBook.hasOwnProperty(key) && metaBook[key]) {
-          body.set(key, metaBook[key]);
-        }
+      if (metaBook.isbn !== isbn) {
+        console.error(metaBook);
+        return null;
       }
+      ApiService.body_object(body, metaBook);
     }
-    return new Promise<Array<Book>>(
-      function (resolve, reject) {
-        console.log(body.toString());
-        http.put<Array<Book>>(url, body.toString(), postOptions)
-          .subscribe(
-            value => resolve(value),
-            error1 => reject(error1)
-          );
-      }
-    );
+    return http.put<Array<Book>>(url, body.toString(), postOptions).toPromise();
   }
 
   get_meta_book(isbn: string): Promise<MetaBook> {
     const url = `${this.base_url}/get_meta_book?isbn=${isbn}`;
-    const http = this.http;
-    return new Promise<MetaBook>(
-      function (resolve, reject) {
-        http.get<MetaBook>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.get<MetaBook>(url, withCookie).toPromise();
   }
 
   get_book(barcode: string): Promise<Book> {
-    const url = `${this.base_url}/get_book?barcode=${barcode}`,
-      http = this.http;
-    return new Promise<Book>(
-      function (resolve, reject) {
-        http.get<Book>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1)
-        );
-      }
-    );
+    const url = `${this.base_url}/get_book?barcode=${barcode}`;
+    return this.http.get<Book>(url, withCookie).toPromise();
   }
 
   get_books(isbn: string): Promise<Array<Book>> {
     const url = `${this.base_url}/get_books?isbn=${isbn}`;
-    const http = this.http;
-    return new Promise<Array<Book>>(
-      function (resolve, reject) {
-        http.get<Array<Book>>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.get<Array<Book>>(url, withCookie).toPromise();
   }
 
   update_book(book: Book): Promise<void> {
     const url = `${this.base_url}/update_book`;
-    const http = this.http;
     const body = new URLSearchParams();
     ApiService.body_object(body, book);
-    return new Promise<void>(
-      function (resolve, reject) {
-        http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(),
-          error => reject(error));
-      }
-    );
+    return this.http.post<void>(url, body.toString(), postOptions).toPromise();
   }
 
   update_meta_book(metaBook: MetaBook): Promise<void> {
     const url = `${this.base_url}/update_meta_book`;
-    const http = this.http;
     const body = new URLSearchParams();
     ApiService.body_object(body, metaBook);
-    return new Promise<void> (
-      function (resolve, reject) {
-        http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.post<void>(url, body.toString(), postOptions).toPromise();
   }
 
   delete_book(barcode: string): Promise<void> {
     const url = `${this.base_url}/remove_book?barcode=${barcode}`;
-    const http = this.http;
-    return new Promise<void>(
-      function (resolve, reject) {
-        http.delete(url).subscribe(
-          value => resolve(),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.delete<void>(url, withCookie).toPromise();
   }
 
   delete_meta_book(isbn: string): Promise<void> {
     const url = `${this.base_url}/remove_meta_book?isbn=${isbn}`;
-    const http = this.http;
-    return new Promise<void>(
-      function (resolve, reject) {
-        http.delete(url).subscribe(
-          value => resolve(),
-          error1 => reject(error1));
-      }
-    );
+    return this.http.delete<void>(url, withCookie).toPromise();
   }
 
   borrow(reader: string, barcode: string): Promise<boolean> {
@@ -252,68 +185,33 @@ export class ApiService {
   }
 
   return_book(borrowId: string): Promise<Fine> {
-    const url = `${this.base_url}/return_book`,
-      http = this.http;
-    return new Promise<Fine>(
-      function (resolve, reject) {
-        http.post<Fine>(url, `borrow_id=${borrowId}`, postOptions).subscribe(
-          value => resolve(value),
-          error1 => reject(error1)
-        );
-      }
-    );
+    const url = `${this.base_url}/return_book`;
+    const body = new URLSearchParams();
+    body.set('borrow_id', borrowId);
+    return this.http.post<Fine>(url, body.toString(), postOptions).toPromise();
   }
 
   borrow_fine(borrowId: number): Promise<Fine> {
     const url = `${this.base_url}/fine?borrow_id=${borrowId}`;
-    const http = this.http;
-    return new Promise<Fine>(
-      function (resolve, reject) {
-        http.get<Fine>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1)
-        );
-      }
-    );
+    return this.http.get<Fine>(url, withCookie).toPromise();
   }
 
-  // todo: add type support
-  get_fines(readerId: string, unpaid?: boolean) {
-    const url = `${this.base_url}/fines?${ApiService.get_params({reader_id: readerId, unpaid_only: unpaid.toString()})}`,
-      http = this.http;
-    return new Promise<any>(
-      function (resolve, reject) {
-        http.get(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1)
-        );
-      }
-    );
+  get_fines(readerId: string, unpaid?: boolean): Promise<Array<Fine>> {
+    const url = `${this.base_url}/fines?${ApiService.json2query({reader_id: readerId, unpaid_only: unpaid.toString()})}`;
+    return this.http.get<Array<Fine>>(url, withCookie).toPromise();
   }
 
-  pay_fine(borrowId: number): Promise<void> {
+  pay_fine(borrowId: string): Promise<void> {
     const url = `${this.base_url}/pay_fine`,
       http = this.http;
-    return new Promise<void>(
-      function (resolve, reject) {
-        http.post(url, `borrow_id=${borrowId}`, postOptions).subscribe(
-          value => resolve(),
-          error1 => reject(error1)
-        );
-      }
-    );
+    const body = new URLSearchParams();
+    body.set('borrow_id', borrowId);
+    return this.http.post<void>(url, body.toString(), postOptions).toPromise();
   }
 
   search_meta_book(param: string): Promise<Array<MetaBook>> {
-    const url = `${this.base_url}/search?param=${param?param:''}`;
-    const http = this.http;
-    return new Promise<Array<MetaBook>>(
-      function (resolve, reject) {
-        http.get<Array<MetaBook>>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1));
-      }
-    );
+    const url = `${this.base_url}/search?param=${param ? param : ''}`;
+    return this.http.get<Array<MetaBook>>(url, withCookie).toPromise();
   }
 
   // todo: check user type
@@ -334,7 +232,7 @@ export class ApiService {
   }
 
   get_account(role: string, query: string): Promise<Array<User>> {
-    const url = `${this.base_url}/${role}s?${ ApiService.get_params({query: query}) }`;
+    const url = `${this.base_url}/${role}s?${ ApiService.json2query({query: query}) }`;
     const http = this.http;
     return new Promise<Array<User>>(
       function (resolve, reject) {
@@ -348,31 +246,19 @@ export class ApiService {
 
   reset_password(role: string, username: string, newPass: string): Promise<void> {
     const url = `${this.base_url}/reset_${role}_password`,
-      http = this.http,
       body = new URLSearchParams();
     body.set('username', username);
     body.set('new_password', newPass);
-    return ApiService.reader_and_librarian(role) ? new Promise<void> (
-      function (resolve, reject) {
-        http.post(url, body.toString(), postOptions).subscribe(
-          val => resolve(),
-          error => reject(error));
-      }
-    ) : undefined;
+    return ApiService.reader_and_librarian(role) ?
+      this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
   }
 
-  update_account(role: string, username: string, diff: Object): Promise<void> {
+  update_account(role: string, username: string, diff: object): Promise<void> {
     const url = `${this.base_url}/update_${role}`,
-      http = this.http;
-    const body = new URLSearchParams();
+      body = new URLSearchParams();
     body.set('username', username);
     ApiService.body_object(body, diff);
-    return ApiService.reader_and_librarian(role) ? new Promise<void>(
-      function (resolve, reject) {
-        http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(),
-          error1 => reject(error1));
-      }
-    ) : undefined;
+    return ApiService.reader_and_librarian(role) ?
+      this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
   }
 }

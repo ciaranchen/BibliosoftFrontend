@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User} from "./DataStructs/User";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,91 +11,82 @@ export class StateService {
   user: User;
 
   constructor(
-    private router: Router,
-    private activatedRouter: ActivatedRoute
+    private router: Router
   ) {}
 
-  login(role: string, user: User) {
+  login(role: string, user: User, path?: string): Promise<boolean> {
     this.role = role;
     this.user = user;
-    this.after_login();
+    if (path) {
+      return this.router.navigate([path]);
+    } else {
+      return this.back_home();
+    }
   }
 
-  logout() {
+  logout(): void {
     delete this.user;
     delete this.role;
   }
 
-  need_login() {
+  need_login(): void {
     if (!(this.role)) {
+      // noinspection JSIgnoredPromiseFromCall
       this.to_login();
     }
   }
 
-  need_not_login() {
-    if ((this.role)) {
+  need_not_login(): void {
+    if (this.role) {
+      // noinspection JSIgnoredPromiseFromCall
       this.back_home();
     }
   }
 
-  only2(role1: string, role2: string, toLogin: boolean = false) {
+  only2(role1: string, role2: string): void {
+    this.need_login();
     const role = (this.role);
-    if (toLogin && !role) {
-      this.to_login();
-    }
-    if (!role || (role !== role1 && role !== role2)) {
+    if (role !== role1 && role !== role2) {
+      // noinspection JSIgnoredPromiseFromCall
       this.back_home();
     }
   }
 
-  only(role: string, toLogin: boolean = false) {
-    const login = (this.role);
-    if (toLogin && !role) {
-      return this.to_login();
-    }
-    if (!login || login !== role) {
+  only(role: string): void {
+    this.need_login();
+    if (this.role !== role) {
+      // noinspection JSIgnoredPromiseFromCall
       this.back_home();
     }
   }
 
-  back_home() {
-    const role = (this.role);
-    if (role) {
-      this.router.navigate([`/${role}/`])
-    } else {
-      this.router.navigate(['/']);
-    }
-  }
-
-  to_login() {
-    const pathname = location.pathname;
-    console.log(pathname);
-    // todo: define where it should go
-    return this._to_login('reader', pathname, location.search);
-  }
-
-  _to_login(role: string, path?: string, search?: string) {
-    if (role === 'admin') {
-      this.router.navigate(['admin/user_login']);
-    } else {
-      this.router.navigate(['user_login/' + role]);
-    }
-  }
-
-  only_rl() {
+  only_rl(): void {
     this.only2('reader', 'librarian');
   }
 
-  after_login() {
-    const path = this.activatedRouter.snapshot.queryParams['path'];
-    if (path) {
-      console.log(path);
-      this.router.navigate([path])
-        .catch(error => {
-          console.error(error);
-        });
-    } else {
-      this.back_home();
+  back_home(): Promise<boolean> {
+    return this.router.navigate(this.role ? [`/${this.role}`] : ['/']);
+  }
+
+  to_login(): Promise<boolean> {
+    const pathname = location.pathname;
+    console.log(pathname);
+    const role = pathname.split('/')[1];
+    const search = ApiService.query2json(location.search);
+    if (role === 'admin' || role === 'reader' || role === 'librarian') {
+      return this._to_login(role, pathname, search);
     }
+    return this._to_login('reader', pathname, search);
+  }
+
+  private _to_login(role: string, path?: string, search?: object): Promise<boolean> {
+    let params = search ? search : {};
+    if (path && !(params['path'])) {
+      params['path'] = path;
+    }
+    // console.log(params);
+    return this.router.navigate(
+      role === 'admin' ? ['/admin/login'] : ['/login/' + role],
+      {queryParams: params});
   }
 }

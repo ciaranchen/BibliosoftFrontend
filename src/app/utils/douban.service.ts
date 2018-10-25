@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Md5} from 'md5-typescript';
 import { MetaBook } from './DataStructs/MetaBook';
-// import {MetaBook} from "./DataStructs/MetaBook";
 
 const remove_timeout = 20000;
 
@@ -17,6 +16,7 @@ export class DoubanService {
     return new Promise((resolve, reject) => {
       let timeId;
       const hash_str = Md5.init(isbn);
+      // noinspection SpellCheckingInspection
       const callbackName =  `jsonp_${hash_str}`;
       const url = `${this.apiRoot}/isbn/${isbn}?callback=${callbackName}`;
       const scriptElem = window.document.createElement('script');
@@ -25,12 +25,13 @@ export class DoubanService {
         window.document.body.removeChild(scriptElem);
         delete window[callbackName];
       };
-      // sucess
+      // success
       window[callbackName] = res => {
         resolve(res);
         timeId = setTimeout(clearFunction, remove_timeout);
       };
       // fail
+      // noinspection SpellCheckingInspection
       scriptElem.onerror = err => {
         console.error(err);
         reject(err);

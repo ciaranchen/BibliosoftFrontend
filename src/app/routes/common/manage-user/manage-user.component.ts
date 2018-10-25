@@ -23,7 +23,6 @@ export class ManageUserComponent implements OnInit {
 
   addAccount = new User('', '');
   addPassword: string;
-  addSuccess: boolean = false;
 
   constructor(
     private messageService: MessageService,

@@ -47,6 +47,7 @@ const routes: Routes = [
   { path: 'librarian/return', component: LibrarianReturnComponent },
   { path: 'reader/borrowed/:reader', component: ReaderBorrowingComponent },
   { path: 'reader/profile', component: ReaderProfileComponent },
+  { path: 'librarian/reader_profile/:reader', component: ReaderProfileComponent },
   { path: 'reader/borrowed', component: ReaderBorrowingComponent },
   { path: 'reader/fined', component: ReaderFineComponent },
   { path: 'librarian/view_fine', component: LibrarianViewFineComponent },

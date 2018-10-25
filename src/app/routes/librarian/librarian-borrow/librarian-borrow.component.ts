@@ -63,11 +63,7 @@ export class LibrarianBorrowComponent implements OnInit {
         this.apiService.get_meta_book(res.isbn)
           .then(res => {
             this.metaBook = res;
-          }).catch(err => {
-            // todo: do sth
           });
-      }).catch(err => {
-        // todo: do sth
       });
   }
 

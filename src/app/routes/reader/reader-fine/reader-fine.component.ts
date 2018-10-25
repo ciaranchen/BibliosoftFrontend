@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-reader-fine',
@@ -11,12 +12,12 @@ export class ReaderFineComponent implements OnInit {
   // fine: Fine;
 
   constructor(
-    // private routerRedirect: RouterRedirectService,
+    private stateService: StateService,
     private apiService: ApiService
   ) {  }
 
   ngOnInit() {
-    // routerRedirect.only2('reader', 'librarian');
+    this.stateService.only_rl();
     // todo: finish it;
     // this.apiService.fine()
     //   .then(res => {

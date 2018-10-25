@@ -4,6 +4,8 @@ import {User} from '../../../utils/DataStructs/User';
 import {Borrow} from '../../../utils/DataStructs/Borrow';
 import { MessageService, Message } from '../../../utils/message.service';
 import {StateService} from "../../../utils/state.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {Fine} from "../../../utils/DataStructs/Fine";
 
 @Component({
   selector: 'app-librarian-return',
@@ -18,10 +20,12 @@ export class LibrarianReturnComponent implements OnInit {
   reader: User;
   borrowed: Array<Borrow>;
 
-  willReturn: Array<Borrow> = [];
-  totalFine = 0;
+  // willReturn: Array<Borrow> = [];
+  fine: Fine;
+  returning: string;
 
   constructor(
+    public modalService: NgbModal,
     private messageService: MessageService,
     private stateService: StateService,
     private apiService: ApiService
@@ -54,7 +58,8 @@ export class LibrarianReturnComponent implements OnInit {
       });
   }
 
-  click_return() {
+  click_return(modal) {
+    this.modalService.open(modal);
     const selectedOptions = (<HTMLSelectElement>document.getElementById('borrowed')).selectedOptions;
     if (selectedOptions.length === 0) {
       this.messageService.messages.push(new Message('You have not chose any book yet', 'danger'));
@@ -66,10 +71,21 @@ export class LibrarianReturnComponent implements OnInit {
     const borrowId = optionElem.value;
     console.log(borrowId);
     // return book
+    this.returning = borrowId;
     this.apiService.return_book(borrowId)
       .then(res => {
         console.log(res);
-        // todo: show payment pages;
+        if (res) {
+          this.fine = res;
+        }
+        this.modalService.open(modal);
+      });
+  }
+
+  paid_fine() {
+    this.apiService.pay_fine(this.returning)
+      .then(() => {
+        // todo: delete this borrow;
       });
   }
 }

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {ApiService} from '../../../utils/api.service';
 import {Book} from '../../../utils/DataStructs/Book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from "../../../utils/state.service";
+import {Message, MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-book-detail',
@@ -21,6 +22,7 @@ export class BookDetailComponent implements OnInit {
   showMetaBook: MetaBook;
 
   constructor(
+    private messageService: MessageService,
     public modalService: NgbModal,
     private stateService: StateService,
     private activateRoute: ActivatedRoute,
@@ -99,15 +101,10 @@ export class BookDetailComponent implements OnInit {
       }
     });
 
-    this.apiService.delete_book(barcode).then(
-      res => {
-        if (res) {
-          delete this.books[i];
-        } else {
-          console.error('error');
-        }
-      }
-    );
+    this.apiService.delete_book(barcode)
+      .then(() => {
+        delete this.books[i];
+      });
   }
 
   disable_reserve() {
@@ -123,8 +120,7 @@ export class BookDetailComponent implements OnInit {
     this.stateService.only('librarian');
     this.apiService.delete_meta_book(this.metaBook.isbn)
       .then(() => {
-        // todo: show message
-        console.log('delete success!');
+        this.messageService.messages.push(new Message('delete success!', 'success'));
         this.stateService.back_home();
       });
   }

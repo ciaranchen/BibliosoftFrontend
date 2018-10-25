@@ -43,7 +43,11 @@ export class LoginComponent implements OnInit {
   user_login(user?: string, pass?: string) {
     this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader' ? 3 : 2)
       .then(res => {
-        this.stateService.login(this.role, res);
+        this.stateService.login(this.role, res, this.activatedRoute.snapshot.queryParams['path'])
+          .catch(err=> {
+            // console.error(err);
+            this.messageService.messages.push(new Message(err, 'danger'));
+          });
       }).catch((err) => {
         this.messageService.messages.push(new Message(err.error.msg, 'danger'));
       });

@@ -3,6 +3,7 @@ import {User} from '../../../utils/DataStructs/User';
 import { ApiService } from '../../../utils/api.service';
 import { ActivatedRoute } from '@angular/router';
 import {StateService} from "../../../utils/state.service";
+import {Message, MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-reader-profile',
@@ -15,15 +16,17 @@ export class ReaderProfileComponent implements OnInit {
   showReader: User = new User('', '');
 
   constructor(
+    private messageService: MessageService,
     private stateService: StateService,
     private apiService: ApiService,
-    private activedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    // this.stateService.only2('reader', 'librarian');
+    this.stateService.only_rl();
     // get url params
-    this.activedRoute.params.subscribe(
+    // todo: fix it
+    this.activatedRoute.params.subscribe(
       val => {
         // console.log(val);
         const readerId = val['forlibrarian'];
@@ -59,7 +62,8 @@ export class ReaderProfileComponent implements OnInit {
     delete diff['username'];
     this.apiService.update_account('reader', this.reader.username, diff)
       .then(res => {
-        // todo: do sth
+        this.reader = this.showReader;
+        this.messageService.messages.push(new Message('update success', 'success'));
       });
   }
 }

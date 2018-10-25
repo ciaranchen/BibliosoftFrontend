@@ -10,6 +10,10 @@ describe('ApiService', () => {
     expect(service).toBeTruthy();
   });
 
+  // noinspection SpellCheckingInspection
+  // noinspection SpellCheckingInspection
+  // noinspection SpellCheckingInspection
+  // noinspection SpellCheckingInspection
   it('should user_login success', function () {
     const service: ApiService = TestBed.get(ApiService);
     // 'YiiPmt', 'YiiPmtvMYz0zGNMXVHq6'
@@ -17,6 +21,8 @@ describe('ApiService', () => {
     // service.user_login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res).toBe(true); });
   });
 
+  // noinspection SpellCheckingInspection
+  // noinspection SpellCheckingInspection
   it('should user_login failed', function () {
     const service: ApiService = TestBed.get(ApiService);
     // noinspection SpellCheckingInspection

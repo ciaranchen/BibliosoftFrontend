@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService, Message } from '../../../utils/message.service';
+import { MessageService} from '../../../utils/message.service';
+import { StateService } from "../../../utils/state.service";
 
 
 @Component({
@@ -10,6 +11,7 @@ import { MessageService, Message } from '../../../utils/message.service';
 export class HomeComponent implements OnInit {
 
   constructor(
+    private stateService: StateService,
     private messageService: MessageService
   ) { }
 
