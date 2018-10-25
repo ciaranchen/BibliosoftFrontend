@@ -9,4 +9,12 @@ describe('DoubanService', () => {
     const service: DoubanService = TestBed.get(DoubanService);
     expect(service).toBeTruthy();
   });
+
+  it('should returned certain book', () => {
+    const service: DoubanService = TestBed.get(DoubanService);
+    service.searchISBN('9787101003048')
+      .then(res => {
+        // expect(res).toEqual();
+      });
+  });
 });
