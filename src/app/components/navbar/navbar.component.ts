@@ -11,6 +11,10 @@ export class NavbarComponent implements OnInit {
     public loginService: StateService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  debug_nav() {
+    console.log(this.loginService.user);
+    console.log(this.loginService.role);
   }
 }

@@ -32,6 +32,7 @@ import { AdminChangePasswordComponent } from './routes/admin/admin-change-passwo
 import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
+import { LibrarianHomeComponent } from './routes/librarian/librarian-home/librarian-home.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {StateService} from "./utils/state.service";
     ReaderProfileComponent,
     AdminChangePasswordComponent,
     LibrarianViewFineComponent,
-    NavbarComponent
+    NavbarComponent,
+    LibrarianHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -3,18 +3,17 @@
     <h4 class="display-3">Library Rule</h4>
 
     <!-- todo: explain for each book -->
-    <form action="">
-      <div>
-        <label for="borrow-amount">Borrow Amount</label>
-        <input type="text" *ngModel="rule.borrowAmount"
-          class="form-control" placeholder="borrow amount" id="borrow-amount">
-      </div>
-      
-      <input type="text" *ngModel="rule.defaultDeposit" class="form-control" placeholder="default deposit">
-      <input type="text" *ngModel="rule.defaultPeriod" class="form-control" placeholder="default period">
-      <input type="text" *ngModel="rule.defaultFine" class="form-control" placeholder="default fine">
-      <input type="text" *ngModel="rule.reserveTime" class="form-control" placeholder="default reserve time">
-      <button (click)="update_rule()" type="button">update</button>
-    </form>
+
+    <div>
+      <label for="borrow-amount">Borrow Amount</label>
+      <input type="text" [(ngModel)]="rule.borrowAmount"
+        class="form-control" placeholder="borrow amount" id="borrow-amount">
+    </div>
+
+    <input type="text" [(ngModel)]="rule.defaultDeposit" class="form-control" placeholder="default deposit">
+    <input type="text" [(ngModel)]="rule.defaultPeriod" class="form-control" placeholder="default period">
+    <input type="text" [(ngModel)]="rule.defaultFine" class="form-control" placeholder="default fine">
+    <input type="text" [(ngModel)]="rule.reserveTime" class="form-control" placeholder="default reserve time">
+    <button (click)="update_rule()" type="button">update</button>
   </div>
 </div>

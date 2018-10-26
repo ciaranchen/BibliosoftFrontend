@@ -31,24 +31,24 @@ const routes: Routes = [
   { path: 'search', component: SearchBookComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
-  { path: 'manage/:role', component: ManageUserComponent },
+  { path: ':role/manage_user', component: ManageUserComponent },
   { path: 'logout', component: LogoutComponent },
   // admin/*
   { path: 'admin/home', component: AdminHomeComponent },
-  { path: 'admin/user_login', component: AdminLoginComponent },
+  { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/change_password', component: AdminChangePasswordComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
+  { path: 'librarian/reader/profile/:reader', component: ReaderProfileComponent },
+  { path: 'librarian/reader/borrowed/:reader', component: ReaderBorrowingComponent },
   // reader/*
+  { path: 'reader/profile', component: ReaderProfileComponent },
+  { path: 'reader/borrowed', component: ReaderBorrowingComponent },
 
   // testing url
   { path: 'about', component: AboutComponent },
   { path: 'librarian/borrow', component: LibrarianBorrowComponent },
   { path: 'librarian/return', component: LibrarianReturnComponent },
-  { path: 'reader/borrowed/:reader', component: ReaderBorrowingComponent },
-  { path: 'reader/profile', component: ReaderProfileComponent },
-  { path: 'librarian/reader_profile/:reader', component: ReaderProfileComponent },
-  { path: 'reader/borrowed', component: ReaderBorrowingComponent },
   { path: 'reader/fined', component: ReaderFineComponent },
   { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },

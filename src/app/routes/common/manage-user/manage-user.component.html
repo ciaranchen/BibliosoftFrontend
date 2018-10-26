@@ -88,14 +88,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let x of data; let i = index; first as isFirst" ngbPopover="{{x.slogan}}">
+      <tr *ngFor="let x of data; let i = index; first as isFirst" ngbPopover="slogan: {{x.slogan}}">
         <th scope="row">{{i}}</th>
         <td>{{x.email}}</td>
-        <td>{{x.username}}</td>
+        <td *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></td>
+        <td *ngIf="managedRole==='librarian'">{{x.username}}</td>
         <td>{{x.nickname}}</td>
         <td>{{x.address}}</td>
         <td>
-          <button type="button" class="btn btn-sm" (click)="reset_password($event)">
+          <button type="button" class="btn btn-sm" (click)="reset_password($event)" ngbTooltip="reset password">
             <i class="fa fa-edit"></i>
           </button>
           <!--&nbsp;-->
@@ -103,7 +104,10 @@
             <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
           <!--</button>-->
           &nbsp;
-          <button type="button" class="btn btn-sm" routerLink="/reader/borrowed/{{x.username}}" *ngIf="managedRole==='reader'">User Borrowed</button>
+          <button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"
+                  *ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">
+            <i class="fa fa-paperclip"></i>
+          </button>
         </td>
       </tr>
       </tbody>

@@ -59,14 +59,13 @@ export class LibrarianReturnComponent implements OnInit {
   }
 
   click_return(modal) {
-    this.modalService.open(modal);
     const selectedOptions = (<HTMLSelectElement>document.getElementById('borrowed')).selectedOptions;
     if (selectedOptions.length === 0) {
       this.messageService.messages.push(new Message('You have not chose any book yet', 'danger'));
       return;
     }
     const optionElem = selectedOptions[0];
-    console.log(optionElem);
+    // console.log(optionElem);
 
     const borrowId = optionElem.value;
     console.log(borrowId);
@@ -76,16 +75,28 @@ export class LibrarianReturnComponent implements OnInit {
       .then(res => {
         console.log(res);
         if (res) {
-          this.fine = res;
+          this.return_success();
+        } else {
+          // load fine
+          this.apiService.borrow_fine(this.returning)
+            .then(res => this.fine = res);
+          this.modalService.open(modal);
         }
-        this.modalService.open(modal);
       });
+  }
+
+  return_success() {
+    // delete this borrow item
+    const index = this.borrowed.findIndex(val => val.id === this.returning);
+    this.borrowed.splice(index, 1);
+    this.messageService.messages.push(new Message('return success', 'success'))
   }
 
   paid_fine() {
     this.apiService.pay_fine(this.returning)
       .then(() => {
-        // todo: delete this borrow;
+        this.return_success();
       });
+    this.modalService.dismissAll();
   }
 }

@@ -11,8 +11,6 @@ import {StateService} from "../../../utils/state.service";
 })
 export class ReaderBorrowingComponent implements OnInit {
   readerId: string;
-  // reader: User;
-
   borrowing: Array<Borrow> = [];
   borrowed: Array<Borrow> = [];
 
@@ -28,13 +26,13 @@ export class ReaderBorrowingComponent implements OnInit {
 
   ngOnInit() {
     // get reader id;
-    // this.stateService.only2('reader', 'librarian');
-    if (localStorage.getItem('user_login') === 'reader') {
-      this.readerId = localStorage.getItem('username');
+    this.stateService.only_rl();
+    if (this.stateService.role === 'reader') {
+      this.readerId = this.stateService.user.username;
     } else {
       this.activatedRoute.params
-        .subscribe(
-          value => this.readerId = value.get('reader')
+        .subscribe(value =>
+          this.readerId = value['reader']
         );
     }
     this.apiService.borrow_records(this.readerId)

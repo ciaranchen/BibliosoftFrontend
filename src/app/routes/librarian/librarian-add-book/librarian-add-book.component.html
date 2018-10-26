@@ -140,7 +140,7 @@
         <div class="col-md-10 mb-3">
           <label for="cover">Cover URL<span class="text-muted">(Optional)</span></label>
           <input type="text" name="cover" id="cover" class="form-control"
-                 [(ngModel)]="book.cover" placeholder="cover url">
+                 [(ngModel)]="book.cover" placeholder="cover url" [disabled]="(fromDouban)">
         </div>
       </div>
 
@@ -154,7 +154,7 @@
 
         <div class="col-md-3 mb-3">
           <label for="publish_year">Publish Year<span class="text-muted">(Optional)</span></label>
-          <input type="number" class="form-control"
+          <input type="text" class="form-control"
                  id="publish_year" name="publish_year" [disabled]="(fromDouban)"
                  [(ngModel)]="book.publish_year" placeholder="publish year">
         </div>
@@ -162,7 +162,7 @@
         <div class="col-md-3 mb-3">
           <label for="pages">Pages<span class="text-muted">(Optional)</span></label>
           <input type="number" class="form-control"
-                 id="pages" name="pages"
+                 id="pages" name="pages" [disabled]="(fromDouban)"
                  [(ngModel)]="book.pages" placeholder="pages">
         </div>
       </div>

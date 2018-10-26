@@ -1,13 +1,13 @@
 <ng-template #paymentModal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="submit-modal-title">Payment page</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
+    <button type="button" class="close" aria-label="Close" (click)="paid_fine()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="col-md order-md-1">
-      This person should pay ... yuan.
+      This person should pay {{ fine.fine }} {{ fine.unit }}.
 
       <button type="button" class="btn btn-info" (click)="paid_fine()">This one is paid</button>
     </div>
@@ -40,6 +40,10 @@
 
     <div id="reader-info">
       {{ reader | json }}
+    </div>
+
+    <div id="books-info">
+      {{ borrowed | json }}
     </div>
   </div>
 

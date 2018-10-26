@@ -27,7 +27,21 @@ export class DoubanService {
       };
       // success
       window[callbackName] = res => {
-        resolve(res);
+        console.log(res.tags);
+        const metaBook = new MetaBook(
+          res.isbn10,
+          res.title,
+          res.author,
+          res.publisher,
+          res.tags.map(val => val.name).join(', '),
+          res.pubdate,
+          res.pages,
+          res.images.small,
+          res.subtitle,
+          res.summary);
+        // console.log(res);
+        // console.log(metaBook);
+        resolve(metaBook);
         timeId = setTimeout(clearFunction, remove_timeout);
       };
       // fail

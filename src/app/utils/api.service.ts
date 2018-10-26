@@ -106,10 +106,7 @@ export class ApiService {
     body.set('location', location);
 
     if (metaBook) {
-      if (metaBook.isbn !== isbn) {
-        console.error(metaBook);
-        return null;
-      }
+      delete metaBook.isbn;
       ApiService.body_object(body, metaBook);
     }
     return http.put<Array<Book>>(url, body.toString(), postOptions).toPromise();
@@ -184,14 +181,20 @@ export class ApiService {
     );
   }
 
-  return_book(borrowId: string): Promise<Fine> {
-    const url = `${this.base_url}/return_book`;
+  return_book(borrowId: string): Promise<boolean> {
+    const url = `${this.base_url}/return_book`,
+      http = this.http;
     const body = new URLSearchParams();
     body.set('borrow_id', borrowId);
-    return this.http.post<Fine>(url, body.toString(), postOptions).toPromise();
+    return new Promise<boolean>(function (resolve, reject) {
+      return http.post<void>(url, body.toString(), postOptions).subscribe(
+        () => resolve(true),
+        error => error.status === 402 ? resolve(false) : reject(error)
+      );
+    });
   }
 
-  borrow_fine(borrowId: number): Promise<Fine> {
+  borrow_fine(borrowId: string): Promise<Fine> {
     const url = `${this.base_url}/fine?borrow_id=${borrowId}`;
     return this.http.get<Fine>(url, withCookie).toPromise();
   }

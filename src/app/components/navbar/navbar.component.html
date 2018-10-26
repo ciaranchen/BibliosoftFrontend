@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-  <a class="navbar-brand" routerLink="/">
+  <a class="navbar-brand" routerLink="">
     <!--suppress HtmlUnknownTarget -->
     <img src="/assets/images/logo-sm-opc.png" width="30" height="30" class="d-inline-block align-top" alt="">
     Bibliosoft
@@ -10,6 +10,7 @@
     <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
     <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
     <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
+    <li class="nav-item"><a class="nav-link" (click)="debug_nav()">Debug</a></li>
   </ul>
 
   <div class="collapse navbar-collapse justify-content-end">
@@ -21,28 +22,29 @@
 
     <!-- Admin activatedRoute -->
     <ul class="nav navbar-nav navbar-right"  *ngIf="(loginService.role)==='admin'">
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/">Admin</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/manage/librarian">Manage Librarian</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/manage/change_password">Change password</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/admin">Admin</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/admin/manage_user">Manage Librarian</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/admin/change_password">Change password</a></li>
     </ul>
 
     <!-- Librarian activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/">Librarian</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/manage/reader/">Manage Reader</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/add_book/">Add Book</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/borrow/">Borrow</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/return/">Return</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian">Librarian</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/manage_user">Manage Reader</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/add_book">Add Book</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/borrow">Borrow</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/librarian/return">Return</a></li>
     </ul>
 
     <!-- Reader activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='reader'">
-      <li class="nav-item"><a class="nav-link" routerLink="/reader/">Reader</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/reader">Reader</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/reader/fined">Fine Records</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/reader/profile">Profile</a></li>
     </ul>
 
+    <!-- Logout activatedRoute -->
     <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)">
       <li class="nav-item"><a class="nav-link" routerLink="/logout">Logout</a></li>
     </ul>

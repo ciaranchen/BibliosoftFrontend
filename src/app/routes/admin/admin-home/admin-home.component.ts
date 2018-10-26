@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService, Message } from '../../../utils/message.service';
+import { MessageService } from '../../../utils/message.service';
 import { StateService } from '../../../utils/state.service';
 import { Rule } from '../../../utils/DataStructs/Rule';
 import { ApiService } from '../../../utils/api.service';
@@ -10,7 +10,7 @@ import { ApiService } from '../../../utils/api.service';
   styleUrls: ['./admin-home.component.css']
 })
 export class AdminHomeComponent implements OnInit {
-  rule: Rule;
+  rule: Rule = new Rule(0, 1, 2, 3, 4);
 
   constructor(
     private apiService: ApiService,
@@ -20,11 +20,12 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.only('admin');
-    // load old rules
+    // todo: load old rules
     // this.apiService.
   }
 
   update_rule() {
+    console.log(this.stateService.user);
     // this.apiService.update_rule(this.rule)
   }
 }
