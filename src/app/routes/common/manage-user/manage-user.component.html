@@ -6,58 +6,60 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="col-md order-md-1">
-      <div class="input-group mb-3 form-row">
-        <div class="input-group-prepend">
-          <label for="username"><span class="input-group-text">username</span></label>
-        </div>
-        <input type="text" class="form-control" id="username"
-               placeholder="username" required
-               [(ngModel)]="addAccount.username">
-        <div class="invalid-feedback">
-          username is required.
-        </div>
-      </div>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Username" [formControl]="sampleFormControl"
+             [errorStateMatcher]="matcher" [(ngModel)]="addAccount.username" required>
+      <!--<mat-hint>Username should be the phone of user!</mat-hint>-->
+      <mat-error *ngIf="sampleFormControl.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-      <div class="input-group mb-3 form-row">
-        <div class="input-group-prepend">
-          <label for="password"><span class="input-group-text">password</span></label>
-        </div>
-        <input type="password" class="form-control" id="password"
-               placeholder="password" [(ngModel)]="addPassword" required>
-        <div class="invalid-feedback">
-          Valid book number is required.
-        </div>
-      </div>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Password" [formControl]="sampleFormControl"
+             [errorStateMatcher]="matcher" [(ngModel)]="addPassword" required>
+      <mat-error *ngIf="sampleFormControl.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
 
-      <div class="input-group mb-3 form-row">
-        <div class="input-group-prepend">
-          <label for="nickname"><span class="input-group-text">nickname</span></label>
-        </div>
-        <input type="text" class="form-control" id="nickname"
-               placeholder="nickname" [(ngModel)]="addAccount.nickname" required>
-      </div>
 
-      <div class="input-group mb-3 form-row">
-        <div class="input-group-prepend">
-          <label for="email"><span class="input-group-text">email</span></label>
-        </div>
-        <input type="email" class="form-control" id="email"
-               placeholder="email address" [(ngModel)]="addAccount.email" required>
-      </div>
+    <mat-form-field class="full-width">
+      <input matInput type="email" placeholder="Email" [formControl]="emailFormControl"
+             [errorStateMatcher]="matcher" [(ngModel)]="addAccount.email" required>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
 
-      <button type="button" class="btn btn-info" (click)="submit_register()">add Account</button>
-    </div>
+
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Nickname" [(ngModel)]="addAccount.nickname">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Address" [(ngModel)]="addAccount.address">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput type="text" placeholder="Slogan" [(ngModel)]="addAccount.slogan">
+    </mat-form-field>
+
+
+    <button type="button" class="btn btn-info" (click)="submit_register()">add Account</button>
   </div>
 </ng-template>
 
 <div class="app-wrapper">
   <div>
-    <h4 class="title">{{ managedRole }} User</h4>
+    <h4 class="title">Manage {{ managedRole }}</h4>
     <!--<p class="category"></p>-->
 
     <div class="row">
-      <div class="input-group col-md-3">
+      <div class="input-group col-md-6">
         <input type="text" class="form-control" placeholder="search account" [(ngModel)]="searchText">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary" type="button" (click)="search_user()" placement="top" ngbTooltip="search {{ managedRole }}">
@@ -73,9 +75,8 @@
     </div>
   </div>
 
-  <hr>
-
-  <div class="content table-responsive table-full-width">
+  <div class="content table-responsive table-full-width" *ngIf="searched">
+    <hr>
     <table class="table table-hover table-striped">
       <thead class="thead-light">
       <tr>

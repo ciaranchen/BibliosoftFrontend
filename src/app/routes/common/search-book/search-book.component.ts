@@ -25,7 +25,7 @@ export class SearchBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.stateService.only_rl();
+    this.stateService.only_rl();
     // this.dataSource.paginator = this.paginator;
   }
 

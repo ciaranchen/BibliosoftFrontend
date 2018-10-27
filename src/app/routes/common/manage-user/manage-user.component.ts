@@ -5,8 +5,17 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute} from "@angular/router";
 import {Message, MessageService} from "../../../utils/message.service";
 import {StateService} from "../../../utils/state.service";
+import {ErrorStateMatcher} from "@angular/material";
+import {FormControl, FormGroupDirective, NgForm, Validator, Validators} from "@angular/forms";
 
 const waitTime = 5000;
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-manage-user',
@@ -23,6 +32,16 @@ export class ManageUserComponent implements OnInit {
 
   addAccount = new User('', '');
   addPassword: string;
+
+  searched = false;
+  sampleFormControl = new FormControl('', [
+    Validators.required
+  ]);
+  emailFormControl = new FormControl('', [
+    Validators.email,
+    Validators.required
+  ]);
+  matcher = new MyErrorStateMatcher();
 
   constructor(
     private messageService: MessageService,
@@ -78,6 +97,7 @@ export class ManageUserComponent implements OnInit {
   search_user() {
     this.apiService.get_account(this.managedRole, this.searchText)
       .then(res => {
+        this.searched = true;
         this.data = res;
       }).catch(err => {
         console.error(err);

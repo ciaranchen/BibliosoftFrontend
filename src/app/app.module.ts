@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,11 +34,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
 import { LibrarianHomeComponent } from './routes/librarian/librarian-home/librarian-home.component';
 import {
+  ErrorStateMatcher,
   MatChipsModule,
   MatGridListModule, MatInputModule,
   MatListModule, MatPaginatorModule, MatSortModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from "@angular/material";
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 
@@ -80,9 +81,10 @@ import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     // ng-bootstrap Module
     NgbModule,
-    FormsModule,
     // Material Module
     BrowserAnimationsModule,
     MatListModule,
@@ -94,7 +96,9 @@ import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/
     MatChipsModule,
     MatInputModule
   ],
-  providers: [MessageService, StateService],
+  providers: [
+    MessageService, StateService,
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

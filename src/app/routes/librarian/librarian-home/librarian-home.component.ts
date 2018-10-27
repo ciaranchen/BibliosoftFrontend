@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StateService} from "../../../utils/state.service";
 
 @Component({
   selector: 'app-librarian-home',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LibrarianHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private stateService: StateService
+  ) { }
 
   ngOnInit() {
+    this.stateService.only('librarian');
     // todo: get library fine record
   }
 
