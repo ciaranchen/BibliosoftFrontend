@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from "../../utils/state.service";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,8 @@ import { StateService } from "../../utils/state.service";
 })
 export class NavbarComponent implements OnInit {
   constructor(
-    public loginService: StateService
+    public loginService: StateService,
+    public location: Location
   ) { }
 
   ngOnInit() {}

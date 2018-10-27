@@ -1,52 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-  <a class="navbar-brand" routerLink="">
-    <!--suppress HtmlUnknownTarget -->
-    <img src="/assets/images/logo-sm-opc.png" width="30" height="30" class="d-inline-block align-top" alt="">
-    Bibliosoft
-  </a>
-
-  <ul class="nav navbar-nav" routerLinkActive="active">
+<mat-toolbar class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
+  <mat-nav-list class="nav navbar-nav" routerLinkActive="active">
     <!-- Common activatedRoute-->
-    <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
-    <li class="nav-item"><a class="nav-link" routerLink="/search">Search</a></li>
-    <li class="nav-item"><a class="nav-link" (click)="debug_nav()">Debug</a></li>
-  </ul>
+    <li class="nav-item">
+      <a mat-list-item class="nav-link navbar-brand" routerLink="/">
+        <!--suppress HtmlUnknownTarget -->
+        <img src="/assets/images/logo-sm-opc.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <h5>Bibliosoft</h5>
+      </a>
+    </li>
+    <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/login">Admin Login</a></li>
+    <li class="nav-item"><a mat-list-item class="nav-link" (click)="location.back()">Back</a></li>
+    <li class="nav-item"><a mat-list-item class="nav-link" (click)="debug_nav()">Debug</a></li>
+  </mat-nav-list>
 
   <div class="collapse navbar-collapse justify-content-end">
     <!-- Need user_login activatedRoute -->
-    <ul class="nav navbar-nav navbar-right" *ngIf="!(loginService.role)">
-      <li class="nav-item"><a class="nav-link" routerLink="/login/reader">Reader Login</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
-    </ul>
+    <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="!(loginService.role)">
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/login/reader">Reader Login</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>
+    </mat-nav-list>
 
     <!-- Admin activatedRoute -->
-    <ul class="nav navbar-nav navbar-right"  *ngIf="(loginService.role)==='admin'">
-      <li class="nav-item"><a class="nav-link" routerLink="/admin">Admin</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/manage_user">Manage Librarian</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/admin/change_password">Change password</a></li>
-    </ul>
+    <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='admin'">
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/manage_user">Manage Librarian</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/change_password">Change password</a></li>
+    </mat-nav-list>
 
     <!-- Librarian activatedRoute -->
-    <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian">Librarian</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/manage_user">Manage Reader</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/add_book">Add Book</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/borrow">Borrow</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/librarian/return">Return</a></li>
-    </ul>
+    <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/search">Search</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/manage_user">Manage Reader</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/add_book">Add Book</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/borrow">Borrow</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/return">Return</a></li>
+    </mat-nav-list>
 
     <!-- Reader activatedRoute -->
-    <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='reader'">
-      <li class="nav-item"><a class="nav-link" routerLink="/reader">Reader</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/reader/fined">Fine Records</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/reader/profile">Profile</a></li>
-    </ul>
+    <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='reader'">
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/search">Search</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/reader/borrowed">Borrow Records</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/reader/fined">Fine Records</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/reader/profile">Profile</a></li>
+    </mat-nav-list>
 
     <!-- Logout activatedRoute -->
-    <ul class="nav navbar-nav navbar-right" *ngIf="(loginService.role)">
-      <li class="nav-item"><a class="nav-link" routerLink="/logout">Logout</a></li>
-    </ul>
+    <div class="vl" *ngIf="(loginService.role)"></div>
+    <mat-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)">
+      <mat-list-item style="color: white;">
+        {{loginService.user.username}}
+      </mat-list-item>
+    </mat-list>
+    <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)">
+      <li class="nav-item" *ngIf="(loginService.role)==='reader'">
+        <a mat-list-item class="nav-link" routerLink="/reader">Reader</a>
+      </li>
+      <li class="nav-item" *ngIf="(loginService.role)==='librarian'">
+        <a mat-list-item class="nav-link" routerLink="/librarian">Librarian</a>
+      </li>
+      <li class="nav-item" *ngIf="(loginService.role)==='admin'">
+        <a mat-list-item class="nav-link" routerLink="/admin">Admin</a>
+      </li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/logout">Logout</a></li>
+    </mat-nav-list>
   </div>
-</nav>
+</mat-toolbar>
+
+

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {StateService} from "../../../utils/state.service";
+import {MatPaginator, MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -10,7 +11,13 @@ import {StateService} from "../../../utils/state.service";
 })
 export class SearchBookComponent implements OnInit {
   books: Array<MetaBook>;
-  search_text: string;
+  search_text: string = '';
+  searched = false;
+
+  displayedColumns = ["title", 'isbn', 'author', 'publisher'];
+  dataSource: MatTableDataSource<MetaBook> = new MatTableDataSource<MetaBook>();
+
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private stateService: StateService,
@@ -18,17 +25,22 @@ export class SearchBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.only_rl();
-    // document.body.style.background = '#252525';
+    // this.stateService.only_rl();
+    // this.dataSource.paginator = this.paginator;
   }
 
   search_book(): void {
     // this.search_type = type;
-    console.log('start search: "' + this.search_text);
-    this.apiService.search_meta_book(this.search_text).then(
+    const search_text = this.search_text.replace(' ', '_');
+    console.log('start search: "' + search_text);
+    this.apiService.search_meta_book(search_text).then(
       res => {
+        this.searched = true;
         console.log(res);
         this.books = res;
+        this.dataSource.data = res;
+
+        // this.dataSource.paginator.lastPage();
       }
     );
   }

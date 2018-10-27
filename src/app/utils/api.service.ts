@@ -6,6 +6,7 @@ import {Book} from './DataStructs/Book';
 import {Fine} from './DataStructs/Fine';
 import {User} from './DataStructs/User';
 import {Borrow} from './DataStructs/Borrow';
+import {hasOwnProperty} from "tslint/lib/utils";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -27,6 +28,16 @@ export class ApiService {
   base_url = backendServer.get_url();
 
   constructor(private http: HttpClient) { }
+
+  static get_diff(source: object, dist: object): object {
+    const diff = {};
+    for (const key in source) {
+      if (source.hasOwnProperty(key) && source[key] !== dist[key]) {
+        diff[key] = dist[key];
+      }
+    }
+    return diff;
+  }
 
   static reader_and_librarian(role: string): boolean {
     return role === 'reader' || role === 'librarian';

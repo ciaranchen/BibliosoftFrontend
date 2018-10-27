@@ -1,19 +1,46 @@
-
 <div class="app-wrapper">
   <div class="input-group mb-3">
     <input type="text" class="form-control form-control-lg"
-           placeholder="Search..."
-           [(ngModel)]="search_text"
-           (keyup.enter)="search_book()">
+           placeholder="Search..." [(ngModel)]="search_text"
+           aria-describedby="search-help" (keyup.enter)="search_book()">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary" type="button" placement="top" ngbTooltip="Search" (click)="search_book()">
         <i class="fa fa-search"></i>
       </button>
     </div>
   </div>
+  <small id="search-help" class="form-text text-muted">Search Result will show below.</small>
 
-  <div>
-    Search Result will show below:
+  <div class="mat-elevation-z8" *ngIf="searched">
+    <table mat-table [dataSource]="books">
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> <b>Title</b> </th>
+        <td mat-cell *matCellDef="let element"> <a routerLink="/book/{{element.isbn}}">{{element.title}}</a> </td>
+      </ng-container>
+
+      <!-- ISBN Column -->
+      <ng-container matColumnDef="isbn">
+        <th mat-header-cell *matHeaderCellDef> <b>ISBN</b> </th>
+        <td mat-cell *matCellDef="let element"> {{element.isbn }} </td>
+      </ng-container>
+
+      <!-- Author Column -->
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> <b>Author</b> </th>
+        <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+      </ng-container>
+
+      <!-- Publisher Column -->
+      <ng-container matColumnDef="publisher">
+        <th mat-header-cell *matHeaderCellDef> <b>Publisher</b> </th>
+        <td mat-cell *matCellDef="let element"> {{element.publisher}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
   </div>
 
   <div class="search_results">

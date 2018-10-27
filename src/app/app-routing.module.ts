@@ -20,11 +20,12 @@ import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-pr
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
+import {LibrarianHomeComponent} from "./routes/librarian/librarian-home/librarian-home.component";
 
 const routes: Routes = [
   // home pages
   { path: '', component: HomeComponent },
-  { path: 'librarian', component: LibrarianBorrowComponent },
+  { path: 'librarian', component: LibrarianHomeComponent },
   { path: 'admin', component: AdminHomeComponent },
   { path: 'reader', component: ReaderProfileComponent },
   // common routes
@@ -41,14 +42,14 @@ const routes: Routes = [
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   { path: 'librarian/reader/profile/:reader', component: ReaderProfileComponent },
   { path: 'librarian/reader/borrowed/:reader', component: ReaderBorrowingComponent },
+  { path: 'librarian/borrow', component: LibrarianBorrowComponent },
+  { path: 'librarian/return', component: LibrarianReturnComponent },
   // reader/*
   { path: 'reader/profile', component: ReaderProfileComponent },
   { path: 'reader/borrowed', component: ReaderBorrowingComponent },
 
   // testing url
   { path: 'about', component: AboutComponent },
-  { path: 'librarian/borrow', component: LibrarianBorrowComponent },
-  { path: 'librarian/return', component: LibrarianReturnComponent },
   { path: 'reader/fined', component: ReaderFineComponent },
   { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },

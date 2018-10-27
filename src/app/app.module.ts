@@ -33,41 +33,66 @@ import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fi
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
 import { LibrarianHomeComponent } from './routes/librarian/librarian-home/librarian-home.component';
+import {
+  MatChipsModule,
+  MatGridListModule, MatInputModule,
+  MatListModule, MatPaginatorModule, MatSortModule,
+  MatTableModule,
+  MatToolbarModule
+} from "@angular/material";
+import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    LibrarianAddBookComponent,
-    SearchBookComponent,
-    BookDetailComponent,
+    // component
     MessagesComponent,
-    AdminLoginComponent,
+    NavbarComponent,
+    PostComponent,
+    // pages
+    AppComponent,
+    // - home pages
+    HomeComponent,
     AdminHomeComponent,
+    LibrarianHomeComponent,
+    // - common pages
     LogoutComponent,
     AboutComponent,
     LoginComponent,
-    PostComponent,
+    SearchBookComponent,
+    BookDetailComponent,
+    ManageUserComponent,
+    // - admin pages
+    AdminLoginComponent,
+    AdminChangePasswordComponent,
+    // - librarian pages
+    LibrarianAddBookComponent,
     LibrarianBorrowComponent,
+    LibrarianReturnComponent,
+    LibrarianViewFineComponent,
+    LibrarianProfileComponent,
+    // - reader pages
     ReaderViewPaymentComponent,
     ReaderFineComponent,
-    ManageUserComponent,
-    LibrarianReturnComponent,
-    ManageUserComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
-    AdminChangePasswordComponent,
-    LibrarianViewFineComponent,
-    NavbarComponent,
-    LibrarianHomeComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    // ng-bootstrap Module
     NgbModule,
     FormsModule,
-    HttpClientModule,
+    // Material Module
     BrowserAnimationsModule,
-    AppRoutingModule
+    MatListModule,
+    MatGridListModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatChipsModule,
+    MatInputModule
   ],
   providers: [MessageService, StateService],
   bootstrap: [AppComponent]

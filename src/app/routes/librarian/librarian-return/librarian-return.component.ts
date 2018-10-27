@@ -95,8 +95,14 @@ export class LibrarianReturnComponent implements OnInit {
   paid_fine() {
     this.apiService.pay_fine(this.returning)
       .then(() => {
-        this.return_success();
-      });
-    this.modalService.dismissAll();
+        this.apiService.return_book(this.returning)
+          .then(res => {
+            if (res) {
+              this.return_success();
+            } else {
+              // todo: error message
+            }
+          });
+      }).then(() => this.modalService.dismissAll());
   }
 }

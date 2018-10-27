@@ -6,10 +6,6 @@
   z-index: 1030;
 }
 
-footer, .navbar {
-  opacity: 0.8;
-}
-
 .app-container {
   width: 100%;
   min-height: 100vh;

@@ -21,7 +21,7 @@ export class AdminChangePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.only('admin');
+    // this.stateService.only('admin');
   }
 
   submit_available(): boolean {

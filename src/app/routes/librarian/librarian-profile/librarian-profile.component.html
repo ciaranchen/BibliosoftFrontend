@@ -1,6 +1,6 @@
 <div class="app-wrapper">
   <div class="py-5 text-center">
-    <h1 class="display-4">Reader Profile</h1>
+    <h1 class="display-4">Librarian Profile</h1>
   </div>
 
   <div class="col-md order-md-1">
@@ -10,7 +10,7 @@
       </div>
       <input type="text" class="form-control" id="username"
              placeholder="username" required disabled
-             [(ngModel)]="showReader.username">
+             [(ngModel)]="showLibrarian.username">
     </div>
 
     <div class="input-group mb-3 form-row">
@@ -18,7 +18,7 @@
         <label for="nickname"><span class="input-group-text">Nickname</span></label>
       </div>
       <input type="text" class="form-control" id="nickname"
-             placeholder="nickname" [(ngModel)]="showReader.nickname" required>
+             placeholder="nickname" [(ngModel)]="showLibrarian.nickname" required>
     </div>
 
     <div class="input-group mb-3 form-row">
@@ -26,7 +26,7 @@
         <label for="email"><span class="input-group-text">Email</span></label>
       </div>
       <input type="email" class="form-control" id="email"
-             placeholder="email address" [(ngModel)]="showReader.email" required>
+             placeholder="email address" [(ngModel)]="showLibrarian.email" required>
     </div>
 
     <div class="input-group mb-3 form-row">
@@ -34,7 +34,7 @@
         <label for="address"><span class="input-group-text">Address</span></label>
       </div>
       <input type="text" class="form-control" id="address"
-             placeholder="your address" [(ngModel)]="showReader.address" required>
+             placeholder="your address" [(ngModel)]="showLibrarian.address" required>
     </div>
 
     <div class="input-group mb-3 form-row">
@@ -42,7 +42,7 @@
         <label for="slogan"><span class="input-group-text">Slogan</span></label>
       </div>
       <input type="text" class="form-control" id="slogan"
-             placeholder="slogan" [(ngModel)]="showReader.slogan" required>
+             placeholder="slogan" [(ngModel)]="showLibrarian.slogan" required>
     </div>
 
     <button type="button" class="btn btn-info" (click)="submit()">update Account</button>
