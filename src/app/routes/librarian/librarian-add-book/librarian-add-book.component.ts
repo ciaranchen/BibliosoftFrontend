@@ -7,8 +7,7 @@ import {ApiService} from "../../../utils/api.service";
 import {Book} from "../../../utils/DataStructs/Book";
 import { DoubanService } from '../../../utils/douban.service';
 import {StateService} from "../../../utils/state.service";
-
-const waitTime = 5000;
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-librarian-add-book',
@@ -17,8 +16,8 @@ const waitTime = 5000;
   providers: [DoubanService, NgbModalConfig, NgbModal]
 })
 export class LibrarianAddBookComponent implements OnInit {
-
   constructor(
+    private formBuilder: FormBuilder,
     private stateService: StateService,
     private doubanService: DoubanService,
     private apiService: ApiService,
@@ -33,14 +32,31 @@ export class LibrarianAddBookComponent implements OnInit {
 
   book: MetaBook = new MetaBook('', '', '', '');
   isbn: string;
+  cacheISBN: string;
   bookNumber = 1;
-
-  floor = '';
   room = '';
   shelf = '';
+  level = '';
 
   loadingWords: string;
-  cacheISBN: string;
+  loadingResult: string = '';
+
+  firstFormGroup: FormGroup = this.formBuilder.group({
+    isbnCtrl: ['', [
+      Validators.required,
+      Validators.pattern('^((978[\\--– ])?[0-9][0-9\\--– ]{10}[\\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])$')]]
+  });
+  secondFormGroup: FormGroup = this.formBuilder.group({
+    titleCtrl: [{}, Validators.required], subtitleCtrl: [{}],
+    authorCtrl: [{}, Validators.required], publisherCtrl: [{}, Validators.required],
+    coverCtrl: [{}],
+    keywordCtrl: [{}], publishYearCtrl: [{}], pagesCtrl: [{}],
+    summaryCtrl: [{}],
+  });
+  thirdFormGroup: FormGroup = this.formBuilder.group({
+    numberCtrl: ['', [Validators.required, Validators.pattern('^([1-9][0-9]*)$')]],
+    roomCtrl: ['', Validators.required], shelfCtrl: ['', Validators.required], levelCtrl: ['', Validators.required]
+  });
 
 /**
   * isbnExist fromDouban  desc
@@ -51,9 +67,7 @@ export class LibrarianAddBookComponent implements OnInit {
   isbnExist = true;
   fromDouban = false;
 
-  buttonDisable = true;
-
-  check_isbn(closeTab) {
+  private _check_blur() {
     this.apiService.has_meta_book(this.isbn)
       .then((res) => {
         if (res) {
@@ -64,80 +78,33 @@ export class LibrarianAddBookComponent implements OnInit {
           this.loadingWords = 'isbn not exists! Search book info from Douban...';
           this.doubanService.searchISBN(this.isbn)
             .then(res => { // load success from douban
-              this.fromDouban = true;
+              this.loadingResult = 'Successfully load from Douban!';
               this.book = res;
+              // console.log(res);
             }).catch(err => { // not exists in douban
+              this.loadingResult = 'It seems this isbn is not a book isbn. Retype the ISBN or input the book information manually';
               this.fromDouban = false;
               this.book.isbn = this.isbn;
-              closeTab();
               console.error(err);
             });
         }
-      }).then(() => { // after complete all
-        setTimeout(closeTab, waitTime);
-        this.buttonDisable = false;
       });
   }
 
-  isbnBlur(content) {
-    const dismiss = () => { // close the modal
-      this.modalService.dismissAll(content);
-    };
+  check_isbn() {
     if (this.cacheISBN !== this.isbn) {
       // isbn is changed
-      this.modalService.open(content);
-      this.loadingWords = 'Loading ...';
       this.cacheISBN = this.isbn;
-      this.check_isbn(dismiss);
+      this._check_blur();
     }
   }
 
-  form_validate(): boolean {
-    if (!(this.book.title && this.book.author && this.book.publisher)) { // empty
-      return false;
-    }
-    if (this.isbn.length !== 10) {
-      alert('We use 10 characters isbn');
-    }
-    return true;
-  }
-
-  submitAddBook(modal) {
-    // load location into data;
-    if (! (this.floor && this.room && this.shelf)) {
-      // one is empty
-      if (!confirm('location may be not right. Are you sure?')) {
-        return;
-      }
-    }
-
-    const location = [this.floor, this.room, this.shelf].map((data) => data.replace('-', '_')).join('-');
-
-    let service;
-    if (this.isbnExist) {
-      // service = this.apiService.add_book('7101003044', 1, '1-2-3')
-      service = this.apiService.add_book(this.isbn, this.bookNumber, location);
-    } else {
-      service = this.apiService.add_book(this.isbn, this.bookNumber, location, this.book);
-    }
-    service.then((res) => {
-      // console.log(res);
-      this.returnValues = res;
-      this.modalService.open(modal);
-    });
-  }
-
-  // noinspection JSMethodCanBeStatic
-  downloadBarcode(event: Event) {
-    const target = event.srcElement;
-    const barcode = target.innerHTML;
-    // console.log(barcode);
-
-    const canvasElem = window.document.createElement('canvas');
-    JsBarcode(canvasElem, barcode);
-    const a = window.document.createElement('a');
-    a.href = canvasElem.toDataURL('image/png');  // 将画布内的信息导出为png图片数据
-    a.download = `code_${barcode}`;
-    a.click();
+  submitAddBook() {
+    const location = [this.room, this.shelf, this.level].map((data) => data.replace('-', '_')).join('-');
+    this.apiService.add_book(this.isbn, this.bookNumber, location, this.isbnExist? undefined: this.book)
+      .then((res) => {
+        this.returnValues = res;
+        setTimeout(() => JsBarcode('.barcode').init(), 1000);
+      });
   }
 }

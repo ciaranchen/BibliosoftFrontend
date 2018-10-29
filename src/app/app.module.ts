@@ -16,7 +16,7 @@ import { BookDetailComponent } from './routes/common/book-detail/book-detail.com
 import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
-import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
+import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.component';
 import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
@@ -34,14 +34,16 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
 import { LibrarianHomeComponent } from './routes/librarian/librarian-home/librarian-home.component';
 import {
-  ErrorStateMatcher,
-  MatChipsModule,
-  MatGridListModule, MatInputModule,
-  MatListModule, MatPaginatorModule, MatSortModule,
+  ErrorStateMatcher, MatButtonModule,
+  MatChipsModule, MatExpansionModule,
+  MatGridListModule, MatIconModule, MatInputModule,
+  MatListModule, MatPaginatorModule, MatSortModule, MatStepperIntl, MatStepperModule,
   MatTableModule,
   MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from "@angular/material";
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
+import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
+import {MAT_STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,7 @@ import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/
     AppComponent,
     // - home pages
     HomeComponent,
-    AdminHomeComponent,
+    AdminRulesComponent,
     LibrarianHomeComponent,
     // - common pages
     LogoutComponent,
@@ -76,6 +78,7 @@ import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/
     ReaderFineComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
+    AdminPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,11 +97,16 @@ import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/
     MatSortModule,
     MatPaginatorModule,
     MatChipsModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatIconModule
   ],
   providers: [
     MessageService, StateService,
-    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher }],
+    { provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher },
+    { provide: MAT_STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

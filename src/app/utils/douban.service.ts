@@ -36,7 +36,7 @@ export class DoubanService {
           res.tags.map(val => val.name).join(', '),
           res.pubdate,
           res.pages,
-          res.images.small,
+          res.image,
           res.subtitle,
           res.summary);
         // console.log(res);

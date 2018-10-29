@@ -7,18 +7,18 @@
   </div>
   <div class="modal-body">
     <mat-form-field class="full-width">
-      <input matInput placeholder="Username" [formControl]="sampleFormControl"
+      <input matInput placeholder="Username" [formControl]="requiredFormControl"
              [errorStateMatcher]="matcher" [(ngModel)]="addAccount.username" required>
       <!--<mat-hint>Username should be the phone of user!</mat-hint>-->
-      <mat-error *ngIf="sampleFormControl.hasError('required')">
+      <mat-error *ngIf="requiredFormControl.hasError('required')">
         Username is <strong>required</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <input matInput placeholder="Password" [formControl]="sampleFormControl"
+      <input matInput placeholder="Password" [formControl]="requiredFormControl"
              [errorStateMatcher]="matcher" [(ngModel)]="addPassword" required>
-      <mat-error *ngIf="sampleFormControl.hasError('required')">
+      <mat-error *ngIf="requiredFormControl.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
     </mat-form-field>

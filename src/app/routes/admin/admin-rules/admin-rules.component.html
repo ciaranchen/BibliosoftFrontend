@@ -1,0 +1,46 @@
+<div class="app-wrapper">
+  <h4 class="display-3">Library Rule</h4>
+
+  <!-- todo: explain for each rule -->
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Borrow Amount</mat-label>
+    <input matInput type="number" placeholder="borrow amount" [(ngModel)]="rule.borrowAmount" required>
+    <mat-hint align="end">
+      How many books can a reader borrow in once.
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Default Deposit</mat-label>
+    <input matInput type="number" placeholder="default deposit" [(ngModel)]="rule.defaultDeposit" required>
+    <mat-hint align="end">
+      <!--How many books can a reader borrow in once.-->
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Default Period</mat-label>
+    <input matInput type="number" placeholder="default period" [(ngModel)]="rule.defaultPeriod" required>
+    <mat-hint align="end">
+      <!--How many books can a reader borrow in once.-->
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Default Fine</mat-label>
+    <input matInput type="number" placeholder="default fine" [(ngModel)]="rule.defaultFine" required>
+    <mat-hint align="end">
+      <!--How many books can a reader borrow in once.-->
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="outline">
+    <mat-label>Default Reserve Time</mat-label>
+    <input matInput type="number" placeholder="default reserve time" [(ngModel)]="rule.reserveTime" required>
+    <mat-hint align="end">
+      <!--How many books can a reader borrow in once.-->
+    </mat-hint>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="update_rule()">update</button>
+</div>

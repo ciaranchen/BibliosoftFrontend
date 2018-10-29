@@ -1,183 +1,183 @@
-<ng-template #loadingModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="loading-modal-title">Wait a Minute ...</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>{{loadingWords}}</p>
-  </div>
-</ng-template>
-
-<ng-template #submitModal let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="submit-modal-title">Add Book Successfully!!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>your new books' barcode is list below:</p>
-    <ul *ngFor="let val of returnValues">
-      <a (click)="downloadBarcode($event)" href="javascript:">
-        {{ val.barcode }}
-      </a>
-    </ul>
-  </div>
-</ng-template>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="app-wrapper">
-  <div class="py-5 text-center">
-    <h1 class="display-4">Add Book</h1>
+  <div class="py-3 text-center">
+    <h1 class="display-3">Add Book</h1>
   </div>
 
-  <div class="col-md order-md-1">
-    <div class="mb-3 row">
-      <div class="input-group col-md-8">
-        <div class="input-group-prepend">
-          <span class="input-group-text">ISBN</span>
-        </div>
-        <input type="text" class="form-control" id="isbn"
-          placeholder="Please input your isbn" required
-          [(ngModel)]="isbn" (blur)="isbnBlur(loadingModal)">
-        <div class="invalid-feedback" style="width: 100%;">
-          ISBN is required.
-        </div>
+  <!-- todo: mat-error -->
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Input ISBN</ng-template>
+        <mat-form-field style="width: 50%;">
+          <input matInput placeholder="ISBN"
+                 [(ngModel)]="isbn"
+                 formControlName="isbnCtrl" required>
+        </mat-form-field>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious hidden>Back</button>
+        <button mat-button matStepperNext (click)="check_isbn()">Next</button>
       </div>
+    </mat-step>
 
-      <div class="input-group col-md-4">
-          <div class="input-group-prepend">
-            <span class="input-group-text">number</span>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Book Information</ng-template>
+        <p>{{ loadingWords }}</p>
+        <p>{{ loadingResult }}</p>
+        <div *ngIf="!isbnExist">
+          <div class="row">
+            <mat-form-field class="col-md-6 mb-3">
+              <mat-label>Title</mat-label>
+              <input type="text" matInput
+                     id="title" placeholder="title" formControlName="titleCtrl"
+                     [(ngModel)]="book.title" required>
+              <div class="invalid-feedback">
+                Valid book title is required.
+              </div>
+            </mat-form-field>
+            <mat-form-field class="col-md-6 mb-3">
+              <mat-label>Subtitle<span class="text-muted">(Optional)</span></mat-label>
+              <input type="text" matInput
+                     id="subtitle" formControlName="subtitleCtrl"
+                     [(ngModel)]="book.subtitle" placeholder="subtitle">
+            </mat-form-field>
           </div>
-          <input type="number" class="form-control" id="number"
-            placeholder="book number"
-            [(ngModel)]="bookNumber" required>
-          <div class="invalid-feedback">
-            Valid book number is required.
+
+          <div class="row">
+            <mat-form-field class="col-md-6 mb-3">
+              <mat-label>Author</mat-label>
+              <input type="text" matInput
+                     id="author" placeholder="author" formControlName="authorCtrl"
+                     [(ngModel)]="book.author" required>
+              <div class="invalid-feedback">
+                Valid Author is required.
+              </div>
+            </mat-form-field>
+            <mat-form-field class="col-md-6 mb-3">
+              <mat-label>Publisher</mat-label>
+              <input type="text" matInput
+                     id="publisher" placeholder="publisher" formControlName="publisherCtrl"
+                     [(ngModel)]="book.publisher" required>
+              <div class="invalid-feedback">
+                Valid Publisher is required.
+              </div>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-md-10 mb-3">
+              <mat-label>Cover Url<span>(Optional)</span></mat-label>
+              <input type="text" id="cover" matInput formControlName="coverCtrl"
+                     [(ngModel)]="book.cover" placeholder="cover url">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-md-6 mb-3">
+              <mat-label>Keywords<span>(Optional)</span></mat-label>
+              <input type="text" matInput
+                     id="keywords" formControlName="keywordCtrl"
+                     [(ngModel)]="book.keyword" placeholder="keywords">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 mb-3">
+              <mat-label>Publish Year<span>(Optional)</span></mat-label>
+              <input type="text" matInput
+                     id="publish_year" formControlName="publishYearCtrl"
+                     [(ngModel)]="book.publish_year" placeholder="publish year">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 mb-3">
+              <mat-label>Pages<span>(Optional)</span></mat-label>
+              <input type="number" matInput
+                     id="pages" formControlName="pagesCtrl"
+                     [(ngModel)]="book.pages" placeholder="pages">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="mb-4 col-md-12">
+              <mat-label>Summary<span>(Optional)</span></mat-label>
+              <textarea matInput id="summary" rows="3" formControlName="summaryCtrl"
+                        [(ngModel)]="book.desc_html" placeholder="summary"></textarea>
+            </mat-form-field>
           </div>
         </div>
-
-    </div>
-
-    <div class="mb-4">
-      <label>Location</label>
-      <div class="form-row">
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Floor" name="floor" [(ngModel)]="floor">
-        </div>
-        -
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Room" name="room" [(ngModel)]="room">
-        </div>
-        -
-        <div class="col">
-          <input type="text" class="form-control" placeholder="Shelf" name="shelf" [(ngModel)]="shelf">
-        </div>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
       </div>
-    </div>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Input more information</ng-template>
+        <p>More Information in here.</p>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-label>number</mat-label>
+            <div class="form-row">
+              <mat-form-field class="full-width">
+                <input type="number" matInput id="number"
+                       placeholder="book number" formControlName="numberCtrl"
+                       [(ngModel)]="bookNumber" required>
+                <!--<div class="invalid-feedback">-->
+                <!--Valid book number is required.-->
+                <!--</div>-->
+              </mat-form-field>
+            </div>
+          </div>
 
-    <form class="needs-validation" [hidden]="isbnExist">
-      <label>
-        <input type="text" hidden [value]="book.isbn" name="isbn" required disabled>
-      </label>
-      <label>
-        <input type="number" hidden [value]="bookNumber" name="number" required disabled>
-      </label>
-      <h2 class="col-mb-3">book info</h2>
-
-      <div class="alert alert-success" role="alert" [hidden]="!(fromDouban)">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>Successfully load from Douban!</p>
-      </div>
-      <div class="alert alert-danger" role="alert" [hidden]="(fromDouban)">
-        <h4 class="alert-heading">Oops!</h4>
-        <p>It seems this isbn is not a book isbn. Are you sure?</p>
-        <hr>
-        <p>retype the ISBN or input the book information manually</p>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="title">Title</label>
-          <input type="text" class="form-control" name="title"
-            id="title" placeholder="" [disabled]="(fromDouban)"
-            [(ngModel)]="book.title" required>
-          <div class="invalid-feedback">
-            Valid book title is required.
+          <div class="mb-4">
+            <mat-label>Location*</mat-label>
+            <div class="form-row">
+              <mat-form-field class="col">
+                <input matInput type="text" placeholder="Floor" name="floor" [(ngModel)]="room" formControlName="roomCtrl" required>
+                <span matSuffix> - </span>
+              </mat-form-field>
+              <mat-form-field class="col">
+                <input matInput type="text" placeholder="Shelf" name="shelf" [(ngModel)]="shelf" formControlName="shelfCtrl" required>
+                <span matSuffix> - </span>
+              </mat-form-field>
+              <mat-form-field class="col">
+                <input matInput type="text" placeholder="Level" name="level" [(ngModel)]="level" formControlName="levelCtrl" required>
+              </mat-form-field>
+            </div>
           </div>
         </div>
-        <div class="col-md-6 mb-3">
-          <label for="subtitle">Subtitle<span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control"
-            id="subtitle" name="subtitle" [disabled]="(fromDouban)"
-            [(ngModel)]="book.subtitle" placeholder="">
-        </div>
+      </form>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="submitAddBook()">Next</button>
       </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let val of returnValues">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ val.barcode }}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{ val.add_time }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="author">Author</label>
-          <input type="text" class="form-control"
-            id="author" name="author" [disabled]="(fromDouban)"
-            [(ngModel)]="book.author" placeholder="author" required>
-          <div class="invalid-feedback">
-            Valid Author is required.
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="publisher">Publisher</label>
-          <input type="text" class="form-control"
-            id="publisher" name="publisher" [disabled]="(fromDouban)"
-            [(ngModel)]="book.publisher" placeholder="" required>
-          <div class="invalid-feedback">
-            Valid Publisher is required.
-          </div>
-        </div>
+          <svg class="barcode"
+               [attr.jsbarcode-value]="val.barcode"
+               jsbarcode-textmargin="0"
+               jsbarcode-fontoptions="bold"></svg>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <br>
+      <div>
+        <button mat-button routerLink="/book/{{isbn}}" color="primary">to book detail page</button>
       </div>
-
-      <div class="row">
-        <div class="col-md-10 mb-3">
-          <label for="cover">Cover URL<span class="text-muted">(Optional)</span></label>
-          <input type="text" name="cover" id="cover" class="form-control"
-                 [(ngModel)]="book.cover" placeholder="cover url" [disabled]="(fromDouban)">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="keywords">Keywords<span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control"
-                 id="keywords" name="keywords" [disabled]="(fromDouban)"
-                 [(ngModel)]="book.keyword" placeholder="keywords">
-        </div>
-
-        <div class="col-md-3 mb-3">
-          <label for="publish_year">Publish Year<span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control"
-                 id="publish_year" name="publish_year" [disabled]="(fromDouban)"
-                 [(ngModel)]="book.publish_year" placeholder="publish year">
-        </div>
-
-        <div class="col-md-3 mb-3">
-          <label for="pages">Pages<span class="text-muted">(Optional)</span></label>
-          <input type="number" class="form-control"
-                 id="pages" name="pages" [disabled]="(fromDouban)"
-                 [(ngModel)]="book.pages" placeholder="pages">
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <label for="summary">Summary<span class="text-muted">(Optional)</span></label>
-        <textarea class="form-control" id="summary" name="summary" rows="10"
-          [disabled]="(fromDouban)" [(ngModel)]="book.desc_html" placeholder="summary">
-        </textarea>
-      </div>
-    </form>
-
-    <button class="btn btn-primary btn-lg btn-block"
-      (click)="submitAddBook(submitModal)" [disabled]="buttonDisable">
-      Submit
-    </button>
-  </div>
+    </mat-step>
+  </mat-vertical-stepper>
 </div>

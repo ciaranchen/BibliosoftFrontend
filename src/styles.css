@@ -3,6 +3,9 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+.full-width {
+  width: 100%;
+}
 
 .login-wrapper {
   width: 960px;

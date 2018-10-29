@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from "../../../utils/api.service";
 import {User} from "../../../utils/DataStructs/User";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ActivatedRoute} from "@angular/router";
 import {Message, MessageService} from "../../../utils/message.service";
 import {StateService} from "../../../utils/state.service";
-import {ErrorStateMatcher} from "@angular/material";
-import {FormControl, FormGroupDirective, NgForm, Validator, Validators} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
+import {Matcher} from "../../../utils/matcher";
 
 const waitTime = 5000;
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
 
 @Component({
   selector: 'app-manage-user',
@@ -34,14 +27,14 @@ export class ManageUserComponent implements OnInit {
   addPassword: string;
 
   searched = false;
-  sampleFormControl = new FormControl('', [
+  requiredFormControl = new FormControl('', [
     Validators.required
   ]);
   emailFormControl = new FormControl('', [
     Validators.email,
     Validators.required
   ]);
-  matcher = new MyErrorStateMatcher();
+  matcher = new Matcher();
 
   constructor(
     private messageService: MessageService,
@@ -49,7 +42,8 @@ export class ManageUserComponent implements OnInit {
     private stateService: StateService,
     public apiService: ApiService,
     public modalService: NgbModal
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.activatedRoute.paramMap
@@ -100,8 +94,8 @@ export class ManageUserComponent implements OnInit {
         this.searched = true;
         this.data = res;
       }).catch(err => {
-        console.error(err);
-      });
+      console.error(err);
+    });
   }
 
   submit_register() {

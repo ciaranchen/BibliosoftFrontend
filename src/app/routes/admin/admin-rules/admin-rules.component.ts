@@ -6,10 +6,10 @@ import { ApiService } from '../../../utils/api.service';
 
 @Component({
   selector: 'app-admin-home',
-  templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.css']
+  templateUrl: './admin-rules.component.html',
+  styleUrls: ['./admin-rules.component.css']
 })
-export class AdminHomeComponent implements OnInit {
+export class AdminRulesComponent implements OnInit {
   rule: Rule = new Rule(0, 1, 2, 3, 4);
 
   constructor(

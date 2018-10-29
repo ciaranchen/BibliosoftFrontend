@@ -6,7 +6,7 @@ import { HomeComponent } from './routes/common/home/home.component';
 
 import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
-import { AdminHomeComponent } from './routes/admin/admin-home/admin-home.component';
+import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.component';
 import { LoginComponent } from './routes/common/login/login.component';
 
 import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
@@ -21,12 +21,13 @@ import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reade
 import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
 import {LibrarianHomeComponent} from "./routes/librarian/librarian-home/librarian-home.component";
+import {AdminPostComponent} from "./routes/admin/admin-post/admin-post.component";
 
 const routes: Routes = [
   // home pages
   { path: '', component: HomeComponent },
   { path: 'librarian', component: LibrarianHomeComponent },
-  { path: 'admin', component: AdminHomeComponent },
+  { path: 'admin', component: AdminRulesComponent },
   { path: 'reader', component: ReaderProfileComponent },
   // common routes
   { path: 'search', component: SearchBookComponent },
@@ -35,9 +36,10 @@ const routes: Routes = [
   { path: ':role/manage_user', component: ManageUserComponent },
   { path: 'logout', component: LogoutComponent },
   // admin/*
-  { path: 'admin/home', component: AdminHomeComponent },
+  { path: 'admin/rules', component: AdminRulesComponent },
   { path: 'admin/login', component: AdminLoginComponent },
-  { path: 'admin/change_password', component: AdminChangePasswordComponent },
+  { path: 'admin/password', component: AdminChangePasswordComponent },
+  { path: 'admin/post', component: AdminPostComponent },
   // librarian/*
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   { path: 'librarian/reader/profile/:reader', component: ReaderProfileComponent },
