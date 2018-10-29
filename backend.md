@@ -1,13 +1,14 @@
 # Notations:
 # quoted by "[]" means optional
 
-MetaBook Json Example:
+# MetaBook Json Example:
 {
   "isbn": 636920051626,
   "title": "Learning Web Design, 5th Edition",
   "cover": "https://covers.oreillystatic.com/images/0636920051626/cat.gif",
   "subtitle": "A Beginner' 's Guide to HTML, CSS, JavaScript, and Web Graphics",
   "author": "Jennifer Robbins",
+  "price": 49.8
   "publisher": "O' 'Reilly Media",
   "publishYear": 2018,
   "keyword": "Web Developement",
@@ -15,7 +16,7 @@ MetaBook Json Example:
   "descHtml": "<p>Do you want to build web pages but have no prior experience?</p> ..."
 }
 
-Book Json Example:
+# Book Json Example:
 {
   "barcode": 92313039575,
   "isbn": 7101003044,
@@ -23,7 +24,7 @@ Book Json Example:
   "location": "1-23-3"
 }
 
-Account Json Example:
+# Account Json Example:
 {
   "username": "Peggy",
   "nickname": "Nickname",
@@ -178,16 +179,36 @@ Response status:
 GET http://localhost:80/fine?borrow_id=99
 Accept: application/json
 
-{
-  "unit": "Yuan",
-  "fine": 32
-}
+<array of borrows>
 
 ###
 
 # Get fines
 GET http://localhost:80/fines?[reader_id=xx][&unpaid_only=true(default)/false]
 Accept: application/json
+
+[
+  {
+    "id": 1,
+    "barcode": 10001,
+    "fine": 9,
+    "librarian_id": "lib",
+    "reader_id": "rad",
+    "borrow_time": 1537495200000,
+    "return_time": null,
+    "fine_update_date": 1540828800000
+  },
+  {
+    "id": 2,
+    "barcode": 10002,
+    "fine": 9,
+    "librarian_id": "lib",
+    "reader_id": "rad",
+    "borrow_time": 1537495200000,
+    "return_time": null,
+    "fine_update_date": 1540828800000
+  }
+]
 
 ###
 
@@ -203,7 +224,7 @@ Response status:
 
 ###
 
-# Search book by type
+# Search book
 GET http://localhost:80/search?param=<param>
 
 Response:
@@ -211,7 +232,7 @@ Response:
 
 ### As an admin
 
-# Get librarians
+# Get/Search librarians
 GET http://localhost:80/librarians[?query=peggy]
 Accept: application/json
 
@@ -263,7 +284,7 @@ Response Status:
 POST http://localhost:80/add_reader
 
 ###
-# Get readers
+# Get/Search readers
 GET http://localhost:80/readers[?query=peggy]
 
 ###
@@ -273,6 +294,60 @@ POST http://localhost:80/reset_reader_password
 ###
 # Update reader info
 POST http://localhost:80/update_reader
+
+###
+
+# Get brief income
+GET http://localhost:80/brief_income
+Accept: application/json
+
+{
+  "fine": 18,
+  "deposit": 300
+}
+
+###
+
+# Get income info with time period [start, end], start&end should be formatted as `%4d-%02d-%02d`
+GET http://localhost:80/income?start=2018-10-01&end=2018-10-30
+Accept: application/json
+
+[
+  {
+    "this_day": "2018-10-29",
+    "fine_amount": 18,
+    "deposit_amount": 300,
+    "incomes": [
+      {
+        "id": 1,
+        "amount": 9,
+        "type": 1,
+        "time": "2018-10-29T11:12:12.000+0000",
+        "reader_id": "rad",
+        "librarian_id": "lib",
+        "borrow_id": 10001
+      },
+      {
+        "id": 2,
+        "amount": 9,
+        "type": 1,
+        "time": "2018-10-29T11:12:12.000+0000",
+        "reader_id": "rad",
+        "librarian_id": "lib",
+        "borrow_id": 10002
+      },
+      {
+        "id": 3,
+        "amount": 300,
+        "type": 2,
+        "time": "2018-10-29T11:12:12.000+0000",
+        "reader_id": "rad",
+        "librarian_id": "lib",
+        "borrow_id": -1
+      }
+    ]
+  }
+]
 
 ###
 

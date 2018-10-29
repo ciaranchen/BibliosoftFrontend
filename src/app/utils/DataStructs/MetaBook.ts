@@ -6,6 +6,7 @@ export class MetaBook {
     public isbn: string,
     public title: string,
     public author: string,
+    public price: number,
     public publisher: string,
     public keyword?: string,
     public publish_year?: string,

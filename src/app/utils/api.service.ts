@@ -6,7 +6,7 @@ import {Book} from './DataStructs/Book';
 import {Fine} from './DataStructs/Fine';
 import {User} from './DataStructs/User';
 import {Borrow} from './DataStructs/Borrow';
-import {hasOwnProperty} from "tslint/lib/utils";
+import {DateIncome} from "./DataStructs/DateIncome";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -89,7 +89,7 @@ export class ApiService {
     return new Promise<boolean>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(true),
+          () => resolve(true),
           error1 => error1.status === 403 ? resolve(false) : reject(error1)
         );
       }
@@ -102,7 +102,7 @@ export class ApiService {
     return new Promise<boolean>(
       function (resolve, reject) {
         http.get(url, withCookie).subscribe(
-          val => resolve(true),
+          () => resolve(true),
           error1 => error1.status === 404? resolve(false) : reject(error1));
       }
     );
@@ -171,7 +171,7 @@ export class ApiService {
     return new Promise<boolean>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
-          value => resolve(true),
+          () => resolve(true),
           error1 => error1.status === 400? resolve(false): reject(error1)
         );
       }
@@ -216,8 +216,7 @@ export class ApiService {
   }
 
   pay_fine(borrowId: string): Promise<void> {
-    const url = `${this.base_url}/pay_fine`,
-      http = this.http;
+    const url = `${this.base_url}/pay_fine`;
     const body = new URLSearchParams();
     body.set('borrow_id', borrowId);
     return this.http.post<void>(url, body.toString(), postOptions).toPromise();
@@ -238,7 +237,7 @@ export class ApiService {
     return ApiService.reader_and_librarian(role) ? new Promise<boolean>(
       function (resolve, reject) {
         http.post(url, body.toString(), postOptions).subscribe(
-          val => resolve(true),
+          () => resolve(true),
           err => err.status === 407 ? resolve(false) : reject(err)
         );
       }
@@ -274,5 +273,15 @@ export class ApiService {
     ApiService.body_object(body, diff);
     return ApiService.reader_and_librarian(role) ?
       this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
+  }
+
+  all_income() {
+    const url = `${this.base_url}/brief_income`;
+    return this.http.get(url, withCookie).toPromise();
+  }
+
+  get_incomes(start: Date, end: Date): Promise<Array<DateIncome>> {
+    const url = `${this.base_url}/income?${ApiService.json2query({start: start, end: end})}`;
+    return this.http.get<Array<DateIncome>>(url, withCookie).toPromise();
   }
 }
