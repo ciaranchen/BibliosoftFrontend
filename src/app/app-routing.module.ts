@@ -20,13 +20,13 @@ import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-pr
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
-import {LibrarianHomeComponent} from "./routes/librarian/librarian-home/librarian-home.component";
+import {LibrarianIncomeComponent} from "./routes/librarian/librarian-income/librarian-income.component";
 import {AdminPostComponent} from "./routes/admin/admin-post/admin-post.component";
 
 const routes: Routes = [
   // home pages
   { path: '', component: HomeComponent },
-  { path: 'librarian', component: LibrarianHomeComponent },
+  { path: 'librarian', component: LibrarianIncomeComponent },
   { path: 'admin', component: AdminRulesComponent },
   { path: 'reader', component: ReaderProfileComponent },
   // common routes

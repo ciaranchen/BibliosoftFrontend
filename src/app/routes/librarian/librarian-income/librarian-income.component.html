@@ -1,0 +1,21 @@
+<div class="app-wrapper">
+  <app-plotly-income-multi-lines [dataInput]="data" [start]="start" [end]="end"></app-plotly-income-multi-lines>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let val of data">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ val.date.toLocaleDateString() }}
+        </mat-panel-title>
+        <mat-panel-description>
+          earn money: {{ val.fine + val.deposit }} yuan
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-plotly-income-pie [dataInput]="val" *ngIf="val.fine + val.deposit !== 0"></app-plotly-income-pie>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <!-- debug data -->
+  {{ totalIncome | json }}
+  {{ data | json }}
+</div>

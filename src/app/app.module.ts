@@ -32,7 +32,7 @@ import { AdminChangePasswordComponent } from './routes/admin/admin-change-passwo
 import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
-import { LibrarianHomeComponent } from './routes/librarian/librarian-home/librarian-home.component';
+import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
 import {
   ErrorStateMatcher, MatButtonModule,
   MatChipsModule, MatExpansionModule,
@@ -43,7 +43,10 @@ import {
 } from "@angular/material";
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
-import {MAT_STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
+import { MAT_STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
+import { PlotlyIncomeMultiLinesComponent } from "./components/plotly-income-multilines/plotly-income-multi-lines.component";
+import { PlotlyIncomePieComponent } from "./components/plotly-income-pie/plotly-income-pie.component";
+import {PlotlyModule} from "angular-plotly.js";
 
 @NgModule({
   declarations: [
@@ -51,12 +54,14 @@ import {MAT_STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
     MessagesComponent,
     NavbarComponent,
     PostComponent,
+    PlotlyIncomeMultiLinesComponent,
+    PlotlyIncomePieComponent,
     // pages
     AppComponent,
     // - home pages
     HomeComponent,
     AdminRulesComponent,
-    LibrarianHomeComponent,
+    LibrarianIncomeComponent,
     // - common pages
     LogoutComponent,
     AboutComponent,
@@ -86,6 +91,7 @@ import {MAT_STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    PlotlyModule,
     // ng-bootstrap Module
     NgbModule,
     // Material Module

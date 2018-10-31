@@ -67,6 +67,10 @@ export class ApiService {
     return body.toString();
   }
 
+  static date2string(date: Date): string {
+    return date.toLocaleDateString().replace(/\//g, '-')
+  }
+
   login(username: string, password: string, type: number): Promise<User> {
     const url = `${this.base_url}/login`;
     const body = new URLSearchParams();
@@ -281,7 +285,9 @@ export class ApiService {
   }
 
   get_incomes(start: Date, end: Date): Promise<Array<DateIncome>> {
-    const url = `${this.base_url}/income?${ApiService.json2query({start: start, end: end})}`;
+    const url = `${this.base_url}/income?${ApiService.json2query({
+      start: ApiService.date2string(start), 
+      end: ApiService.date2string(end)})}`;
     return this.http.get<Array<DateIncome>>(url, withCookie).toPromise();
   }
 }

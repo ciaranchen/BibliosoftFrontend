@@ -13,7 +13,7 @@ export class PlotlyIncomePieComponent implements OnInit {
   set dataInput(incomeData: DateIncomeData) {
     this.data = this.income2data(incomeData);
     this.layout = {
-      title: incomeData.day
+      title: incomeData.date.toLocaleDateString()
     };
   }
 
