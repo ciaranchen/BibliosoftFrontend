@@ -15,7 +15,7 @@ export class IncomeDetailComponent implements OnInit {
   ngOnInit() {}
 
   link_addr(x: Income): string {
-    return this.type === 1 ? `/librarian/borrow_detail/${x.borrow_id}`: `/librarian/reader/profile/${x.reader_id}`
+    return this.type === 1 ? `/borrow_detail/${x.borrow_id}`: `/librarian/reader/profile/${x.reader_id}`
   }
 
   get_time(x: string) {

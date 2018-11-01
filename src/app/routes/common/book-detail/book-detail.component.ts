@@ -7,6 +7,7 @@ import {Book} from '../../../utils/DataStructs/Book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from "../../../utils/state.service";
 import {Message, MessageService} from "../../../utils/message.service";
+import * as JsBarcode from 'jsbarcode';
 
 @Component({
   selector: 'app-book-detail',
@@ -19,44 +20,32 @@ export class BookDetailComponent implements OnInit {
   isbn: string;
   login: string;
 
-  showMetaBook: MetaBook;
+  showMetaBook: MetaBook = new MetaBook('', '', '', '');
 
   constructor(
     private messageService: MessageService,
     public modalService: NgbModal,
-    private stateService: StateService,
+    public stateService: StateService,
     private activateRoute: ActivatedRoute,
     private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
+    this.stateService.only2('librarian', 'reader');
+    this.login = this.stateService.role;
     // to get metaBook information from backend
     this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
-    this.apiService.get_meta_book(this.isbn)
-      .then(res => {this.metaBook = res; })
-      .catch(error => {
-        console.error('404');
-        console.error(error);
-        this.stateService.back_home();
-      }
-    );
+    this.get_fresh_metabook();
+
     this.apiService.get_books(this.isbn).then(
       res => {
         this.books = res;
       }
     );
-    this.login = localStorage.getItem('login');
-
-    // this.routerRedirect.only2('librarian', 'reader');
-    if (this.login === 'librarian') {
-      Object.assign(this.showMetaBook, this.metaBook);
-    }
   }
 
   edit_location($event: Event) {
-    const temp = $event.srcElement;
-    const button = temp.tagName.toLowerCase() === 'i' ? temp.parentElement : temp;
-    const tr = button.parentElement.parentElement;
+    const tr = this.get_tr($event);
     // console.log(tr);
     const barcode = tr.childNodes[1].textContent;
     // console.log(barcode);
@@ -86,25 +75,28 @@ export class BookDetailComponent implements OnInit {
     );
   }
 
+  private get_tr($event: Event) {
+    return $event.srcElement.closest('tr');
+  }
+
   remove_book($event: Event) {
-    const temp = $event.srcElement;
-    const button = temp.tagName.toLowerCase() === 'i' ? temp.parentElement : temp;
-    const tr = button.parentElement.parentElement;
-    // console.log(tr);
-    const barcode = tr.childNodes[1].textContent;
-
-    let i: number;
-
-    this.books.forEach((book, index) => {
-      if (book.barcode.toString() === barcode.toString()) {
-        i = index;
-      }
-    });
+    const barcode = this.get_tr($event).childNodes[1].textContent;
+    const bookIndex = this.books.findIndex(book => book.barcode.toString() === barcode.toString());
 
     this.apiService.delete_book(barcode)
       .then(() => {
-        delete this.books[i];
+        this.books.splice(bookIndex, 1);
       });
+  }
+
+  download_barcode ($event: Event) {
+    const barcode = this.get_tr($event).childNodes[1].textContent;
+    const canvasElem = window.document.createElement('canvas');
+    JsBarcode(canvasElem, barcode);
+    const a = window.document.createElement('a');
+    a.href = canvasElem.toDataURL('image/png');  // 将画布内的信息导出为png图片数据
+    a.download = `code_${barcode}`;
+    a.click();
   }
 
   disable_reserve() {
@@ -113,23 +105,36 @@ export class BookDetailComponent implements OnInit {
 
   reserve_book() {
     this.stateService.only('reader');
+    // todo: reserve book
     // this.apiService.reserve_book(stateService.user.username, this.isbn);
   }
 
-  delete_meta_book() {
-    this.stateService.only('librarian');
-    this.apiService.delete_meta_book(this.metaBook.isbn)
-      .then(() => {
-        this.messageService.messages.push(new Message('delete success!', 'success'));
-        this.stateService.back_home();
-      });
-  }
-
-  submit_edit_meta_book() {
+  submit_edit_metabook() {
     this.stateService.only('librarian');
     this.apiService.update_meta_book(this.showMetaBook)
       .then(() => {
         this.showMetaBook = this.metaBook;
+        this.modalService.dismissAll();
+        // this.get_fresh_metabook();
       });
+  }
+
+  visualize(books: Array<Book>) {
+    return books.filter(value => !(value.deleted));
+  }
+
+  private get_fresh_metabook() {
+    this.apiService.get_meta_book(this.isbn)
+      .then(res => {
+        this.metaBook = res;
+        if (this.login === 'librarian') {
+          Object.assign(this.showMetaBook, this.metaBook);
+        }
+      }).catch(error => {
+        console.error(error);
+        this.stateService.back_home()
+          .then(() => this.messageService.messages.push(new Message('no such a book', 'danger')));
+      }
+    );
   }
 }

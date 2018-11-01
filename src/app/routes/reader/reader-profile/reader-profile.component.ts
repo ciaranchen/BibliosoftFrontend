@@ -23,18 +23,18 @@ export class ReaderProfileComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.only_rl();
-    // get url params
     if (this.stateService.role === 'reader') {
       this.reader = this.stateService.user;
       Object.assign(this.showReader, this.reader);
     } else {
+      // get url params
       const readerId = this.activatedRoute.snapshot.paramMap.get('reader');
       console.log(readerId);
       this.apiService.get_account('reader', readerId)
         .then(res => {
           if (res[0].username !== readerId) {
-            console.error('no such a user');
-            this.stateService.back_home();
+            this.stateService.back_home()
+              .then(() => this.messageService.messages.push(new Message('no such a user', 'danger')));
           }
           this.reader = res[0];
         }).then(() => Object.assign(this.showReader, this.reader));

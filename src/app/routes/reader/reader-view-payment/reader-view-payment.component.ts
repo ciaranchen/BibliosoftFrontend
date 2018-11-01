@@ -16,7 +16,7 @@ export class ReaderViewPaymentComponent implements OnInit {
     author: 'string',
     publisher: 'string',
     keyword: 'string',
-    publish_year: 'string',
+    publish_year: 123,
     pages: 123,
     cover: 'string',
     subtitle: 'string',

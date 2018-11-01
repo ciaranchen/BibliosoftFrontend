@@ -27,20 +27,21 @@ export class DoubanService {
       };
       // success
       window[callbackName] = res => {
-        console.log(res.tags);
+        console.log(res);
         const metaBook = new MetaBook(
           res.isbn10,
           res.title,
           res.author,
           res.publisher,
           res.tags.map(val => val.name).join(', '),
-          res.pubdate,
+          res.pubdate.split('-')[0],
           res.pages,
           res.image,
           res.subtitle,
-          res.summary);
+          '<p>' + res.summary.replace('\n', '</p><p>') + '</p>',
+          parseFloat(res.price.split(' ').pop()));
         // console.log(res);
-        // console.log(metaBook);
+        console.log(metaBook);
         resolve(metaBook);
         timeId = setTimeout(clearFunction, remove_timeout);
       };

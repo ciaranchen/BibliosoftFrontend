@@ -25,7 +25,7 @@
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Book Information</ng-template>
-        <p>{{ loadingWords }}</p>
+        <div class="alert alert-info">{{ loadingWords }}</div>
         <p>{{ loadingResult }}</p>
         <div *ngIf="!isbnExist">
           <div class="row">
@@ -68,10 +68,16 @@
           </div>
 
           <div class="row">
-            <mat-form-field class="col-md-10 mb-3">
+            <mat-form-field class="col-md-9 mb-3">
               <mat-label>Cover Url<span>(Optional)</span></mat-label>
               <input type="text" id="cover" matInput formControlName="coverCtrl"
                      [(ngModel)]="book.cover" placeholder="cover url">
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 mb-3">
+              <mat-label>Price<span>(Optional)</span></mat-label>
+              <input type="text" id="price" matInput formControlName="priceCtrl"
+                     [(ngModel)]="book.price" placeholder="cover url">
             </mat-form-field>
           </div>
 

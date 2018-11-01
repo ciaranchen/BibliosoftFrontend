@@ -17,7 +17,7 @@
       <div class="input-group-prepend">
         <label for="nickname"><span class="input-group-text">Nickname</span></label>
       </div>
-      <input type="text" class="form-control" id="nickname"
+      <input type="text" class="form-control" id="nickname" [disabled]="!samePerson"
              placeholder="nickname" [(ngModel)]="showLibrarian.nickname" required>
     </div>
 
@@ -25,7 +25,7 @@
       <div class="input-group-prepend">
         <label for="email"><span class="input-group-text">Email</span></label>
       </div>
-      <input type="email" class="form-control" id="email"
+      <input type="email" class="form-control" id="email" [disabled]="!samePerson"
              placeholder="email address" [(ngModel)]="showLibrarian.email" required>
     </div>
 
@@ -33,7 +33,7 @@
       <div class="input-group-prepend">
         <label for="address"><span class="input-group-text">Address</span></label>
       </div>
-      <input type="text" class="form-control" id="address"
+      <input type="text" class="form-control" id="address" [disabled]="!samePerson"
              placeholder="your address" [(ngModel)]="showLibrarian.address" required>
     </div>
 
@@ -41,7 +41,7 @@
       <div class="input-group-prepend">
         <label for="slogan"><span class="input-group-text">Slogan</span></label>
       </div>
-      <input type="text" class="form-control" id="slogan"
+      <input type="text" class="form-control" id="slogan" [disabled]="!samePerson"
              placeholder="slogan" [(ngModel)]="showLibrarian.slogan" required>
     </div>
 

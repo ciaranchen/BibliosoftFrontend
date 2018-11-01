@@ -11,6 +11,7 @@
   </div>
   <small id="search-help" class="form-text text-muted">Search Result will show below.</small>
 
+  <br>
   <div class="mat-elevation-z8" *ngIf="searched">
     <table mat-table [dataSource]="books">
       <!-- Title Column -->
@@ -41,34 +42,6 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
-  </div>
-
-  <div class="search_results">
-    <div *ngIf="books">
-      <div class="table-responsive table-hover">
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Title</th>
-            <th>ISBN</th>
-            <th>Author</th>
-            <th>publisher</th>
-            <!--<th ngIf="">Operation</th>-->
-          </tr>
-          </thead>
-          <tbody>
-          <!-- (click)="onSelect(x)" [class.selected]="x===selectedbook" -->
-          <tr *ngFor="let x of books"
-              ngbPopover="{{ format_book(x) }}">
-            <td><a routerLink="/book/{{x.isbn}}">{{x.title}}</a></td>
-            <td>{{x.isbn}}</td>
-            <td>{{x.author}}</td>
-            <td>{{x.publisher}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </div>
 

@@ -8,7 +8,7 @@ export class MetaBook {
     public author: string,
     public publisher: string,
     public keyword?: string,
-    public publish_year?: string,
+    public publish_year?: number,
     public pages?: number,
     public cover?: string,
     public subtitle?: string,

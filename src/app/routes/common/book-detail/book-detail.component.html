@@ -1,4 +1,4 @@
-<ng-template #editMetaBookModal let-c="close" let-d="dismiss" *ngIf="login==='librarian'">
+<ng-template #editMetaBookModal>
   <div class="modal-header">
     <h4 class="modal-title" id="submit-modal-title">edit meta book</h4>
     <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
@@ -6,20 +6,91 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="col-md order-md-1">
-      <div class="input-group col-md-12">
-        <div class="input-group-prepend">
-          <span class="input-group-text">ISBN</span>
+    <div class="row">
+      <mat-form-field class="col-md-6 mb-3">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput
+               id="title" placeholder="title"
+               [(ngModel)]="showMetaBook.title" required>
+        <div class="invalid-feedback">
+          Valid book title is required.
         </div>
-        <input type="text" class="form-control" id="isbn"
-          placeholder="Please input your isbn" disabled required
-          [(ngModel)]="showMetaBook.isbn">
-      </div>
-
-      <!-- todo: finish this modal -->
-
-      <button type="button" class="btn btn-info" (click)="submit_edit_meta_book()">add Account</button>
+      </mat-form-field>
+      <mat-form-field class="col-md-6 mb-3">
+        <mat-label>Subtitle<span class="text-muted">(Optional)</span></mat-label>
+        <input type="text" matInput
+               id="subtitle"
+               [(ngModel)]="showMetaBook.subtitle" placeholder="subtitle">
+      </mat-form-field>
     </div>
+
+    <div class="row">
+      <mat-form-field class="col-md-6 mb-3">
+        <mat-label>Author</mat-label>
+        <input type="text" matInput
+               id="author" placeholder="author"
+               [(ngModel)]="showMetaBook.author" required>
+        <div class="invalid-feedback">
+          Valid Author is required.
+        </div>
+      </mat-form-field>
+      <mat-form-field class="col-md-6 mb-3">
+        <mat-label>Publisher</mat-label>
+        <input type="text" matInput
+               id="publisher" placeholder="publisher"
+               [(ngModel)]="showMetaBook.publisher" required>
+        <div class="invalid-feedback">
+          Valid Publisher is required.
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-md-9 mb-3">
+        <mat-label>Cover Url<span>(Optional)</span></mat-label>
+        <input type="text" id="cover" matInput
+               [(ngModel)]="showMetaBook.cover" placeholder="cover url">
+      </mat-form-field>
+
+      <mat-form-field class="col-md-3 mb-3">
+        <mat-label>Price<span>(Optional)</span></mat-label>
+        <input type="text" id="price" matInput
+               [(ngModel)]="showMetaBook.price" placeholder="cover url">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-md-6 mb-3">
+        <mat-label>Keywords<span>(Optional)</span></mat-label>
+        <input type="text" matInput
+               id="keywords"
+               [(ngModel)]="showMetaBook.keyword" placeholder="keywords">
+      </mat-form-field>
+
+      <mat-form-field class="col-md-3 mb-3">
+        <mat-label>Publish Year<span>(Optional)</span></mat-label>
+        <input type="text" matInput
+               id="publish_year"
+               [(ngModel)]="showMetaBook.publish_year" placeholder="publish year">
+      </mat-form-field>
+
+      <mat-form-field class="col-md-3 mb-3">
+        <mat-label>Pages<span>(Optional)</span></mat-label>
+        <input type="number" matInput
+               id="pages"
+               [(ngModel)]="showMetaBook.pages" placeholder="pages">
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="mb-4 col-md-12">
+        <mat-label>Summary<span>(Optional)</span></mat-label>
+        <textarea matInput id="summary" rows="5"
+                  [(ngModel)]="showMetaBook.desc_html" placeholder="summary"></textarea>
+      </mat-form-field>
+    </div>
+
+    <button type="button" mat-button (click)="submit_edit_metabook()">update information</button>
   </div>
 </ng-template>
 
@@ -33,10 +104,11 @@
       <div class="detail-attr">
         <button class="badge badge-info">{{metaBook.author}}</button>
         <div><span>ISBN: </span>{{metaBook.isbn}}</div>
-        <div><span>pages: </span>{{metaBook.pages}}</div>
-        <div><span>publisher: </span> {{metaBook.publisher}}</div>
-        <div><span>publish year: </span>{{metaBook.publish_year}}</div>
-        <div><span>keywords: </span>{{metaBook.keyword}}</div>
+        <div><span>Publisher: </span> {{metaBook.publisher}}</div>
+        <div *ngIf="metaBook.publish_year"><span>Publish year: </span>{{metaBook.publish_year}}</div>
+        <div *ngIf="metaBook.pages"><span>Pages: </span>{{metaBook.pages}}</div>
+        <div *ngIf="metaBook.keyword"><span>Keywords: </span>{{metaBook.keyword}}</div>
+        <div *ngIf="metaBook.price"><span>Price: </span>{{metaBook.price}}</div>
       </div>
 
       <div class="detail-img">
@@ -68,7 +140,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let x of books; let i = index; first as isFirst">
+        <tr *ngFor="let x of visualize(books); let i = index; first as isFirst">
           <th scope="row">{{i}}</th>
           <td>{{x.barcode}}</td>
           <td>{{x.location}}</td>
@@ -82,6 +154,10 @@
             <button type="button" class="btn btn-sm" placement="top" (click)="remove_book($event)" ngbTooltip="remove this book">
               <i class="fa fa-eraser"></i>
             </button>
+            &nbsp;
+            <button type="button" class="btn btn-sm" placement="top" (click)="download_barcode($event)" ngbTooltip="download barcode">
+              <i class="fa fa-barcode"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -94,11 +170,8 @@
     </button>
   </div>
   <div id="librarian_operation" *ngIf="login==='librarian'">
-    <button type="button" class="btn btn-info" (click)="modalService.open(editMetaBookModal)">
-      edit this meta book information
-    </button>
-    <button type="button" class="btn btn-danger" (click)="delete_meta_book()">
-      delete this meta book (danger)
+    <button type="button" class="btn btn-info" (click)="modalService.open(editMetaBookModal, { size: 'lg' })">
+      edit meta book information
     </button>
   </div>
 </div>
