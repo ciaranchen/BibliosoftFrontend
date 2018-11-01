@@ -18,10 +18,12 @@
 
 # Book Json Example:
 {
-  "barcode": 92313039575,
-  "isbn": 7101003044,
-  "addTime": "2018-10-09T03:28:52.010+0000",
-  "location": "1-23-3"
+  "barcode": 127237769175500,
+  "isbn": 9787520705806,
+  "location": "A332-E-3",
+  "available": true,
+  "deleted": false,
+  "add_time": "2018-10-30T02:59:42.288+0000"
 }
 
 # Account Json Example:
@@ -31,6 +33,18 @@
   "email": "mail@mail.cn",
   "address": "Xidain University, Student Dormitory #11",
   "slogan": "Reading helps"
+}
+
+# Borrow Json Example:
+{
+  "id": 1,
+  "barcode": 10001,
+  "fine": 9,
+  "librarian_id": "lib",
+  "reader_id": "rad",
+  "borrow_time": 1537495200000,
+  "return_time": null,
+  "fine_update_date": 1540828800000
 }
 
 ###
@@ -132,16 +146,6 @@ DELETE http://localhost:80/remove_book?barcode=<barcode>
 Response Status:
 1. OK 200, deleted
 2. BAD_REQUEST 400, delete fail, almost just not exist
-
-###
-
-# Delete meta book
-DELETE http://localhost:80/remove_meta_book?isbn=<isbn>
-
-Response Status:
-1. OK 200, deleted
-2. NOT_FOUND 404, isbn not exist
-2. BAD_REQUEST 400, failure of other reasons, eg. primary key constraint
 
 ###
 
