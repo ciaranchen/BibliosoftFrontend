@@ -32,7 +32,7 @@ export class SearchBookComponent implements OnInit {
   search_book(): void {
     // this.search_type = type;
     const search_text = this.search_text.replace(' ', '_');
-    console.log('start search: "' + search_text);
+    console.log('startDate search: "' + search_text);
     this.apiService.search_meta_book(search_text).then(
       res => {
         this.searched = true;

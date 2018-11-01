@@ -14,7 +14,7 @@
   </mat-nav-list>
 
   <div class="collapse navbar-collapse justify-content-end">
-    <!-- Need user_login activatedRoute -->
+    <!-- Need login activatedRoute -->
     <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="!(loginService.role)">
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/login/reader">Reader Login</a></li>
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/login/librarian">Librarian Login</a></li>

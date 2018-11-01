@@ -1,10 +1,10 @@
 import {Income} from "./Income";
 
 export class DateIncome {
-  this_day: string;
-  fine_amount: number;
-  deposit_amount: number;
-  incomes: Array<Income>;
-
-  constructor() {}
+  constructor(
+    public date: Date,
+    public fine: number = 0,
+    public deposit: number = 0,
+    public incomes: Array<Income> = []
+  ) {}
 }

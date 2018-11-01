@@ -35,9 +35,9 @@ import {StateService} from "./utils/state.service";
 import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
 import {
   ErrorStateMatcher, MatButtonModule,
-  MatChipsModule, MatExpansionModule,
+  MatChipsModule, MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatPaginatorModule, MatSortModule, MatStepperIntl, MatStepperModule,
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperIntl, MatStepperModule,
   MatTableModule,
   MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from "@angular/material";
@@ -47,6 +47,8 @@ import { MAT_STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 import { PlotlyIncomeMultiLinesComponent } from "./components/plotly-income-multilines/plotly-income-multi-lines.component";
 import { PlotlyIncomePieComponent } from "./components/plotly-income-pie/plotly-income-pie.component";
 import {PlotlyModule} from "angular-plotly.js";
+import { IncomeDetailComponent } from './components/income-detail/income-detail.component';
+import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-detail.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import {PlotlyModule} from "angular-plotly.js";
     ReaderBorrowingComponent,
     ReaderProfileComponent,
     AdminPostComponent,
+    IncomeDetailComponent,
+    BorrowDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,7 +111,9 @@ import {PlotlyModule} from "angular-plotly.js";
     MatExpansionModule,
     MatButtonModule,
     MatStepperModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     MessageService, StateService,

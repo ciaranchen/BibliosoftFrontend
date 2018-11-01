@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DateIncomeData} from "../../utils/DataStructs/DateIncomeData";
+import {DateIncome} from "../../utils/DataStructs/DateIncome";
 import {Plotly} from "angular-plotly.js/src/app/plotly/plotly.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {Plotly} from "angular-plotly.js/src/app/plotly/plotly.service";
 export class PlotlyIncomePieComponent implements OnInit {
 
   @Input()
-  set dataInput(incomeData: DateIncomeData) {
+  set dataInput(incomeData: DateIncome) {
     this.data = this.income2data(incomeData);
     this.layout = {
       title: incomeData.date.toLocaleDateString()
@@ -26,7 +26,7 @@ export class PlotlyIncomePieComponent implements OnInit {
   ngOnInit() {
   }
 
-  private income2data(incomeData: DateIncomeData): Plotly.Data[] {
+  private income2data(incomeData: DateIncome): Plotly.Data[] {
     return [{
       values: [incomeData.fine, incomeData.deposit],
       labels: ['fine', 'deposit'],

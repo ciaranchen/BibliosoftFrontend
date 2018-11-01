@@ -5,7 +5,6 @@ import {Borrow} from '../../../utils/DataStructs/Borrow';
 import { MessageService, Message } from '../../../utils/message.service';
 import {StateService} from "../../../utils/state.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Fine} from "../../../utils/DataStructs/Fine";
 
 @Component({
   selector: 'app-librarian-return',
@@ -21,8 +20,7 @@ export class LibrarianReturnComponent implements OnInit {
   borrowed: Array<Borrow>;
 
   // willReturn: Array<Borrow> = [];
-  fine: Fine;
-  returning: string;
+  borrowIndex: number;
 
   constructor(
     public modalService: NgbModal,
@@ -69,17 +67,14 @@ export class LibrarianReturnComponent implements OnInit {
 
     const borrowId = optionElem.value;
     console.log(borrowId);
+    this.borrowIndex = this.borrowed.findIndex(val => val.id === borrowId);
     // return book
-    this.returning = borrowId;
     this.apiService.return_book(borrowId)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res) {
           this.return_success();
         } else {
-          // load fine
-          this.apiService.borrow_fine(this.returning)
-            .then(res => this.fine = res);
           this.modalService.open(modal);
         }
       });
@@ -87,22 +82,12 @@ export class LibrarianReturnComponent implements OnInit {
 
   return_success() {
     // delete this borrow item
-    const index = this.borrowed.findIndex(val => val.id === this.returning);
-    this.borrowed.splice(index, 1);
+    this.borrowed.splice(this.borrowIndex, 1);
     this.messageService.messages.push(new Message('return success', 'success'))
   }
 
   paid_fine() {
-    this.apiService.pay_fine(this.returning)
-      .then(() => {
-        this.apiService.return_book(this.returning)
-          .then(res => {
-            if (res) {
-              this.return_success();
-            } else {
-              // todo: error message
-            }
-          });
-      }).then(() => this.modalService.dismissAll());
+    this.apiService.pay_fine(this.borrowed[this.borrowIndex].id)
+      .then(() => this.modalService.dismissAll());
   }
 }

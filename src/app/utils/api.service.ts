@@ -3,10 +3,10 @@ import { backendServer } from './backendServer';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MetaBook} from './DataStructs/MetaBook';
 import {Book} from './DataStructs/Book';
-import {Fine} from './DataStructs/Fine';
 import {User} from './DataStructs/User';
+import {DayIncome} from "./DataStructs/DayIncome";
 import {Borrow} from './DataStructs/Borrow';
-import {DateIncome} from "./DataStructs/DateIncome";
+import {TotalIncome} from "./DataStructs/TotalIncome";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -68,7 +68,8 @@ export class ApiService {
   }
 
   static date2string(date: Date): string {
-    return date.toLocaleDateString().replace(/\//g, '-')
+    const options = {year: 'numeric', month: '2-digit', day: '2-digit'};
+    return date.toLocaleDateString('iso', options).replace(/\//g, '-');
   }
 
   login(username: string, password: string, type: number): Promise<User> {
@@ -209,14 +210,14 @@ export class ApiService {
     });
   }
 
-  borrow_fine(borrowId: string): Promise<Fine> {
+  borrow_fine(borrowId: string): Promise<Borrow> {
     const url = `${this.base_url}/fine?borrow_id=${borrowId}`;
-    return this.http.get<Fine>(url, withCookie).toPromise();
+    return this.http.get<Borrow>(url, withCookie).toPromise();
   }
 
-  get_fines(readerId: string, unpaid?: boolean): Promise<Array<Fine>> {
+  get_fines(readerId: string, unpaid?: boolean): Promise<Array<Borrow>> {
     const url = `${this.base_url}/fines?${ApiService.json2query({reader_id: readerId, unpaid_only: unpaid.toString()})}`;
-    return this.http.get<Array<Fine>>(url, withCookie).toPromise();
+    return this.http.get<Array<Borrow>>(url, withCookie).toPromise();
   }
 
   pay_fine(borrowId: string): Promise<void> {
@@ -279,15 +280,15 @@ export class ApiService {
       this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
   }
 
-  all_income() {
+  total_income(): Promise<TotalIncome> {
     const url = `${this.base_url}/brief_income`;
-    return this.http.get(url, withCookie).toPromise();
+    return this.http.get<TotalIncome>(url, withCookie).toPromise();
   }
 
-  get_incomes(start: Date, end: Date): Promise<Array<DateIncome>> {
+  get_incomes(start: Date, end: Date): Promise<Array<DayIncome>> {
     const url = `${this.base_url}/income?${ApiService.json2query({
       start: ApiService.date2string(start), 
       end: ApiService.date2string(end)})}`;
-    return this.http.get<Array<DateIncome>>(url, withCookie).toPromise();
+    return this.http.get<Array<DayIncome>>(url, withCookie).toPromise();
   }
 }

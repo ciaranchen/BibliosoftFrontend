@@ -22,6 +22,8 @@ import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
 import {LibrarianIncomeComponent} from "./routes/librarian/librarian-income/librarian-income.component";
 import {AdminPostComponent} from "./routes/admin/admin-post/admin-post.component";
+import {LibrarianProfileComponent} from "./routes/librarian/librarian-profile/librarian-profile.component";
+import {BorrowDetailComponent} from "./routes/common/borrow-detail/borrow-detail.component";
 
 const routes: Routes = [
   // home pages
@@ -54,7 +56,10 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'reader/fined', component: ReaderFineComponent },
   { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
+  { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
+  { path: 'librarian/profile', component: LibrarianProfileComponent },
   { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
+  { path: 'borrow_detail/:borrow', component: BorrowDetailComponent }
 ];
 
 @NgModule({

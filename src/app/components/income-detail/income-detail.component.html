@@ -1,0 +1,24 @@
+<div *ngIf="data.length !== 0">
+  <h4 *ngIf="type === 1">Fine Records</h4>
+  <h4 *ngIf="type === 2">Deposit Records</h4>
+  <table matSort class="table table-hover table-striped">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Reader Id</th>
+      <th scope="col">Librarian Id</th>
+      <th scope="col">Money</th>
+      <th scope="col">Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let x of data; let i = index">
+      <th scope="row"><a [routerLink]="link_addr(x)">{{i}}</a></th>
+      <td><a routerLink="/librarian/reader/profile/{{x.reader_id}}">{{x.reader_id}}</a></td>
+      <td><a routerLink="/librarian/other/profile/{{x.librarian_id}}">{{x.librarian_id}}</a></td>
+      <td>{{x.amount}}</td>
+      <td>{{get_time(x.time)}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

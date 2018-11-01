@@ -1,7 +1,30 @@
 <div class="app-wrapper">
-  <app-plotly-income-multi-lines [dataInput]="data" [start]="start" [end]="end"></app-plotly-income-multi-lines>
+  <h5 class="mat-display-3">Library Income</h5>
+
+  <!-- todo: beautify it -->
+  <!-- Total Income data -->
+  {{ totalIncome | json }}
+
+  <h5 class="display-4">Visualize Income</h5>
+
+  <div class="row">
+    <mat-form-field class="col-md-6">
+      <input matInput [matDatepicker]="picker1" placeholder="Start Date" [max]="endDate" [formControl]="startCtrl" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-6">
+      <input matInput [matDatepicker]="picker2" placeholder="End Date" [min]="startDate" [max]="today" [formControl]="endCtrl" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+
+  <app-plotly-income-multi-lines [dataInput]="data" [start]="startDate" [end]="endDate"></app-plotly-income-multi-lines>
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let val of data">
+    <mat-expansion-panel *ngFor="let val of earn_money_filter()">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ val.date.toLocaleDateString() }}
@@ -11,11 +34,11 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <app-plotly-income-pie [dataInput]="val" *ngIf="val.fine + val.deposit !== 0"></app-plotly-income-pie>
+      <app-plotly-income-pie [dataInput]="val"></app-plotly-income-pie>
+
+      <app-income-detail [data]="filter_fines(val.incomes)" [dataType]="1"></app-income-detail>
+      <app-income-detail [data]="filter_deposit(val.incomes)" [dataType]="2"></app-income-detail>
+
     </mat-expansion-panel>
   </mat-accordion>
-
-  <!-- debug data -->
-  {{ totalIncome | json }}
-  {{ data | json }}
 </div>

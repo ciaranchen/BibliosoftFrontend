@@ -21,8 +21,14 @@ export class LibrarianProfileComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.only('librarian');
-    this.librarian = this.stateService.user;
-    Object.assign(this.showLibrarian, this.librarian);
+    // todo: fix it to make other can see but can not change.
+    if (location.pathname.startsWith('/librarian/others')) {
+      // this.apiService.get_account('librarian', readerId);
+    } else {
+      this.librarian = this.stateService.user;
+      Object.assign(this.showLibrarian, this.librarian);
+    }
+
   }
 
   submit() {

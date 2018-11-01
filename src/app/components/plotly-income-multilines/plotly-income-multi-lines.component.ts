@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Plotly} from "angular-plotly.js/src/app/plotly/plotly.service";
-import {DateIncomeData} from "../../utils/DataStructs/DateIncomeData";
+import {DateIncome} from "../../utils/DataStructs/DateIncome";
 
 @Component({
   selector: 'app-plotly-income-multi-lines',
@@ -10,8 +10,9 @@ import {DateIncomeData} from "../../utils/DataStructs/DateIncomeData";
 export class PlotlyIncomeMultiLinesComponent implements OnInit {
 
   @Input()
-  set dataInput(data: Array<DateIncomeData>) {
+  set dataInput(data: Array<DateIncome>) {
     this.data = this.get_traces(data);
+    console.log(this.data);
   }
 
   @Input() start: Date;
@@ -40,7 +41,7 @@ export class PlotlyIncomeMultiLinesComponent implements OnInit {
 
   constructor() {}
 
-  private get_traces(formatData: Array<DateIncomeData>): Plotly.Data[] {
+  private get_traces(formatData: Array<DateIncome>): Plotly.Data[] {
     const dates = formatData.map(value => value.date);
     const fines = formatData.map(value => value.fine);
     const deposits = formatData.map(value => value.deposit);
