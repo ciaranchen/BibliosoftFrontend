@@ -14,8 +14,6 @@ export class StateService {
     private router: Router
   ) {}
 
-
-
   login(role: string, user: User, path?: string): Promise<boolean> {
     this.role = role;
     this.user = user;
@@ -128,5 +126,10 @@ export class StateService {
 
   private delete_user_from_localStorage() {
     localStorage.clear();
+  }
+
+  update_profile(user: User) {
+    this.user = user;
+    this.save_user_to_localStorage(this.role, user);
   }
 }

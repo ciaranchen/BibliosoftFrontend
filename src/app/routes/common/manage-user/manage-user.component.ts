@@ -19,14 +19,13 @@ export class ManageUserComponent implements OnInit {
   role: string;
   managedRole: string;
 
-  data: Array<User>;
+  data: Array<User> = [];
 
   searchText: string;
 
   addAccount = new User('', '');
   addPassword: string;
 
-  searched = false;
   requiredFormControl = new FormControl('', [
     Validators.required
   ]);
@@ -91,7 +90,6 @@ export class ManageUserComponent implements OnInit {
   search_user() {
     this.apiService.get_account(this.managedRole, this.searchText)
       .then(res => {
-        this.searched = true;
         this.data = res;
       }).catch(err => {
       console.error(err);

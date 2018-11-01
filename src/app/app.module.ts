@@ -22,14 +22,12 @@ import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
 import { PostComponent } from './components/post/post.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
-import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
 import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/librarian-return.component";
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
-import { LibrarianViewFineComponent } from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
 import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
@@ -58,6 +56,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     PostComponent,
     PlotlyIncomeMultiLinesComponent,
     PlotlyIncomePieComponent,
+    IncomeDetailComponent,
     // pages
     AppComponent,
     // - home pages
@@ -71,23 +70,20 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     SearchBookComponent,
     BookDetailComponent,
     ManageUserComponent,
+    BorrowDetailComponent,
     // - admin pages
     AdminLoginComponent,
+    AdminPostComponent,
     AdminChangePasswordComponent,
     // - librarian pages
     LibrarianAddBookComponent,
     LibrarianBorrowComponent,
     LibrarianReturnComponent,
-    LibrarianViewFineComponent,
     LibrarianProfileComponent,
     // - reader pages
-    ReaderViewPaymentComponent,
     ReaderFineComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
-    AdminPostComponent,
-    IncomeDetailComponent,
-    BorrowDetailComponent,
   ],
   imports: [
     BrowserModule,

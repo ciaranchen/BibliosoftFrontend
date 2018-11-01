@@ -9,7 +9,6 @@ import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.comp
 import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.component';
 import { LoginComponent } from './routes/common/login/login.component';
 
-import { ReaderViewPaymentComponent } from './routes/reader/reader-view-payment/reader-view-payment.component';
 import {AboutComponent} from './routes/common/about/about.component';
 import {LibrarianBorrowComponent} from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import {ManageUserComponent} from './routes/common/manage-user/manage-user.component';
@@ -18,7 +17,6 @@ import {LibrarianReturnComponent} from './routes/librarian/librarian-return/libr
 import {AdminChangePasswordComponent} from './routes/admin/admin-change-password/admin-change-password.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
-import {LibrarianViewFineComponent} from './routes/librarian/librarian-view-fine/librarian-view-fine.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
 import {LibrarianIncomeComponent} from "./routes/librarian/librarian-income/librarian-income.component";
 import {AdminPostComponent} from "./routes/admin/admin-post/admin-post.component";
@@ -34,6 +32,7 @@ const routes: Routes = [
   // common routes
   { path: 'search', component: SearchBookComponent },
   { path: 'book/:ISBN', component: BookDetailComponent },
+  { path: 'book_by_barcode/:barcode', component: BookDetailComponent },
   { path: 'login/:role', component: LoginComponent },
   { path: ':role/manage_user', component: ManageUserComponent },
   { path: 'logout', component: LogoutComponent },
@@ -43,22 +42,21 @@ const routes: Routes = [
   { path: 'admin/password', component: AdminChangePasswordComponent },
   { path: 'admin/post', component: AdminPostComponent },
   // librarian/*
+  { path: 'librarian/profile', component: LibrarianProfileComponent },
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },
   { path: 'librarian/reader/profile/:reader', component: ReaderProfileComponent },
   { path: 'librarian/reader/borrowed/:reader', component: ReaderBorrowingComponent },
+  { path: 'librarian/reader/fine/:reader', component: ReaderFineComponent },
   { path: 'librarian/borrow', component: LibrarianBorrowComponent },
   { path: 'librarian/return', component: LibrarianReturnComponent },
   // reader/*
   { path: 'reader/profile', component: ReaderProfileComponent },
   { path: 'reader/borrowed', component: ReaderBorrowingComponent },
+  { path: 'reader/fined', component: ReaderFineComponent },
 
   // testing url
   { path: 'about', component: AboutComponent },
-  { path: 'reader/fined', component: ReaderFineComponent },
-  { path: 'librarian/view_fine', component: LibrarianViewFineComponent },
   { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
-  { path: 'librarian/profile', component: LibrarianProfileComponent },
-  { path: 'reader/view_payment', component: ReaderViewPaymentComponent },
   { path: 'borrow_detail/:borrow', component: BorrowDetailComponent }
 ];
 

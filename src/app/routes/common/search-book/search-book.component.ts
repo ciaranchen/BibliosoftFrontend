@@ -39,7 +39,6 @@ export class SearchBookComponent implements OnInit {
         console.log(res);
         this.books = res;
         this.dataSource.data = res;
-
         // this.dataSource.paginator.lastPage();
       }
     );

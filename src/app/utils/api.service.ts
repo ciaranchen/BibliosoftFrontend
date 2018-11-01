@@ -46,7 +46,7 @@ export class ApiService {
   static body_object(body: URLSearchParams, obj: object, empty: boolean=false): void {
     for (let key in obj) {
       if (obj.hasOwnProperty(key) && (empty || obj[key])) {
-        body.set(key, obj[key]);
+        body.set(key, obj[key].toString());
       }
     }
   }
@@ -216,7 +216,7 @@ export class ApiService {
   }
 
   get_fines(readerId: string, unpaid?: boolean): Promise<Array<Borrow>> {
-    const url = `${this.base_url}/fines?${ApiService.json2query({reader_id: readerId, unpaid_only: unpaid.toString()})}`;
+    const url = `${this.base_url}/fines?${ApiService.json2query({reader_id: readerId, unpaid_only: unpaid})}`;
     return this.http.get<Array<Borrow>>(url, withCookie).toPromise();
   }
 
@@ -232,7 +232,6 @@ export class ApiService {
     return this.http.get<Array<MetaBook>>(url, withCookie).toPromise();
   }
 
-  // todo: check user type
   add_account(role: string, password: string, user: User): Promise<boolean> {
     const url = `${this.base_url}/add_${role}`;
     const http = this.http;

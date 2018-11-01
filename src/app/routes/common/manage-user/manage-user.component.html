@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="content table-responsive table-full-width" *ngIf="searched">
+  <div class="content table-responsive full-width" *ngIf="data.length !== 0">
     <hr>
     <table class="table table-hover table-striped">
       <thead class="thead-light">
@@ -89,7 +89,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let x of data; let i = index; first as isFirst" ngbPopover="slogan: {{x.slogan}}">
+      <tr *ngFor="let x of data; let i = index" ngbPopover="slogan: {{x.slogan}}">
         <th scope="row">{{i}}</th>
         <td>{{x.email}}</td>
         <td *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></td>
@@ -107,6 +107,11 @@
           &nbsp;
           <button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"
                   *ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">
+            <i class="fa fa-book"></i>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-sm" routerLink="/librarian/reader/fine/{{x.username}}"
+                  *ngIf="managedRole==='reader'" ngbTooltip="Fine record">
             <i class="fa fa-paperclip"></i>
           </button>
         </td>

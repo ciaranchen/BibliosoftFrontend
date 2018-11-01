@@ -42,12 +42,16 @@ export class ReaderProfileComponent implements OnInit {
   }
 
   submit() {
-    const diff = ApiService.get_diff(this.reader, this.showReader);
     // never exists update username;
-    delete diff['username'];
-    this.apiService.update_account('reader', this.reader.username, diff)
+    delete this.showReader['username'];
+    this.apiService.update_account('reader', this.reader.username, this.showReader)
       .then(res => {
+        this.showReader.username = this.reader.username;
         this.reader = this.showReader;
+        // don't forget to change it in the stateService
+        if (this.stateService.role === 'reader') {
+          this.stateService.update_profile(this.reader);
+        }
         this.messageService.messages.push(new Message('update success', 'success'));
       });
   }

@@ -1,23 +1,47 @@
 <div class="app-wrapper">
   <div class="py-3 text-center">
-    <h1 class="display-4">Fine Record</h1>
+    <h1 class="display-3">Fine Record</h1>
+    <h4> of {{readerId}} </h4>
   </div>
-  <div class="table-responsive table-hover">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Paid</th>
-        </tr>
-      </thead>
-      <!--<tbody *ngIf="payments.length!==0">-->
-        <!--<tr *ngFor="let x of payments" >-->
-        <!--</tr>-->
-      <!--</tbody>-->
-    </table>
-  </div>
-  <h2 class="col-mb-3">payment info</h2>
-  <!--<div class="alert alert-info" >-->
-    <!--<p>You have already paid $ {{pay}}</p>-->
-  <!--</div>-->
+
+  <table mat-table matSort [dataSource]="fineData" class="mat-elevation-z8 full-width" *ngIf="fineData.data.length !== 0">
+    <!-- Librarian Column -->
+    <ng-container matColumnDef="librarian">
+      <th mat-header-cell *matHeaderCellDef> Librarian Id </th>
+      <td mat-cell *matCellDef="let value"> {{ value.librarian_id }} </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Barcode Column -->
+    <ng-container matColumnDef="barcode">
+      <th mat-header-cell *matHeaderCellDef> Barcode </th>
+      <td mat-cell *matCellDef="let value"><a routerLink="/book_by_barcode/{{ value.barcode }}">{{value.barcode }}</a></td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <!-- Fine Column -->
+    <ng-container matColumnDef="fine">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
+      <td mat-cell *matCellDef="let value"> {{ value.fine }} </td>
+      <td mat-footer-cell *matFooterCellDef> {{ total_fine() }} </td>
+    </ng-container>
+
+    <!-- Borrow Column -->
+    <ng-container matColumnDef="borrow">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrow Time </th>
+      <td mat-cell *matCellDef="let value"> {{ get_date_time(value.borrow_time) }} </td>
+      <td mat-footer-cell *matFooterCellDef> {{ date_range() }} </td>
+    </ng-container>
+
+    <!-- Return Column -->
+    <ng-container matColumnDef="return">
+      <th mat-header-cell *matHeaderCellDef> Return Time </th>
+      <td mat-cell *matCellDef="let value"> {{ get_date_time(value.return_time) || 'not return' }} </td>
+      <td mat-footer-cell *matFooterCellDef> {{ total_not_return() }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
 </div>

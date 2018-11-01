@@ -46,12 +46,15 @@ export class LibrarianProfileComponent implements OnInit {
   }
 
   submit() {
-    const diff = ApiService.get_diff(this.librarian, this.showLibrarian);
     // never update username;
-    delete diff['username'];
-    this.apiService.update_account('librarian', this.librarian.username, diff)
+    delete this.showLibrarian['username'];
+    this.apiService.update_account('librarian', this.librarian.username, this.showLibrarian)
       .then(res => {
+        this.showLibrarian.username = this.librarian.username;
         this.librarian = this.showLibrarian;
+        if (this.samePerson) {
+          this.stateService.update_profile(this.librarian);
+        }
         this.messageService.messages.push(new Message('update success', 'success'));
       });
   }

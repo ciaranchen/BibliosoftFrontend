@@ -31,17 +31,20 @@ export class BookDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.stateService.only2('librarian', 'reader');
+    this.stateService.only_rl();
     this.login = this.stateService.role;
     // to get metaBook information from backend
-    this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
-    this.get_fresh_metabook();
-
-    this.apiService.get_books(this.isbn).then(
-      res => {
-        this.books = res;
-      }
-    );
+    if (location.pathname.startsWith('/book_by_barcode/')) {
+      const barcode = this.activateRoute.snapshot.paramMap.get('barcode');
+      this.apiService.get_book(barcode)
+        .then(res => {
+          this.isbn = res.isbn;
+          this.get_book_info(this.isbn);
+        })
+    } else {
+      this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
+      this.get_book_info(this.isbn);
+    }
   }
 
   edit_location($event: Event) {
@@ -115,7 +118,6 @@ export class BookDetailComponent implements OnInit {
       .then(() => {
         this.showMetaBook = this.metaBook;
         this.modalService.dismissAll();
-        // this.get_fresh_metabook();
       });
   }
 
@@ -123,8 +125,8 @@ export class BookDetailComponent implements OnInit {
     return books.filter(value => !(value.deleted));
   }
 
-  private get_fresh_metabook() {
-    this.apiService.get_meta_book(this.isbn)
+  private get_book_info(isbn: string) {
+    this.apiService.get_meta_book(isbn)
       .then(res => {
         this.metaBook = res;
         if (this.login === 'librarian') {
@@ -134,7 +136,8 @@ export class BookDetailComponent implements OnInit {
         console.error(error);
         this.stateService.back_home()
           .then(() => this.messageService.messages.push(new Message('no such a book', 'danger')));
-      }
-    );
+      });
+
+    this.apiService.get_books(isbn).then(res => this.books = res);
   }
 }

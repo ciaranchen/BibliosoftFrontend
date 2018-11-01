@@ -31,15 +31,12 @@ export class ReaderBorrowingComponent implements OnInit {
       this.readerId = this.stateService.user.username;
     } else {
       this.activatedRoute.params
-        .subscribe(value =>
-          this.readerId = value['reader']
-        );
+        .subscribe(value => this.readerId = value['reader']);
     }
     this.apiService.borrow_records(this.readerId)
       .then(res => {
         this.borrowing = res.filter(value => value.return_time === null);
         this.borrowed = res.filter(value => value.return_time !== null);
-        console.log(res);
       });
   }
 }
