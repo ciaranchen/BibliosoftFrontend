@@ -2,11 +2,11 @@ jsbarcode@3.11.0
 MIT
 MIT
 
-plotly.js@1.42.0
+hammerjs@2.0.8
 MIT
 The MIT License (MIT)
 
-Copyright (c) 2018 Plotly, Inc
+Copyright (C) 2011-2014 by Jorik Tangelder (Eight Media)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,11 +26,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-hammerjs@2.0.8
+plotly.js@1.42.0
 MIT
 The MIT License (MIT)
 
-Copyright (C) 2011-2014 by Jorik Tangelder (Eight Media)
+Copyright (c) 2018 Plotly, Inc
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
