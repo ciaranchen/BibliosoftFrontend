@@ -1,9 +1,9 @@
 export class Rule {
   constructor(
-    public borrowAmount: number,
-    public defaultDeposit: number,
-    public defaultPeriod: number,
-    public defaultFine: number,
-    public reserveTime: number
+    public borrow_limitation: number,
+    public membership_deposit: number,
+    public return_period: number,
+    public fine_unit_in_cent: number,
+    public reservation_minutes: number
   ) {}
 }

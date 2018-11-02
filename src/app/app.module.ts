@@ -32,7 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {StateService} from "./utils/state.service";
 import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
 import {
-  ErrorStateMatcher, MatButtonModule,
+  ErrorStateMatcher, MatButtonModule, MatCardModule,
   MatChipsModule, MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
   MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperIntl, MatStepperModule,
@@ -109,7 +109,8 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatStepperModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
   ],
   providers: [
     MessageService, StateService,

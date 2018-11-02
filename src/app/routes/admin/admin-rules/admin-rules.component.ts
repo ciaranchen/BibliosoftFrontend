@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../../../utils/message.service';
+import {Message, MessageService} from '../../../utils/message.service';
 import { StateService } from '../../../utils/state.service';
 import { Rule } from '../../../utils/DataStructs/Rule';
 import { ApiService } from '../../../utils/api.service';
@@ -21,11 +21,18 @@ export class AdminRulesComponent implements OnInit {
   ngOnInit() {
     this.stateService.only('admin');
     // todo: load old rules
-    // this.apiService.
+    this.apiService.library_config()
+      .then(res => {
+        this.rule = res;
+      });
   }
 
   update_rule() {
-    console.log(this.stateService.user);
-    // this.apiService.update_rule(this.rule)
+    // console.log(this.stateService.user);
+    // todo: update rules
+    this.apiService.update_config(this.rule)
+      .then(() => {
+        this.messageService.messages.push(new Message('update success!', 'success'));
+      });
   }
 }

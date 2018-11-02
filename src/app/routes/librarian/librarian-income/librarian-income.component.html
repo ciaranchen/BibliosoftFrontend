@@ -1,9 +1,11 @@
 <div class="app-wrapper">
-  <h5 class="mat-display-3">Library Income</h5>
+  <div class="py-2 text-center">
+    <h1 class="title mat-display-3">Library Income</h1>
+  </div>
 
-  <!-- todo: beautify it -->
-  <!-- Total Income data -->
-  {{ totalIncome | json }}
+  <p> We have earned totally: {{ totalIncome.fine + totalIncome.deposit }} yuan.</p>
+  <p> Fine: {{ totalIncome.fine }} yuan. </p>
+  <p> Desposit: {{ totalIncome.deposit }} yuan. </p>
 
   <h5 class="display-4">Visualize Income</h5>
 

@@ -16,7 +16,6 @@ export class AdminPostComponent implements OnInit {
     content: 'temp content'
   };
 
-  // matcher = new Matcher();
   requiredControl = new FormControl('', [Validators.required]);
 
   constructor(

@@ -7,6 +7,7 @@ import {User} from './DataStructs/User';
 import {DayIncome} from "./DataStructs/DayIncome";
 import {Borrow} from './DataStructs/Borrow';
 import {TotalIncome} from "./DataStructs/TotalIncome";
+import {Rule} from "./DataStructs/Rule";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -289,5 +290,25 @@ export class ApiService {
       start: ApiService.date2string(start), 
       end: ApiService.date2string(end)})}`;
     return this.http.get<Array<DayIncome>>(url, withCookie).toPromise();
+  }
+
+  get_borrow(borrowId): Promise<Borrow> {
+    const url = `${this.base_url}/borrow?borrow_id=${borrowId}`;
+    return this.http.get<Borrow>(url, withCookie).toPromise();
+  }
+
+  library_config(): Promise<Rule> {
+    const url = `${this.base_url}/library_config`;
+    return this.http.get<Rule>(url, withCookie).toPromise();
+  }
+
+  update_config(rule: Rule): Promise<void> {
+    const url = `${this.base_url}/update_config`;
+    return this.http.post<void>(url, ApiService.json2query(rule), postOptions).toPromise();
+  }
+
+  trends_book(count?: number): Promise<Array<MetaBook>> {
+    const url = `${this.base_url}/trends?${ApiService.json2query({count: count || 10})}`;
+    return this.http.get<Array<MetaBook>>(url, withCookie).toPromise();
   }
 }

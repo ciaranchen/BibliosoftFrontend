@@ -29,11 +29,11 @@ export class LibrarianIncomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.stateService.only('librarian');
-    // this.apiService.total_income()
-    //   .then(res => {
-    //     this.totalIncome = res;
-    //   });
+    this.stateService.only('librarian');
+    this.apiService.total_income()
+      .then(res => {
+        this.totalIncome = res;
+      });
 
     this.today = new Date();
     const now = new Date();
