@@ -23,7 +23,7 @@ export class ManageUserComponent implements OnInit {
 
   searchText: string;
 
-  addAccount = new User('', '');
+  addAccount = new User();
   addPassword: string;
 
   requiredFormControl = new FormControl('', [

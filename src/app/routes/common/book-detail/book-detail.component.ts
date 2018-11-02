@@ -20,7 +20,7 @@ export class BookDetailComponent implements OnInit {
   isbn: string;
   login: string;
 
-  showMetaBook: MetaBook = new MetaBook();
+  showMetaBook: MetaBook = new MetaBook('', '', '', '');
   editingIndex: number;
   location: BookLocation = new BookLocation();
 

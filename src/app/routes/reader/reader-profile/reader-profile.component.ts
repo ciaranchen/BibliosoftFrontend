@@ -12,7 +12,7 @@ import {Message, MessageService} from "../../../utils/message.service";
 })
 export class ReaderProfileComponent implements OnInit {
   reader: User;
-  showReader: User = new User('', '');
+  showReader: User = new User();
 
   constructor(
     private messageService: MessageService,

@@ -115,7 +115,7 @@ export class StateService {
     if (localStorage.getItem('login') !== role) {
       return null;
     }
-    const user = new User('', '', '', '', '');
+    const user = new User();
     for (const key in user) {
       if (user.hasOwnProperty(key)) {
         user[key] = localStorage.getItem(key);

@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class LibrarianProfileComponent implements OnInit {
   librarian: User;
-  showLibrarian: User = new User('', '');
+  showLibrarian: User = new User();
   samePerson: boolean = true;
 
   constructor(

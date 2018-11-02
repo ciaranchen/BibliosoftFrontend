@@ -14,7 +14,7 @@ import {MetaBook} from "../../../utils/DataStructs/MetaBook";
 export class BorrowDetailComponent implements OnInit {
   borrow: Borrow = new Borrow();
   book: Book = new Book();
-  metaBook: MetaBook = new MetaBook();
+  metaBook: MetaBook = new MetaBook('', '', '', '');
   reader: User = new User();
   librarian: User = new User();
 
