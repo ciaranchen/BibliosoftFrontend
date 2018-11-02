@@ -1,3 +1,31 @@
 <div class="app-wrapper">
-
+    <h2 class="display-4" style="text-align:center;">borrow_detail</h2>
+    <div class="alert alert-info" role="alert">
+        <div class="row">
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-primary" >borrow_id</span>
+                    {{borrow.id}}</div>
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-success">librarian_id</span>
+                    {{borrow.librarian_id}}</div>
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-info">reader_id</span>
+                    {{borrow.reader_id}}</div>   
+        </div>
+    </div>
+    
+    <div class="alert alert-info" role="alert">
+        <div class="row">
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-primary" >borrow_time</span>
+                    {{borrow.borrow_time}}</div>
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-success" >return_time</span>
+                    {{borrow.return_time}}</div>
+            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
+                    <span class="badge badge-info" >fine</span>
+                    {{borrow.fine}}</div>
+            </div>
+    </div>
+    
 </div>
