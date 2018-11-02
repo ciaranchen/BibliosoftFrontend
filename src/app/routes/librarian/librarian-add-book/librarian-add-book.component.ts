@@ -8,6 +8,7 @@ import {Book} from "../../../utils/DataStructs/Book";
 import { DoubanService } from '../../../utils/douban.service';
 import {StateService} from "../../../utils/state.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {BookLocation} from "../../../utils/DataStructs/BookLocation";
 
 @Component({
   selector: 'app-librarian-add-book',
@@ -34,9 +35,7 @@ export class LibrarianAddBookComponent implements OnInit {
   isbn: string;
   cacheISBN: string;
   bookNumber = 1;
-  room = '';
-  shelf = '';
-  level = '';
+  location: BookLocation = new BookLocation();
 
   loadingWords: string;
   loadingResult: string = '';
@@ -44,7 +43,7 @@ export class LibrarianAddBookComponent implements OnInit {
   firstFormGroup: FormGroup = this.formBuilder.group({
     isbnCtrl: ['', [
       Validators.required,
-      Validators.pattern('^((978[\\--– ])?[0-9][0-9\\--– ]{10}[\\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])$')]]
+      Validators.pattern('^-?((978[\\--– ])?[0-9][0-9\\--– ]{10}[\\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])$')]]
   });
   secondFormGroup: FormGroup = this.formBuilder.group({
     titleCtrl: [{}, Validators.required], subtitleCtrl: [{}],
@@ -100,11 +99,37 @@ export class LibrarianAddBookComponent implements OnInit {
   }
 
   submitAddBook() {
-    const location = [this.room, this.shelf, this.level].map((data) => data.replace('-', '_')).join('-');
-    this.apiService.add_book(this.isbn, this.bookNumber, location, this.isbnExist? undefined: this.book)
+    this.apiService.add_book(this.isbn, this.bookNumber, this.location, this.isbnExist? undefined: this.book)
       .then((res) => {
         this.returnValues = res;
         setTimeout(() => JsBarcode('.barcode').init(), 1000);
+      });
+  }
+
+  private _generate_random_isbn(bitNum: number) {
+    const str = Math.random().toString().slice(2);
+    return str.length >= bitNum ? str.slice(0, bitNum) : str + this._generate_random_isbn(bitNum - str.length);
+  }
+
+  generate_random_isbn(bitNum: number = 10, defaultHead: string = '-978'): void {
+    // -978 as the isbn head;
+    bitNum = bitNum > 10 ? 10 : bitNum;
+    const strTail = this._generate_random_isbn(bitNum);
+    const isbn = defaultHead + strTail;
+    this.apiService.has_meta_book(isbn)
+      .then(res => {
+        if (res) {
+          // generate again
+          this.generate_random_isbn(bitNum, defaultHead);
+        } else {
+          this.doubanService.searchISBN(isbn)
+            .then(() => {
+              // generate again
+              this.generate_random_isbn(bitNum, defaultHead);
+            }).catch(() => {
+              this.isbn = isbn;
+            });
+        }
       });
   }
 }

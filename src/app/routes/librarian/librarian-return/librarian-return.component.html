@@ -27,25 +27,26 @@
     </div>
   </div>
 
-  <label class="mr-lg-auto" for="borrowed">Borrowed Books</label>
-  <select class="custom-select mr-lg-6" id="borrowed">
-    <option *ngFor="let x of borrowed" class="form-check-label" value="{{ x.id }}">
-      {{ x | json }}
-    </option>
-  </select>
-
-
-  <div class="all-info">
-    check information below:
-
-    <div id="reader-info">
-      {{ reader | json }}
-    </div>
-
-    <div id="books-info">
-      {{ borrowed | json }}
-    </div>
+  <div *ngIf="borrowed.length !== 0">
+    <label class="mr-lg-auto" for="borrowed">Borrowed Books</label>
+    <select class="custom-select mr-lg-6" id="borrowed">
+      <option *ngFor="let x of borrowed" class="form-check-label" value="{{ x.id }}">
+        {{ x | json }}
+      </option>
+    </select>
   </div>
+
+  <!--<div class="all-info">-->
+    <!--check information below:-->
+
+    <!--<div id="reader-info">-->
+      <!--{{ reader | json }}-->
+    <!--</div>-->
+
+    <!--<div id="books-info">-->
+      <!--{{ borrowed | json }}-->
+    <!--</div>-->
+  <!--</div>-->
 
   <button class="btn btn-info" (click)="click_return(paymentModal)">Return Book</button>
 </div>

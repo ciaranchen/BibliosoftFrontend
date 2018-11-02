@@ -5,7 +5,6 @@
     <h1 class="display-3">Add Book</h1>
   </div>
 
-  <!-- todo: mat-error -->
   <mat-vertical-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -14,10 +13,13 @@
           <input matInput placeholder="ISBN"
                  [(ngModel)]="isbn"
                  formControlName="isbnCtrl" required>
+          <mat-error *ngIf="firstFormGroup.get('isbnCtrl').invalid">
+            Valid ISBN is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </form>
       <div>
-        <button mat-button matStepperPrevious hidden>Back</button>
+        <button mat-button (click)="generate_random_isbn()">Book without isbn</button>
         <button mat-button matStepperNext (click)="check_isbn()">Next</button>
       </div>
     </mat-step>
@@ -34,9 +36,9 @@
               <input type="text" matInput
                      id="title" placeholder="title" formControlName="titleCtrl"
                      [(ngModel)]="book.title" required>
-              <div class="invalid-feedback">
-                Valid book title is required.
-              </div>
+              <mat-error *ngIf="secondFormGroup.get('titleCtrl').invalid">
+                Valid book title is <strong>required</strong>.
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="col-md-6 mb-3">
               <mat-label>Subtitle<span class="text-muted">(Optional)</span></mat-label>
@@ -52,18 +54,18 @@
               <input type="text" matInput
                      id="author" placeholder="author" formControlName="authorCtrl"
                      [(ngModel)]="book.author" required>
-              <div class="invalid-feedback">
-                Valid Author is required.
-              </div>
+              <mat-error *ngIf="secondFormGroup.get('authorCtrl').invalid">
+                Valid Author is <strong>required</strong>.
+              </mat-error>
             </mat-form-field>
             <mat-form-field class="col-md-6 mb-3">
               <mat-label>Publisher</mat-label>
               <input type="text" matInput
                      id="publisher" placeholder="publisher" formControlName="publisherCtrl"
                      [(ngModel)]="book.publisher" required>
-              <div class="invalid-feedback">
-                Valid Publisher is required.
-              </div>
+              <mat-error *ngIf="secondFormGroup.get('publisherCtrl').invalid">
+                Valid Publisher is <strong>required</strong>.
+              </mat-error>
             </mat-form-field>
           </div>
 
@@ -130,26 +132,26 @@
                 <input type="number" matInput id="number"
                        placeholder="book number" formControlName="numberCtrl"
                        [(ngModel)]="bookNumber" required>
-                <!--<div class="invalid-feedback">-->
-                <!--Valid book number is required.-->
-                <!--</div>-->
+                <mat-error *ngIf="thirdFormGroup.get('numberCtrl').invalid">
+                  Valid book number is <strong>required</strong>.
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
 
           <div class="mb-4">
-            <mat-label>Location*</mat-label>
+            <mat-label>Book Location*</mat-label>
             <div class="form-row">
               <mat-form-field class="col">
-                <input matInput type="text" placeholder="Floor" name="floor" [(ngModel)]="room" formControlName="roomCtrl" required>
+                <input matInput type="text" placeholder="Room" name="room" [(ngModel)]="location.room" formControlName="roomCtrl" required>
                 <span matSuffix> - </span>
               </mat-form-field>
               <mat-form-field class="col">
-                <input matInput type="text" placeholder="Shelf" name="shelf" [(ngModel)]="shelf" formControlName="shelfCtrl" required>
+                <input matInput type="text" placeholder="Shelf" name="shelf" [(ngModel)]="location.shelf" formControlName="shelfCtrl" required>
                 <span matSuffix> - </span>
               </mat-form-field>
               <mat-form-field class="col">
-                <input matInput type="text" placeholder="Level" name="level" [(ngModel)]="level" formControlName="levelCtrl" required>
+                <input matInput type="text" placeholder="Level" name="level" [(ngModel)]="location.level" formControlName="levelCtrl" required>
               </mat-form-field>
             </div>
           </div>

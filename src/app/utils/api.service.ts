@@ -8,6 +8,7 @@ import {DayIncome} from "./DataStructs/DayIncome";
 import {Borrow} from './DataStructs/Borrow';
 import {TotalIncome} from "./DataStructs/TotalIncome";
 import {Rule} from "./DataStructs/Rule";
+import {BookLocation} from "./DataStructs/BookLocation";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -114,13 +115,13 @@ export class ApiService {
     );
   }
 
-  add_book(isbn: string, count: number, location: string, metaBook?: MetaBook): Promise<Array<Book>> {
+  add_book(isbn: string, count: number, location: BookLocation, metaBook?: MetaBook): Promise<Array<Book>> {
     const url = `${this.base_url}/add_book`;
     const http = this.http;
     const body = new URLSearchParams();
     body.set('isbn', isbn);
     body.set('count', count.toString());
-    body.set('location', location);
+    body.set('location', location.toString());
 
     if (metaBook) {
       delete metaBook.isbn;
@@ -251,15 +252,7 @@ export class ApiService {
 
   get_account(role: string, query: string): Promise<Array<User>> {
     const url = `${this.base_url}/${role}s?${ ApiService.json2query({query: query}) }`;
-    const http = this.http;
-    return new Promise<Array<User>>(
-      function (resolve, reject) {
-        http.get<Array<User>>(url, withCookie)
-          .subscribe(
-            value => resolve(value),
-            error => reject(error));
-      }
-    );
+    return this.http.get<Array<User>>(url, withCookie).toPromise();
   }
 
   reset_password(role: string, username: string, newPass: string): Promise<void> {

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
 import {Borrow} from '../../../utils/DataStructs/Borrow';
-import { MessageService, Message } from '../../../utils/message.service';
+import {MessageService, Message} from '../../../utils/message.service';
 import {StateService} from "../../../utils/state.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
@@ -12,14 +12,12 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./librarian-return.component.css']
 })
 export class LibrarianReturnComponent implements OnInit {
-
   readerId: string;
   cacheReaderId: string;
 
   reader: User;
-  borrowed: Array<Borrow>;
+  borrowed: Array<Borrow> = [];
 
-  // willReturn: Array<Borrow> = [];
   borrowIndex: number;
 
   constructor(
@@ -27,7 +25,8 @@ export class LibrarianReturnComponent implements OnInit {
     private messageService: MessageService,
     private stateService: StateService,
     private apiService: ApiService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.stateService.only('librarian');
@@ -40,20 +39,22 @@ export class LibrarianReturnComponent implements OnInit {
     this.cacheReaderId = this.readerId;
     this.apiService.get_account('reader', this.readerId)
       .then(res => {
-        if (res.length === 0 || res[0].username !== this.readerId) {
-          // not found
-          console.error('not that user');
+        if (res.length === 0 || res[0].username !== this.readerId) { // not found
+          this.messageService.messages.push(new Message('not that user', 'danger'));
         } else {
           this.reader = res[0];
+          this.apiService.borrow_records(this.readerId, true)
+            .then(res => {
+              // filter not return_time
+              this.borrowed = res.filter(val => val.return_time === null);
+            }).catch(err => {
+            console.error(err);
+          });
         }
-      });
-    this.apiService.borrow_records(this.readerId, true)
-      .then(res => {
-        // filter not return_time
-        this.borrowed = res.filter(val => val.return_time === null);
       }).catch(err => {
-        console.error(err);
-      });
+      console.error(err);
+      this.messageService.messages.push(new Message('not that user', 'danger'));
+    });
   }
 
   click_return(modal) {
@@ -67,7 +68,10 @@ export class LibrarianReturnComponent implements OnInit {
 
     const borrowId = optionElem.value;
     console.log(borrowId);
-    this.borrowIndex = this.borrowed.findIndex(val => val.id === borrowId);
+    console.log(this.borrowed);
+    this.borrowIndex = this.borrowed.findIndex(val => val.id.toString() === borrowId);
+    console.log(this.borrowIndex);
+    console.log(this.borrowed[this.borrowIndex]);
     // return book
     this.apiService.return_book(borrowId)
       .then(res => {
@@ -82,12 +86,13 @@ export class LibrarianReturnComponent implements OnInit {
 
   return_success() {
     // delete this borrow item
+    this.modalService.dismissAll();
     this.borrowed.splice(this.borrowIndex, 1);
     this.messageService.messages.push(new Message('return success', 'success'))
   }
 
   paid_fine() {
     this.apiService.pay_fine(this.borrowed[this.borrowIndex].id)
-      .then(() => this.modalService.dismissAll());
+      .then(() => this.return_success());
   }
 }

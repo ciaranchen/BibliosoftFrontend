@@ -38,7 +38,7 @@ export class DoubanService {
           res.pages,
           res.image,
           res.subtitle,
-          '<p>' + res.summary.replace('\n', '</p><p>') + '</p>',
+          '<p>' + res.summary.replace(/\n/g, '</p><p>') + '</p>',
           parseFloat(res.price.split(' ').pop()));
         // console.log(res);
         console.log(metaBook);

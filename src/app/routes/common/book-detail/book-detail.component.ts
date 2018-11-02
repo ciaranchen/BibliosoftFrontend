@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from "../../../utils/state.service";
 import {Message, MessageService} from "../../../utils/message.service";
 import * as JsBarcode from 'jsbarcode';
+import {BookLocation} from "../../../utils/DataStructs/BookLocation";
 
 @Component({
   selector: 'app-book-detail',
@@ -21,6 +22,8 @@ export class BookDetailComponent implements OnInit {
   login: string;
 
   showMetaBook: MetaBook = new MetaBook('', '', '', '');
+  editingIndex: number;
+  location: BookLocation = new BookLocation();
 
   constructor(
     private messageService: MessageService,
@@ -47,35 +50,26 @@ export class BookDetailComponent implements OnInit {
     }
   }
 
-  edit_location($event: Event) {
-    const tr = this.get_tr($event);
-    // console.log(tr);
-    const barcode = tr.childNodes[1].textContent;
-    // console.log(barcode);
-    const location = tr.childNodes[2].textContent;
-    const newLocation = prompt('new location?', location);
-    if (!newLocation) {
-      return;
-    }
-    let i: number = undefined;
-    this.books.forEach((book, index) => {
-      if (book.barcode.toString() === barcode.toString()) {
-        i = index;
-      }
-    });
+  submit_edit_location() {
+    const book: Book = new Book();
+    Object.assign(book, this.books[this.editingIndex]);
+    book.location = this.location.toString();
+    console.log(book);
+    this.apiService.update_book(book)
+      .then(() => {
+        this.books[this.editingIndex] = book;
+        this.modalService.dismissAll();
+        this.messageService.messages.push(new Message('update success', 'success'));
+      });
+  }
 
-    let editBook: Book = undefined;
-    Object.assign(this.books[i], editBook);
-    editBook.location = newLocation;
-    this.apiService.update_book(editBook).then(
-      res => {
-        if (res) {
-          this.books[i].location = newLocation;
-        } else {
-          console.error('error');
-        }
-      }
-    );
+  open_edit_location($event: Event, modal) {
+    const barcode = this.get_tr($event).childNodes[1].textContent;
+    this.editingIndex = this.books.findIndex((book) => book.barcode.toString() === barcode.toString());
+    // load Location
+    this.location.from_string(this.books[this.editingIndex].location);
+    console.log(this.location);
+    this.modalService.open(modal, {centered: true, size: 'lg'});
   }
 
   private get_tr($event: Event) {
@@ -139,5 +133,10 @@ export class BookDetailComponent implements OnInit {
       });
 
     this.apiService.get_books(isbn).then(res => this.books = res);
+  }
+
+  get_date_time(time: string):string {
+    const date = new Date(time);
+    return this.login === 'librarian' ? date.toLocaleString() : date.toLocaleDateString();
   }
 }

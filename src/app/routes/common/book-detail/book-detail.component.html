@@ -95,6 +95,35 @@
 </ng-template>
 
 
+<ng-template #editLocationModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="location-modal-title">edit meta book</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-4">
+      <mat-label>Book Location</mat-label>
+      <div class="form-row">
+        <mat-form-field class="col">
+          <input matInput type="text" placeholder="Room" name="room" [(ngModel)]="location.room" required>
+          <span matSuffix> - </span>
+        </mat-form-field>
+        <mat-form-field class="col">
+          <input matInput type="text" placeholder="Shelf" name="shelf" [(ngModel)]="location.shelf" required>
+          <span matSuffix> - </span>
+        </mat-form-field>
+        <mat-form-field class="col">
+          <input matInput type="text" placeholder="Level" name="level" [(ngModel)]="location.level" required>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button type="button" mat-button (click)="submit_edit_location()">update information</button>
+  </div>
+</ng-template>
+
 <div class="app-wrapper" >
   <div *ngIf="metaBook">
     <h2> {{ metaBook.title }} </h2>
@@ -105,10 +134,10 @@
         <button class="badge badge-info">{{metaBook.author}}</button>
         <div><span>ISBN: </span>{{metaBook.isbn}}</div>
         <div><span>Publisher: </span> {{metaBook.publisher}}</div>
-        <div *ngIf="metaBook.publish_year"><span>Publish year: </span>{{metaBook.publish_year}}</div>
-        <div *ngIf="metaBook.pages"><span>Pages: </span>{{metaBook.pages}}</div>
+        <div *ngIf="metaBook.publish_year && metaBook.publish_year !== 1900"><span>Publish year: </span>{{metaBook.publish_year}}</div>
+        <div *ngIf="metaBook.pages && metaBook.pages !== -1"><span>Pages: </span>{{metaBook.pages}}</div>
         <div *ngIf="metaBook.keyword"><span>Keywords: </span>{{metaBook.keyword}}</div>
-        <div *ngIf="metaBook.price"><span>Price: </span>{{metaBook.price}}</div>
+        <div *ngIf="metaBook.price && metaBook.price !== -1"><span>Price: </span>{{metaBook.price}}</div>
       </div>
 
       <div class="detail-img">
@@ -133,7 +162,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Barcode</th>
-          <th scope="col">Location</th>
+          <th scope="col">BookLocation</th>
           <th scope="col">Add Time</th>
           <th scope="col">Available</th>
           <th scope="col" *ngIf="login==='librarian'">operation</th>
@@ -144,10 +173,10 @@
           <th scope="row">{{i}}</th>
           <td>{{x.barcode}}</td>
           <td>{{x.location}}</td>
-          <td>{{x.add_time}}</td>
+          <td>{{ get_date_time(x.add_time) }}</td>
           <td>{{x.available}}</td>
           <td *ngIf="login==='librarian'">
-            <button type="button" class="btn btn-sm" placement="top" (click)="edit_location($event)" ngbTooltip="edit location">
+            <button type="button" class="btn btn-sm" placement="top" (click)="open_edit_location($event, editLocationModal)" ngbTooltip="edit location">
               <i class="fa fa-edit"></i>
             </button>
             &nbsp;
