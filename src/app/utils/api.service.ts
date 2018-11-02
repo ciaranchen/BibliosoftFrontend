@@ -9,6 +9,7 @@ import {Borrow} from './DataStructs/Borrow';
 import {TotalIncome} from "./DataStructs/TotalIncome";
 import {Rule} from "./DataStructs/Rule";
 import {BookLocation} from "./DataStructs/BookLocation";
+import * as JsBarcode from 'jsbarcode';
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -39,6 +40,15 @@ export class ApiService {
       }
     }
     return diff;
+  }
+
+  static download_barcode (barcode: string) {
+    const canvasElem = window.document.createElement('canvas');
+    JsBarcode(canvasElem, barcode);
+    const a = window.document.createElement('a');
+    a.href = canvasElem.toDataURL('image/png');  // 将画布内的信息导出为png图片数据
+    a.download = `code_${barcode}`;
+    a.click();
   }
 
   static reader_and_librarian(role: string): boolean {

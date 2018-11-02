@@ -1,31 +1,58 @@
 <div class="app-wrapper">
-    <h2 class="display-4" style="text-align:center;">borrow_detail</h2>
-    <div class="alert alert-info" role="alert">
-        <div class="row">
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-primary" >borrow_id</span>
-                    {{borrow.id}}</div>
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-success">librarian_id</span>
-                    {{borrow.librarian_id}}</div>
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-info">reader_id</span>
-                    {{borrow.reader_id}}</div>   
-        </div>
-    </div>
-    
-    <div class="alert alert-info" role="alert">
-        <div class="row">
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-primary" >borrow_time</span>
-                    {{borrow.borrow_time}}</div>
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-success" >return_time</span>
-                    {{borrow.return_time}}</div>
-            <div class="col" style="margin-left:3px;text-align:left;font-size:28px;">
-                    <span class="badge badge-info" >fine</span>
-                    {{borrow.fine}}</div>
-            </div>
-    </div>
-    
+  <div class="py-3 text-center">
+    <h2 class="display-4">
+      Borrow: {{ borrow.id }}
+    </h2>
+  </div>
+
+  <div id="about-borrow">
+    <p>Borrowed from {{ borrow.borrow_time }}</p>
+    <p *ngIf="borrow.return_time">Returned at {{ borrow.return_time }}</p>
+    <p *ngIf="borrow.fine !== 0">This Borrow takes {{borrow.fine}} yuan</p>
+    <p *ngIf="!borrow.return_time">This book is not returned</p>
+  </div>
+
+  <mat-card class="full-width">
+    <mat-card-header>
+      <!--<div mat-card-avatar class="example-header-image"></div>-->
+      <mat-card-title>About this Book: {{ metaBook.title }}</mat-card-title>
+      <mat-card-subtitle>barcode: <a (click)="download_barcode()">{{borrow.barcode}}</a> located at {{book.location}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{ metaBook.keyword }}
+      <div [innerHtml]="metaBook.desc_html"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button routerLink="/book/{{metaBook.isbn}}">go to see this book</a>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="full-width">
+    <mat-card-header>
+      <mat-card-title>
+        Reader:
+        <a routerLink="{{ stateService.role === 'reader'? '/reader/profile': '/librarian/reader/profile/' + reader.username }}">
+          {{reader.username}}
+        </a></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p> email: {{ reader.email }} </p>
+      <p *ngIf="reader.slogan">{{reader.slogan}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="full-width" *ngIf="stateService.role === 'librarian'">
+    <mat-card-header>
+      <mat-card-title>
+        Librarian:
+        <a routerLink="/librarian/others/' + librarian.username }}">
+          {{librarian.username}}
+        </a>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p> email: {{ librarian.email }} </p>
+      <p *ngIf="librarian.slogan">{{librarian.slogan}}</p>
+    </mat-card-content>
+  </mat-card>
 </div>

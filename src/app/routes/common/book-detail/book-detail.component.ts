@@ -7,7 +7,6 @@ import {Book} from '../../../utils/DataStructs/Book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from "../../../utils/state.service";
 import {Message, MessageService} from "../../../utils/message.service";
-import * as JsBarcode from 'jsbarcode';
 import {BookLocation} from "../../../utils/DataStructs/BookLocation";
 
 @Component({
@@ -21,7 +20,7 @@ export class BookDetailComponent implements OnInit {
   isbn: string;
   login: string;
 
-  showMetaBook: MetaBook = new MetaBook('', '', '', '');
+  showMetaBook: MetaBook = new MetaBook();
   editingIndex: number;
   location: BookLocation = new BookLocation();
 
@@ -88,12 +87,7 @@ export class BookDetailComponent implements OnInit {
 
   download_barcode ($event: Event) {
     const barcode = this.get_tr($event).childNodes[1].textContent;
-    const canvasElem = window.document.createElement('canvas');
-    JsBarcode(canvasElem, barcode);
-    const a = window.document.createElement('a');
-    a.href = canvasElem.toDataURL('image/png');  // 将画布内的信息导出为png图片数据
-    a.download = `code_${barcode}`;
-    a.click();
+    ApiService.download_barcode(barcode);
   }
 
   disable_reserve() {
