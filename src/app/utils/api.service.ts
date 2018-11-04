@@ -10,6 +10,8 @@ import {TotalIncome} from "./DataStructs/TotalIncome";
 import {Rule} from "./DataStructs/Rule";
 import {BookLocation} from "./DataStructs/BookLocation";
 import * as JsBarcode from 'jsbarcode';
+import {Post} from "./DataStructs/Post";
+import {json} from "d3-fetch";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -155,6 +157,11 @@ export class ApiService {
     return this.http.get<Array<Book>>(url, withCookie).toPromise();
   }
 
+  trends_book(count?: number): Promise<Array<MetaBook>> {
+    const url = `${this.base_url}/trends?${ApiService.json2query({count: count || 10})}`;
+    return this.http.get<Array<MetaBook>>(url, withCookie).toPromise();
+  }
+
   update_book(book: Book): Promise<void> {
     const url = `${this.base_url}/update_book`;
     const body = new URLSearchParams();
@@ -195,18 +202,20 @@ export class ApiService {
     );
   }
 
+  reserve_book(readerId: string, barcode: string): Promise<void> {
+    const url = `${this.base_url}/reserve`;
+    return this.http.post<void>(url, ApiService.json2query({reader: readerId, barcode: barcode}), postOptions).toPromise();
+  }
+
+  get_borrow(borrowId: string): Promise<Borrow> {
+    const url = `${this.base_url}/borrow?borrow_id=${borrowId}`;
+    return this.http.get<Borrow>(url, withCookie).toPromise();
+  }
+
   borrow_records(reader_id: string, returned?: boolean): Promise<Array<Borrow>> {
     // todo: check returned api
-    const url = `${this.base_url}/borrows?reader_id=${reader_id}`,
-      http = this.http;
-    return new Promise<Array<Borrow>> (
-      function (resolve, reject) {
-        http.get<Array<Borrow>>(url, withCookie).subscribe(
-          value => resolve(value),
-          error1 => reject(error1)
-        );
-      }
-    );
+    const url = `${this.base_url}/borrows?reader_id=${reader_id}`;
+    return this.http.get<Array<Borrow>>(url, withCookie).toPromise();
   }
 
   return_book(borrowId: string): Promise<boolean> {
@@ -290,14 +299,9 @@ export class ApiService {
 
   get_incomes(start: Date, end: Date): Promise<Array<DayIncome>> {
     const url = `${this.base_url}/income?${ApiService.json2query({
-      start: ApiService.date2string(start), 
+      start: ApiService.date2string(start),
       end: ApiService.date2string(end)})}`;
     return this.http.get<Array<DayIncome>>(url, withCookie).toPromise();
-  }
-
-  get_borrow(borrowId): Promise<Borrow> {
-    const url = `${this.base_url}/borrow?borrow_id=${borrowId}`;
-    return this.http.get<Borrow>(url, withCookie).toPromise();
   }
 
   library_config(): Promise<Rule> {
@@ -310,8 +314,13 @@ export class ApiService {
     return this.http.post<void>(url, ApiService.json2query(rule), postOptions).toPromise();
   }
 
-  trends_book(count?: number): Promise<Array<MetaBook>> {
-    const url = `${this.base_url}/trends?${ApiService.json2query({count: count || 10})}`;
-    return this.http.get<Array<MetaBook>>(url, withCookie).toPromise();
+  get_post(): Promise<Array<Post>> {
+    const url = `${this.base_url}/posts`;
+    return this.http.get<Array<Post>>(url, withCookie).toPromise();
+  }
+
+  add_post(post: Post): Promise<void> {
+    const url = `${this.base_url}/add_post`;
+    return this.http.post<void>(url, ApiService.json2query(post), postOptions).toPromise();
   }
 }

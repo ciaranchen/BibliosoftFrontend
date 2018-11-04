@@ -96,8 +96,16 @@ export class BookDetailComponent implements OnInit {
 
   reserve_book() {
     this.stateService.only('reader');
-    // todo: reserve book
-    // this.apiService.reserve_book(stateService.user.username, this.isbn);
+    const reservable = this.books.filter(value => value.available === true);
+    if (reservable.length === 0) {
+      this.messageService.messages.push(new Message('no available book', 'danger'));
+    } else {
+      this.apiService.reserve_book(this.stateService.user.username, reservable[0].barcode)
+        .then(() => {
+          this.messageService.messages.push(
+            new Message('reserve success, You need to go to library and borrow this book as fast as possible', 'success'));
+        });
+    }
   }
 
   submit_edit_metabook() {

@@ -14,8 +14,7 @@ import {Post} from "../../../utils/DataStructs/Post";
 export class HomeComponent implements OnInit {
   books: Array<MetaBook> = [];
 
-  post: Post = new Post('', '');
-  hidden_post: boolean = false;
+  posts: Array<Post> = [];
 
   constructor(
     private apiService: ApiService,
@@ -25,9 +24,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // get sth from backend;
-    // this.apiService.trends_book(3)
-    //   .then(res => this.books = res);
-    // this.apiService.get_post()
-    //   .then(res => this.post = res);
+    this.apiService.trends_book(3)
+      .then(res => this.books = res);
+    this.apiService.get_post()
+      .then(res => {
+        this.posts = res.slice(-3);
+        // console.log(this.posts);
+      });
+  }
+
+  get_time(x: string): string {
+    // console.log(x);
+    return (new Date(x)).toLocaleString();
   }
 }

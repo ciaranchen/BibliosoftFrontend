@@ -59,11 +59,14 @@ export class LibrarianBorrowComponent implements OnInit {
     this.apiService.get_book(this.barcode)
       .then(res => {
         this.book = res;
-        // console.log(res);
-        this.apiService.get_meta_book(res.isbn)
-          .then(res => {
-            this.metaBook = res;
-          });
+        if (res.deleted || res.available) {
+          this.messageService.messages.push(new Message('This Book is not available.', 'danger'));
+        } else {
+          this.apiService.get_meta_book(res.isbn)
+            .then(res => {
+              this.metaBook = res;
+            });
+        }
       });
   }
 
@@ -79,7 +82,7 @@ export class LibrarianBorrowComponent implements OnInit {
             'danger'));
         }
       }).catch(err => {
-        console.error(err);
+        this.messageService.messages.push(new Message('error!', 'danger'));
       });
   }
 }

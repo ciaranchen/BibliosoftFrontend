@@ -20,7 +20,6 @@ export class AdminRulesComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.only('admin');
-    // todo: load old rules
     this.apiService.library_config()
       .then(res => {
         this.rule = res;
@@ -28,8 +27,6 @@ export class AdminRulesComponent implements OnInit {
   }
 
   update_rule() {
-    // console.log(this.stateService.user);
-    // todo: update rules
     this.apiService.update_config(this.rule)
       .then(() => {
         this.messageService.messages.push(new Message('update success!', 'success'));

@@ -124,7 +124,15 @@ Response Status:
 
 ###
 
-# Update book
+# Most popular `count`(default is 10) books' meta info
+GET http://localhost:80/trends?count=10
+Accept: application/json
+
+[{}, {}, {}, {}, {}, {}, {}, {}, {}, {}]
+
+###
+
+# Update book, returns updated book
 POST http://localhost:80/update_book
 Content-Type: application/json
 
@@ -157,7 +165,30 @@ Accept: application/json
 reader=reader_username&barcode=barcode
 
 Reponse status:
-Nonsence expect status code
+* HttpStatus.OK
+* HttpStatus.BAD_REQUEST, "book not exist or unavilable"
+* HttpStatus.NOT_ACCEPTABLE, "over limit"
+* HttpStatus.LOCKED, "book reserved by others"
+
+###
+
+# Reserve a book
+POST http://localhost:80/reserve
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+reader=reader_username&barcode=barcode
+
+Reponse status:
+* HttpStatus.OK
+* HttpStatus.BAD_REQUEST, "book not exist or unavilable"
+* HttpStatus.NOT_ACCEPTABLE, "over limit"
+
+###
+
+# Get a specific borrow
+GET http://localhost:80/borrow?borrow_id=1
+Accept: application/json
 
 ###
 
@@ -352,6 +383,74 @@ Accept: application/json
     ]
   }
 ]
+
+###
+
+# Library rules/config currently
+GET http://localhost:80/library_config
+Accept: application/json
+
+{
+  "fine_unit_in_cent": "100",
+  "membership_deposit": "300",
+  "borrow_limitation": "3",
+  "return_period": "30",
+  "reservation_minutes": "120"
+}
+
+###
+
+# Update config, format is the same as /library_config 's response,
+# values must be integer string for the four configs above
+POST http://localhost:80/update_config
+Content-Type: application/json
+Accept: application/json
+
+###
+
+# Get posts
+GET http://localhost:80/posts
+Accept: application/json
+
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "title": "isjfagba,Notice",
+    "content": "This is a test notice post.",
+    "time": "2018-11-02T14:55:55.717+0000"
+  },
+  {
+    "id": 2,
+    "username": "admin",
+    "title": "Notice",
+    "content": "This is a test notice post.",
+    "time": "2018-11-02T15:18:01.698+0000"
+  }
+]
+
+###
+
+# Add Post
+POST http://localhost:80/add_post
+Content-Type: application/x-www-form-urlencoded
+Accept: application/json
+
+title=title&content=content
+
+{
+  "id": 2,
+  "username": "admin",
+  "title": "Notice",
+  "content": "This is a test notice post.",
+  "time": "2018-11-02T15:18:01.698+0000"
+}
+
+###
+
+# Remove post, status code 200 for success
+DELETE http://localhost:80/remove_post
+Content-Type: application/x-www-form-urlencoded
 
 ###
 

@@ -20,8 +20,8 @@
       <tbody>
       <tr *ngFor="let x of borrowing; let i = index; first as isFirst">
         <th scope="row">{{i}}</th>
-        <td>{{x.id}}</td>
-        <td>{{x.barcode}}</td>
+        <td><a routerLink="/borrow/{{x.id}}">{{x.id}}</a></td>
+        <td><a routerLink="/book_by_barcode/{{x.barcode}}">{{x.barcode}}</a></td>
         <td>{{ get_date(x.borrow_time) }}</td>
       </tr>
       </tbody>
@@ -45,8 +45,8 @@
       <tbody>
       <tr *ngFor="let x of borrowed; let i = index; first as isFirst">
         <th scope="row">{{i}}</th>
-        <td>{{x.id}}</td>
-        <td>{{x.barcode}}</td>
+        <td><a routerLink="/borrow/{{x.id}}">{{x.id}}</a></td>
+        <td><a routerLink="/book_by_barcode/{{x.barcode}}">{{x.barcode}}</a></td>
         <td>{{ get_date(x.borrow_time) }}</td>
         <td>{{ get_date(x.return_time) }}</td>
       </tr>

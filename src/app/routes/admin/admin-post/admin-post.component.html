@@ -1,17 +1,19 @@
 <div class="app-wrapper">
   <mat-form-field class="full-width">
-    <input matInput placeholder="Post Title" name="psot_title" [(ngModel)]="post.title" required>
+    <input matInput placeholder="Post Title" name="post_title" [(ngModel)]="addPost.title" required>
     <mat-error *ngIf="requiredControl.hasError('required')">
       Post title is <strong>required</strong>
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Post Content" name="post_content" [(ngModel)]="post.content"
+    <textarea matInput placeholder="Post Content" name="post_content" [(ngModel)]="addPost.content"
               id="post-content" rows="10" required>
     </textarea>
     <mat-error *ngIf="requiredControl.hasError('required')">
       Post content is <strong>required</strong>
     </mat-error>
   </mat-form-field>
+
+  <button mat-raised-button (click)="add_post()" color="primary">add post</button>
 </div>
