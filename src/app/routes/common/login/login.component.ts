@@ -7,7 +7,7 @@ import {Message, MessageService} from "../../../utils/message.service";
 @Component({
   selector: 'app-admin-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css', '../../../login.css']
+  styleUrls: ['./login.component.css', '../../../utils/login.css']
 })
 export class LoginComponent implements OnInit {
   user: string;

@@ -11,7 +11,6 @@ import {Rule} from "./DataStructs/Rule";
 import {BookLocation} from "./DataStructs/BookLocation";
 import * as JsBarcode from 'jsbarcode';
 import {Post} from "./DataStructs/Post";
-import {json} from "d3-fetch";
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')

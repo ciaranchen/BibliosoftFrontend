@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.css', '../../../login.css']
+  styleUrls: ['./admin-login.component.css', '../../../utils/login.css']
 })
 export class AdminLoginComponent implements OnInit {
   user: string;

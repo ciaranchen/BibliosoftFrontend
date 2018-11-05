@@ -1,28 +1,26 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Plotly} from "angular-plotly.js/src/app/plotly/plotly.service";
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {DateIncome} from "../../utils/DataStructs/DateIncome";
+import {PlotlyService} from "../../utils/plotly.service";
 
 @Component({
   selector: 'app-plotly-income-multi-lines',
   templateUrl: './plotly-income-multi-lines.component.html',
   styleUrls: ['./plotly-income-multi-lines.component.css']
 })
-export class PlotlyIncomeMultiLinesComponent implements OnInit {
+export class PlotlyIncomeMultiLinesComponent {
+  @ViewChild('lines') element: ElementRef;
 
   @Input()
   set dataInput(data: Array<DateIncome>) {
-    this.data = this.get_traces(data);
-    console.log(this.data);
+    PlotlyService.plot(this.element, this.get_traces(data), this.layout);
   }
 
   @Input() start: Date;
   @Input() end: Date;
 
-  data: Plotly.Data[] = [];
-  layout: Partial<Plotly.Layout> = {
+  layout = {
     showlegend: true,
     title: 'Library Income',
-    // width: 1080, height: 960,
     xaxis: {
       autorange: true,
       range: [
@@ -41,7 +39,7 @@ export class PlotlyIncomeMultiLinesComponent implements OnInit {
 
   constructor() {}
 
-  private get_traces(formatData: Array<DateIncome>): Plotly.Data[] {
+  private get_traces(formatData: Array<DateIncome>) {
     const dates = formatData.map(value => value.date);
     const fines = formatData.map(value => value.fine);
     const deposits = formatData.map(value => value.deposit);
@@ -55,6 +53,4 @@ export class PlotlyIncomeMultiLinesComponent implements OnInit {
       name: 'deposit'
     }];
   }
-
-  ngOnInit() {}
 }

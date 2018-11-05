@@ -44,7 +44,6 @@ import { AdminPostComponent } from './routes/admin/admin-post/admin-post.compone
 import { MAT_STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 import { PlotlyIncomeMultiLinesComponent } from "./components/plotly-income-multilines/plotly-income-multi-lines.component";
 import { PlotlyIncomePieComponent } from "./components/plotly-income-pie/plotly-income-pie.component";
-import {PlotlyModule} from "angular-plotly.js";
 import { IncomeDetailComponent } from './components/income-detail/income-detail.component';
 import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-detail.component';
 
@@ -91,7 +90,6 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    PlotlyModule,
     // ng-bootstrap Module
     NgbModule,
     // Material Module
