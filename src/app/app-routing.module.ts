@@ -57,7 +57,7 @@ const routes: Routes = [
   // testing url
   { path: 'about', component: AboutComponent },
   { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
-  { path: 'borrow_detail/:borrow', component: BorrowDetailComponent }
+  { path: 'borrow/:borrow', component: BorrowDetailComponent }
 ];
 
 @NgModule({

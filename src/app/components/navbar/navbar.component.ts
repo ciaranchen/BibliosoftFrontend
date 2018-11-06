@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {}
 
-  debug_nav() {
-    console.log(this.loginService.user);
-    console.log(this.loginService.role);
-  }
+  // debug_nav() {
+  //   console.log(this.loginService.user);
+  //   console.log(this.loginService.role);
+  // }
 }

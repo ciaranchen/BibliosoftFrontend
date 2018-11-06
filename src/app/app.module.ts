@@ -33,11 +33,10 @@ import {StateService} from './utils/state.service';
 import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
 import {
   ErrorStateMatcher, MatButtonModule, MatCardModule,
-  MatChipsModule, MatDatepickerModule, MatExpansionModule,
+  MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperModule,
-  MatTableModule,
-  MatToolbarModule, ShowOnDirtyErrorStateMatcher
+  MatListModule, MatNativeDateModule, MatSortModule, MatStepperModule,
+  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
@@ -106,7 +105,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [
     MessageService, StateService,

@@ -59,14 +59,10 @@ export class LibrarianBorrowComponent implements OnInit {
     this.apiService.get_book(this.barcode)
       .then(res => {
         this.book = res;
-        if (res.deleted || res.available) {
-          this.messageService.messages.push(new Message('This Book is not available.', 'danger'));
-        } else {
-          this.apiService.get_meta_book(res.isbn)
-            .then(metaBook => {
-              this.metaBook = metaBook;
-            });
-        }
+        this.apiService.get_meta_book(res.isbn)
+          .then(metaBook => {
+            this.metaBook = metaBook;
+          });
       });
   }
 
