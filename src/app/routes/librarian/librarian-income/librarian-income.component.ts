@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {StateService} from "../../../utils/state.service";
-import {ApiService} from "../../../utils/api.service";
-import {DateIncome} from "../../../utils/DataStructs/DateIncome";
-import {DayIncome} from "../../../utils/DataStructs/DayIncome";
-import {TotalIncome} from "../../../utils/DataStructs/TotalIncome";
-import {FormControl} from "@angular/forms";
-import {Income} from "../../../utils/DataStructs/Income";
+import {StateService} from '../../../utils/state.service';
+import {ApiService} from '../../../utils/api.service';
+import {DateIncome} from '../../../utils/DataStructs/DateIncome';
+import {DayIncome} from '../../../utils/DataStructs/DayIncome';
+import {TotalIncome} from '../../../utils/DataStructs/TotalIncome';
+import {FormControl} from '@angular/forms';
+import {Income} from '../../../utils/DataStructs/Income';
 
 @Component({
   selector: 'app-librarian-home',
@@ -72,8 +72,8 @@ export class LibrarianIncomeComponent implements OnInit {
   }
 
   private datesBetween(startDate: Date, endDate: Date): Array<Date> {
-    let dates = [],
-      currentDate = startDate,
+    let currentDate = startDate;
+    const dates = [],
       addDays = function (days) {
         const date = new Date(this.valueOf());
         date.setDate(date.getDate() + days);

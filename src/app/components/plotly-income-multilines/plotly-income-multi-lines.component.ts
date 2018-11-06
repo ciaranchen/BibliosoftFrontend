@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {DateIncome} from "../../utils/DataStructs/DateIncome";
-import {PlotlyService} from "../../utils/plotly.service";
+import {DateIncome} from '../../utils/DataStructs/DateIncome';
+import {PlotlyService, Plotly} from '../../utils/plotly.service';
 
 @Component({
   selector: 'app-plotly-income-multi-lines',
@@ -12,34 +12,38 @@ export class PlotlyIncomeMultiLinesComponent {
 
   @Input()
   set dataInput(data: Array<DateIncome>) {
-    PlotlyService.plot(this.element, this.get_traces(data), this.layout);
+    const layout = this.get_layout(this.start, this.end);
+    const plot_data = this.get_traces(data);
+    PlotlyService.plot(this.element, plot_data, layout);
   }
 
   @Input() start: Date;
   @Input() end: Date;
 
-  layout = {
-    showlegend: true,
-    title: 'Library Income',
-    xaxis: {
-      autorange: true,
-      range: [
-        this.start,
-        this.end
-      ],
-      title: 'Time',
-      type: Date
-    },
-    yaxis: {
-      autorange: true,
-      title: 'Money',
-      type: Number
-    }
-  };
-
   constructor() {}
 
-  private get_traces(formatData: Array<DateIncome>) {
+  private get_layout(start: Date, end: Date): Partial<Plotly.Layout> {
+    return {
+      showlegend: true,
+      title: 'Library Income',
+      xaxis: {
+        autorange: true,
+        range: [
+          start,
+          this.end
+        ],
+        title: 'Time',
+        type: Date
+      },
+      yaxis: {
+        autorange: true,
+        title: 'Money',
+        type: Number
+      }
+    };
+  }
+
+  private get_traces(formatData: Array<DateIncome>): Plotly.Data[] {
     const dates = formatData.map(value => value.date);
     const fines = formatData.map(value => value.fine);
     const deposits = formatData.map(value => value.deposit);

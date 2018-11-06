@@ -18,10 +18,10 @@ import {AdminChangePasswordComponent} from './routes/admin/admin-change-password
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
-import {LibrarianIncomeComponent} from "./routes/librarian/librarian-income/librarian-income.component";
-import {AdminPostComponent} from "./routes/admin/admin-post/admin-post.component";
-import {LibrarianProfileComponent} from "./routes/librarian/librarian-profile/librarian-profile.component";
-import {BorrowDetailComponent} from "./routes/common/borrow-detail/borrow-detail.component";
+import {LibrarianIncomeComponent} from './routes/librarian/librarian-income/librarian-income.component';
+import {AdminPostComponent} from './routes/admin/admin-post/admin-post.component';
+import {LibrarianProfileComponent} from './routes/librarian/librarian-profile/librarian-profile.component';
+import {BorrowDetailComponent} from './routes/common/borrow-detail/borrow-detail.component';
 
 const routes: Routes = [
   // home pages

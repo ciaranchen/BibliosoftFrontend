@@ -38,8 +38,8 @@
 
       <app-plotly-income-pie [dataInput]="val"></app-plotly-income-pie>
 
-      <app-income-detail [data]="filter_fines(val.incomes)" [dataType]="1"></app-income-detail>
-      <app-income-detail [data]="filter_deposit(val.incomes)" [dataType]="2"></app-income-detail>
+      <app-income-detail [data]="filter_fines(val.incomes)" [role]="1"></app-income-detail>
+      <app-income-detail [data]="filter_deposit(val.incomes)" [role]="2"></app-income-detail>
 
     </mat-expansion-panel>
   </mat-accordion>

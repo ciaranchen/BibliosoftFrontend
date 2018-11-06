@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../../utils/DataStructs/User';
 import {ApiService} from '../../../utils/api.service';
 import {ActivatedRoute} from '@angular/router';
-import {StateService} from "../../../utils/state.service";
-import {Message, MessageService} from "../../../utils/message.service";
+import {StateService} from '../../../utils/state.service';
+import {Message, MessageService} from '../../../utils/message.service';
 
 @Component({
   selector: 'app-reader-profile',

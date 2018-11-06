@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {StateService} from "../../../utils/state.service";
-import {ApiService} from "../../../utils/api.service";
-import {User} from "../../../utils/DataStructs/User";
-import {Message, MessageService} from "../../../utils/message.service";
-import {ActivatedRoute} from "@angular/router";
+import {StateService} from '../../../utils/state.service';
+import {ApiService} from '../../../utils/api.service';
+import {User} from '../../../utils/DataStructs/User';
+import {Message, MessageService} from '../../../utils/message.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-librarian-profile',
@@ -13,7 +13,7 @@ import {ActivatedRoute} from "@angular/router";
 export class LibrarianProfileComponent implements OnInit {
   librarian: User;
   showLibrarian: User = new User();
-  samePerson: boolean = true;
+  samePerson = true;
 
   constructor(
     private messageService: MessageService,

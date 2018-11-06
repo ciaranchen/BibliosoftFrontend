@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
-import {StateService} from "../../../utils/state.service";
-import {Borrow} from "../../../utils/DataStructs/Borrow";
-import {ActivatedRoute} from "@angular/router";
-import {MatSort, MatTableDataSource} from "@angular/material";
+import {StateService} from '../../../utils/state.service';
+import {Borrow} from '../../../utils/DataStructs/Borrow';
+import {ActivatedRoute} from '@angular/router';
+import {MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-reader-fine',

@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as JsBarcode from 'jsbarcode';
 
-import {MetaBook} from "../../../utils/DataStructs/MetaBook";
-import {ApiService} from "../../../utils/api.service";
-import {Book} from "../../../utils/DataStructs/Book";
+import {MetaBook} from '../../../utils/DataStructs/MetaBook';
+import {ApiService} from '../../../utils/api.service';
+import {Book} from '../../../utils/DataStructs/Book';
 import { DoubanService } from '../../../utils/douban.service';
-import {StateService} from "../../../utils/state.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {BookLocation} from "../../../utils/DataStructs/BookLocation";
+import {StateService} from '../../../utils/state.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BookLocation} from '../../../utils/DataStructs/BookLocation';
 
 @Component({
   selector: 'app-librarian-add-book',
@@ -17,18 +17,6 @@ import {BookLocation} from "../../../utils/DataStructs/BookLocation";
   providers: [DoubanService, NgbModalConfig, NgbModal]
 })
 export class LibrarianAddBookComponent implements OnInit {
-  constructor(
-    private formBuilder: FormBuilder,
-    private stateService: StateService,
-    private doubanService: DoubanService,
-    private apiService: ApiService,
-    public modalService: NgbModal
-  ) { }
-
-  ngOnInit() {
-    this.stateService.only('librarian');
-  }
-
   returnValues: Array<Book>;
 
   book: MetaBook = new MetaBook('', '', '', '');
@@ -38,7 +26,7 @@ export class LibrarianAddBookComponent implements OnInit {
   location: BookLocation = new BookLocation();
 
   loadingWords: string;
-  loadingResult: string = '';
+  loadingResult = '';
 
   firstFormGroup: FormGroup = this.formBuilder.group({
     isbnCtrl: ['', [
@@ -66,6 +54,20 @@ export class LibrarianAddBookComponent implements OnInit {
   isbnExist = true;
   fromDouban = false;
 
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private stateService: StateService,
+    private doubanService: DoubanService,
+    private apiService: ApiService,
+    public modalService: NgbModal
+  ) { }
+
+  ngOnInit() {
+    this.stateService.only('librarian');
+  }
+
+
   private _check_blur() {
     this.apiService.has_meta_book(this.isbn)
       .then((res) => {
@@ -76,9 +78,9 @@ export class LibrarianAddBookComponent implements OnInit {
           this.isbnExist = false;
           this.loadingWords = 'isbn not exists! Search book info from Douban...';
           this.doubanService.searchISBN(this.isbn)
-            .then(res => { // load success from douban
+            .then(metaBook => { // load success from douban
               this.loadingResult = 'Successfully load from Douban!';
-              this.book = res;
+              this.book = metaBook;
               // console.log(res);
             }).catch(err => { // not exists in douban
               this.loadingResult = 'It seems this isbn is not a book isbn. Retype the ISBN or input the book information manually';
@@ -99,7 +101,7 @@ export class LibrarianAddBookComponent implements OnInit {
   }
 
   submitAddBook() {
-    this.apiService.add_book(this.isbn, this.bookNumber, this.location, this.isbnExist? undefined: this.book)
+    this.apiService.add_book(this.isbn, this.bookNumber, this.location, this.isbnExist ? undefined : this.book)
       .then((res) => {
         this.returnValues = res;
         setTimeout(() => JsBarcode('.barcode').init(), 1000);

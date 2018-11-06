@@ -24,26 +24,26 @@ import { PostComponent } from './components/post/post.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
-import { LibrarianReturnComponent } from "./routes/librarian/librarian-return/librarian-return.component";
+import { LibrarianReturnComponent } from './routes/librarian/librarian-return/librarian-return.component';
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-profile.component';
 import { AdminChangePasswordComponent } from './routes/admin/admin-change-password/admin-change-password.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {StateService} from "./utils/state.service";
+import {StateService} from './utils/state.service';
 import { LibrarianIncomeComponent } from './routes/librarian/librarian-income/librarian-income.component';
 import {
   ErrorStateMatcher, MatButtonModule, MatCardModule,
   MatChipsModule, MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperIntl, MatStepperModule,
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperModule,
   MatTableModule,
   MatToolbarModule, ShowOnDirtyErrorStateMatcher
-} from "@angular/material";
+} from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
-import { MAT_STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
-import { PlotlyIncomeMultiLinesComponent } from "./components/plotly-income-multilines/plotly-income-multi-lines.component";
-import { PlotlyIncomePieComponent } from "./components/plotly-income-pie/plotly-income-pie.component";
+import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { PlotlyIncomeMultiLinesComponent } from './components/plotly-income-multilines/plotly-income-multi-lines.component';
+import { PlotlyIncomePieComponent } from './components/plotly-income-pie/plotly-income-pie.component';
 import { IncomeDetailComponent } from './components/income-detail/income-detail.component';
 import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-detail.component';
 
@@ -99,8 +99,6 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule,
-    MatChipsModule,
     MatInputModule,
     MatExpansionModule,
     MatButtonModule,

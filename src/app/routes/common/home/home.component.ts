@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageService} from '../../../utils/message.service';
-import { StateService } from "../../../utils/state.service";
-import {ApiService} from "../../../utils/api.service";
-import {MetaBook} from "../../../utils/DataStructs/MetaBook";
-import {Post} from "../../../utils/DataStructs/Post";
+import { StateService } from '../../../utils/state.service';
+import {ApiService} from '../../../utils/api.service';
+import {MetaBook} from '../../../utils/DataStructs/MetaBook';
+import {Post} from '../../../utils/DataStructs/Post';
 
 
 @Component({

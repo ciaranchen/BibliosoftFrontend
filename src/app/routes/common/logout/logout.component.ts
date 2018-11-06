@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../../utils/api.service";
-import {StateService} from "../../../utils/state.service";
+import {ApiService} from '../../../utils/api.service';
+import {StateService} from '../../../utils/state.service';
 
 @Component({
   selector: 'app-logout',

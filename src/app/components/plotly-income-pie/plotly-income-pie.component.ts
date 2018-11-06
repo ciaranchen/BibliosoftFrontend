@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {DateIncome} from '../../utils/DataStructs/DateIncome';
-import {PlotlyService} from '../../utils/plotly.service';
+import {PlotlyService, Plotly} from '../../utils/plotly.service';
 
 @Component({
   selector: 'app-plotly-income-pie',
@@ -13,7 +13,7 @@ export class PlotlyIncomePieComponent {
   @Input()
   set dataInput(incomeData: DateIncome) {
     const data = this.income2data(incomeData);
-    const layout = {
+    const layout: Partial<Plotly.Layout> = {
       title: incomeData.date.toLocaleDateString()
     };
     PlotlyService.plot(this.element, data, layout);
@@ -21,7 +21,7 @@ export class PlotlyIncomePieComponent {
 
   constructor() { }
 
-  private income2data(incomeData: DateIncome) {
+  private income2data(incomeData: DateIncome): Plotly.Data[] {
     return [{
       values: [incomeData.fine, incomeData.deposit],
       labels: ['fine', 'deposit'],

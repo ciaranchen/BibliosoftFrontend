@@ -1,7 +1,7 @@
 export class BookLocation {
-  room: string = '';
-  shelf: string = '';
-  level: string = '';
+  room = '';
+  shelf = '';
+  level = '';
 
   toString(): string {
     return [this.room, this.shelf, this.level].map(data => data.replace(/-/g, '_')).join('-');

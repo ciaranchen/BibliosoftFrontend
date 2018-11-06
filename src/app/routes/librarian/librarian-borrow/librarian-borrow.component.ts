@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../../utils/api.service";
-import {User} from "../../../utils/DataStructs/User";
-import {MetaBook} from "../../../utils/DataStructs/MetaBook";
-import {Book} from "../../../utils/DataStructs/Book";
-import {Message, MessageService} from "../../../utils/message.service";
-import {StateService} from "../../../utils/state.service";
+import {ApiService} from '../../../utils/api.service';
+import {User} from '../../../utils/DataStructs/User';
+import {MetaBook} from '../../../utils/DataStructs/MetaBook';
+import {Book} from '../../../utils/DataStructs/Book';
+import {Message, MessageService} from '../../../utils/message.service';
+import {StateService} from '../../../utils/state.service';
 
 @Component({
   selector: 'app-librarian-borrow',
@@ -63,8 +63,8 @@ export class LibrarianBorrowComponent implements OnInit {
           this.messageService.messages.push(new Message('This Book is not available.', 'danger'));
         } else {
           this.apiService.get_meta_book(res.isbn)
-            .then(res => {
-              this.metaBook = res;
+            .then(metaBook => {
+              this.metaBook = metaBook;
             });
         }
       });

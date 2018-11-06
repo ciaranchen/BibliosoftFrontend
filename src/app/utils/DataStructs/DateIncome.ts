@@ -1,4 +1,4 @@
-import {Income} from "./Income";
+import {Income} from './Income';
 
 export class DateIncome {
   constructor(

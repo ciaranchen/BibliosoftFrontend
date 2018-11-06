@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {ApiService} from "../../../utils/api.service";
-import {User} from "../../../utils/DataStructs/User";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ActivatedRoute} from "@angular/router";
-import {Message, MessageService} from "../../../utils/message.service";
-import {StateService} from "../../../utils/state.service";
-import {FormControl, Validators} from "@angular/forms";
-import {Matcher} from "../../../utils/matcher";
+import {ApiService} from '../../../utils/api.service';
+import {User} from '../../../utils/DataStructs/User';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ActivatedRoute} from '@angular/router';
+import {Message, MessageService} from '../../../utils/message.service';
+import {StateService} from '../../../utils/state.service';
+import {FormControl, Validators} from '@angular/forms';
+import {Matcher} from '../../../utils/matcher';
 
 const waitTime = 5000;
 

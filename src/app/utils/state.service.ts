@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {User} from "./DataStructs/User";
-import {Router} from "@angular/router";
-import {ApiService} from "./api.service";
+import {User} from './DataStructs/User';
+import {Router} from '@angular/router';
+import {ApiService} from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +91,7 @@ export class StateService {
   }
 
   private _to_login(role: string, path?: string, search?: object): Promise<boolean> {
-    let params = search ? search : {};
+    const params = search ? search : {};
     if (path && !(params['path'])) {
       params['path'] = path;
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
 import { MessageService, Message } from '../../../utils/message.service';
-import { StateService } from "../../../utils/state.service";
+import { StateService } from '../../../utils/state.service';
 
 @Component({
   selector: 'app-admin-change-password',
@@ -21,7 +21,7 @@ export class AdminChangePasswordComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.stateService.only('admin');
+    this.stateService.only('admin');
   }
 
   submit_available(): boolean {

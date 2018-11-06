@@ -4,13 +4,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MetaBook} from './DataStructs/MetaBook';
 import {Book} from './DataStructs/Book';
 import {User} from './DataStructs/User';
-import {DayIncome} from "./DataStructs/DayIncome";
+import {DayIncome} from './DataStructs/DayIncome';
 import {Borrow} from './DataStructs/Borrow';
-import {TotalIncome} from "./DataStructs/TotalIncome";
-import {Rule} from "./DataStructs/Rule";
-import {BookLocation} from "./DataStructs/BookLocation";
+import {TotalIncome} from './DataStructs/TotalIncome';
+import {Rule} from './DataStructs/Rule';
+import {BookLocation} from './DataStructs/BookLocation';
 import * as JsBarcode from 'jsbarcode';
-import {Post} from "./DataStructs/Post";
+import {Post} from './DataStructs/Post';
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')

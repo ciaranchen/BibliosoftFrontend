@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
-import {StateService} from "../../../utils/state.service";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
+import {StateService} from '../../../utils/state.service';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -11,10 +11,10 @@ import {MatPaginator, MatTableDataSource} from "@angular/material";
 })
 export class SearchBookComponent implements OnInit {
   books: Array<MetaBook>;
-  search_text: string = '';
+  search_text = '';
   searched = false;
 
-  displayedColumns = ["title", 'isbn', 'author', 'publisher'];
+  displayedColumns = ['title', 'isbn', 'author', 'publisher'];
   dataSource: MatTableDataSource<MetaBook> = new MatTableDataSource<MetaBook>();
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -47,9 +47,9 @@ export class SearchBookComponent implements OnInit {
   // noinspection JSMethodCanBeStatic
   format_book (book: MetaBook): string {
     let res = '';
-    for (let x in book) {
+    for (const x in book) {
       if (book.hasOwnProperty(x)) {
-        res += `${x}: ${book[x]}\n`
+        res += `${x}: ${book[x]}\n`;
       }
     }
     return res;

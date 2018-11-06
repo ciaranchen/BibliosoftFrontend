@@ -5,9 +5,9 @@ import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {ApiService} from '../../../utils/api.service';
 import {Book} from '../../../utils/DataStructs/Book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {StateService} from "../../../utils/state.service";
-import {Message, MessageService} from "../../../utils/message.service";
-import {BookLocation} from "../../../utils/DataStructs/BookLocation";
+import {StateService} from '../../../utils/state.service';
+import {Message, MessageService} from '../../../utils/message.service';
+import {BookLocation} from '../../../utils/DataStructs/BookLocation';
 
 @Component({
   selector: 'app-book-detail',
@@ -42,7 +42,7 @@ export class BookDetailComponent implements OnInit {
         .then(res => {
           this.isbn = res.isbn;
           this.get_book_info(this.isbn);
-        })
+        });
     } else {
       this.isbn = this.activateRoute.snapshot.paramMap.get('ISBN');
       this.get_book_info(this.isbn);
@@ -137,7 +137,7 @@ export class BookDetailComponent implements OnInit {
     this.apiService.get_books(isbn).then(res => this.books = res);
   }
 
-  get_date_time(time: string):string {
+  get_date_time(time: string): string {
     const date = new Date(time);
     return this.login === 'librarian' ? date.toLocaleString() : date.toLocaleDateString();
   }

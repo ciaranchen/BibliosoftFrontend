@@ -3,8 +3,8 @@ import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
 import {Borrow} from '../../../utils/DataStructs/Borrow';
 import {MessageService, Message} from '../../../utils/message.service';
-import {StateService} from "../../../utils/state.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {StateService} from '../../../utils/state.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-librarian-return',
@@ -44,9 +44,9 @@ export class LibrarianReturnComponent implements OnInit {
         } else {
           this.reader = res[0];
           this.apiService.borrow_records(this.readerId, true)
-            .then(res => {
+            .then(borrow => {
               // filter not return_time
-              this.borrowed = res.filter(val => val.return_time === null);
+              this.borrowed = borrow.filter(val => val.return_time === null);
             }).catch(err => {
             console.error(err);
           });
@@ -88,7 +88,7 @@ export class LibrarianReturnComponent implements OnInit {
     // delete this borrow item
     this.modalService.dismissAll();
     this.borrowed.splice(this.borrowIndex, 1);
-    this.messageService.messages.push(new Message('return success', 'success'))
+    this.messageService.messages.push(new Message('return success', 'success'));
   }
 
   paid_fine() {

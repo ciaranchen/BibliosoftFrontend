@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
 import { Borrow } from 'src/app/utils/DataStructs/Borrow';
 import { ActivatedRoute } from '@angular/router';
-import {StateService} from "../../../utils/state.service";
-import {User} from "../../../utils/DataStructs/User";
-import {Book} from "../../../utils/DataStructs/Book";
-import {MetaBook} from "../../../utils/DataStructs/MetaBook";
+import {StateService} from '../../../utils/state.service';
+import {User} from '../../../utils/DataStructs/User';
+import {Book} from '../../../utils/DataStructs/Book';
+import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 @Component({
   selector: 'app-borrow-detail',
   templateUrl: './borrow-detail.component.html',
@@ -32,20 +32,20 @@ export class BorrowDetailComponent implements OnInit {
     this.borrow_id = this.activateRoute.snapshot.paramMap.get('borrow');
     // console.log(this.borrow_id);
     this.apiService.get_borrow(this.borrow_id)
-      .then(res => {
-        this.borrow = res;
-        this.apiService.get_book(res.barcode)
-          .then(res => {
-            this.book = res;
-            this.apiService.get_meta_book(res.isbn)
+      .then(borrow => {
+        this.borrow = borrow;
+        this.apiService.get_book(borrow.barcode)
+          .then(book => {
+            this.book = book;
+            this.apiService.get_meta_book(book.isbn)
               .then(res => this.metaBook = res);
           });
-        this.apiService.get_account('reader', res.reader_id)
+        this.apiService.get_account('reader', borrow.reader_id)
           .then(res => {
             this.reader = res[0];
           });
         if (this.stateService.role === 'librarian') {
-          this.apiService.get_account('librarian', res.librarian_id)
+          this.apiService.get_account('librarian', borrow.librarian_id)
             .then(res => this.librarian = res[0]);
         }
 

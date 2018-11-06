@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ApiService} from "../../../utils/api.service";
-import {Borrow} from "../../../utils/DataStructs/Borrow";
-import {StateService} from "../../../utils/state.service";
+import {ActivatedRoute} from '@angular/router';
+import {ApiService} from '../../../utils/api.service';
+import {Borrow} from '../../../utils/DataStructs/Borrow';
+import {StateService} from '../../../utils/state.service';
 
 @Component({
   selector: 'app-reader-borrowing',

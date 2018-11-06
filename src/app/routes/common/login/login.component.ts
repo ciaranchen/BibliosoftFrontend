@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../utils/api.service';
 import {ActivatedRoute } from '@angular/router';
-import {StateService} from "../../../utils/state.service";
-import {Message, MessageService} from "../../../utils/message.service";
+import {StateService} from '../../../utils/state.service';
+import {Message, MessageService} from '../../../utils/message.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
     this.apiService.login(user ? user : this.user, pass ? pass : this.pass, this.role === 'reader' ? 3 : 2)
       .then(res => {
         this.stateService.login(this.role, res, this.activatedRoute.snapshot.queryParams['path'])
-          .catch(err=> {
+          .catch(err => {
             // console.error(err);
             this.messageService.messages.push(new Message(err, 'danger'));
           });

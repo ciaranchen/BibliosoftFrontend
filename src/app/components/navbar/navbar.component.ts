@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from "../../utils/state.service";
-import { Location } from "@angular/common";
+import { StateService } from '../../utils/state.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',

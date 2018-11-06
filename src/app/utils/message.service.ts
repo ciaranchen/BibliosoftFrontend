@@ -7,7 +7,7 @@ export class Message {
     public msg: string,
     type?: string,
   ) {
-    this.type = Message.isAlert(type) ? 'alert-' + type: 'alert-info';
+    this.type = Message.isAlert(type) ? 'alert-' + type : 'alert-info';
   }
 
   static isAlert(alert: string): boolean {
