@@ -17,7 +17,9 @@ export class SearchBookComponent implements OnInit {
   displayedColumns = ['title', 'isbn', 'author', 'publisher'];
   dataSource: MatTableDataSource<MetaBook> = new MatTableDataSource<MetaBook>();
 
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  temp = 0;
 
   constructor(
     private stateService: StateService,
@@ -26,22 +28,24 @@ export class SearchBookComponent implements OnInit {
 
   ngOnInit() {
     this.stateService.only_rl();
-    // this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;
   }
 
   search_book(): void {
     // this.search_type = type;
     const search_text = this.search_text.replace(' ', '_');
     console.log('startDate search: "' + search_text);
-    this.apiService.search_meta_book(search_text).then(
-      res => {
+    this.apiService.search_meta_book(search_text)
+      .then(res => {
         this.searched = true;
         console.log(res);
         this.books = res;
         this.dataSource.data = res;
-        // this.dataSource.paginator.lastPage();
-      }
-    );
+        // wait a second
+        setTimeout(() => {
+          this.dataSource.paginator = this.paginator;
+        }, 1000);
+      });
   }
 
   // noinspection JSMethodCanBeStatic

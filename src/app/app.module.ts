@@ -35,7 +35,7 @@ import {
   ErrorStateMatcher, MatButtonModule, MatCardModule,
   MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatSortModule, MatStepperModule,
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperModule,
   MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
@@ -106,6 +106,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatPaginatorModule,
   ],
   providers: [
     MessageService, StateService,

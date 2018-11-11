@@ -36,6 +36,8 @@ const routes: Routes = [
   { path: 'login/:role', component: LoginComponent },
   { path: ':role/manage_user', component: ManageUserComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'borrow/:borrow', component: BorrowDetailComponent },
   // admin/*
   { path: 'admin/rules', component: AdminRulesComponent },
   { path: 'admin/login', component: AdminLoginComponent },
@@ -55,9 +57,7 @@ const routes: Routes = [
   { path: 'reader/fined', component: ReaderFineComponent },
 
   // testing url
-  { path: 'about', component: AboutComponent },
   { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
-  { path: 'borrow/:borrow', component: BorrowDetailComponent }
 ];
 
 @NgModule({

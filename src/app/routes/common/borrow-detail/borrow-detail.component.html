@@ -23,7 +23,7 @@
       <div [innerHtml]="metaBook.desc_html"></div>
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button routerLink="/book/{{metaBook.isbn}}">go to see this book</a>
+      <a mat-button routerLink="/book/{{metaBook.isbn}}" color="primary">go to see this book</a>
     </mat-card-actions>
   </mat-card>
 
@@ -41,11 +41,12 @@
     </mat-card-content>
   </mat-card>
 
-  <mat-card class="full-width" *ngIf="stateService.role === 'librarian'">
+  <!--*ngIf="stateService.role === 'librarian'"-->
+  <mat-card class="full-width" *ngIf="false">
     <mat-card-header>
       <mat-card-title>
         Librarian:
-        <a routerLink="/librarian/others/' + librarian.username }}">
+        <a routerLink="/librarian/others/{{ librarian.username }}">
           {{librarian.username}}
         </a>
       </mat-card-title>

@@ -98,7 +98,7 @@ export class ApiService {
     return this.http.post<void>(`${this.base_url}/logout`, postOptions).toPromise();
   }
 
-  reset_admin_password(oldPass: string, newPass: string): Promise<boolean> {
+  reset_self_password(oldPass: string, newPass: string): Promise<boolean> {
     const url = `${this.base_url}/change_password`,
       http = this.http;
     const body = new URLSearchParams();
@@ -211,8 +211,7 @@ export class ApiService {
     return this.http.get<Borrow>(url, withCookie).toPromise();
   }
 
-  borrow_records(reader_id: string, returned?: boolean): Promise<Array<Borrow>> {
-    // todo: check returned api
+  borrow_records(reader_id: string): Promise<Array<Borrow>> {
     const url = `${this.base_url}/borrows?reader_id=${reader_id}`;
     return this.http.get<Array<Borrow>>(url, withCookie).toPromise();
   }

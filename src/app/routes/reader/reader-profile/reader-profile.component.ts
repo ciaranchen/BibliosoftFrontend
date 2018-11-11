@@ -4,6 +4,7 @@ import {ApiService} from '../../../utils/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {StateService} from '../../../utils/state.service';
 import {Message, MessageService} from '../../../utils/message.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-reader-profile',
@@ -14,9 +15,14 @@ export class ReaderProfileComponent implements OnInit {
   reader: User;
   showReader: User = new User();
 
+  oldPass = '';
+  newPass = '';
+  newPass1 = '';
+
   constructor(
+    public modalService: NgbModal,
+    public stateService: StateService,
     private messageService: MessageService,
-    private stateService: StateService,
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute
   ) { }
@@ -53,6 +59,18 @@ export class ReaderProfileComponent implements OnInit {
           this.stateService.update_profile(this.reader);
         }
         this.messageService.messages.push(new Message('update success', 'success'));
+      });
+  }
+
+  change_reader_password() {
+    if (this.newPass != this.newPass1) {
+      this.messageService.messages.push(new Message('new passwords should equal.'));
+      return;
+    }
+    this.apiService.reset_self_password(this.oldPass, this.newPass)
+      .then(() => {
+        this.messageService.messages.push(new Message('password changed.', 'success'));
+        this.modalService.dismissAll();
       });
   }
 }

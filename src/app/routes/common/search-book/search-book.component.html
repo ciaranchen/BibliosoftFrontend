@@ -13,7 +13,7 @@
 
   <br>
   <div class="mat-elevation-z8" *ngIf="searched">
-    <table mat-table [dataSource]="books">
+    <table mat-table [dataSource]="dataSource">
       <!-- Title Column -->
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> <b>Title</b> </th>
@@ -41,7 +41,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <!--<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>-->
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
 </div>
 

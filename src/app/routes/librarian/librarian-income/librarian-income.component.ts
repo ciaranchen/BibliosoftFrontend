@@ -91,10 +91,10 @@ export class LibrarianIncomeComponent implements OnInit {
   }
 
   filter_fines(incomes: Array<Income>) {
-    return incomes.filter(value => value.type === 1);
+    return incomes.filter(value => value.type === 1 && value.amount !== 0);
   }
 
   filter_deposit(incomes: Array<Income>) {
-    return incomes.filter(value => value.type === 2);
+    return incomes.filter(value => value.type === 2 && value.amount !== 0);
   }
 }

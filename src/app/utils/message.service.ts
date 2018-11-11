@@ -21,4 +21,8 @@ export class Message {
 })
 export class MessageService {
   messages: Array<Message> = [];
+
+  push_message(msg: string, type: string): void {
+    this.messages.push(new Message(msg, type));
+  }
 }

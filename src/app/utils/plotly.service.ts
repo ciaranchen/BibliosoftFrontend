@@ -1,5 +1,5 @@
 import {ElementRef, Injectable} from '@angular/core';
-import * as Plotly from 'plotly.js/dist/plotly-basic.min.js';
+import * as PlotlyJs from 'plotly.js/dist/plotly-basic.min.js';
 
 export namespace Plotly {
   export type Data = any;
@@ -22,10 +22,10 @@ export namespace Plotly {
   providedIn: 'root'
 })
 export class PlotlyService {
-
   constructor() { }
 
   static plot(el: ElementRef, data: Plotly.Data[], layout: Partial<Plotly.Layout>) {
-    Plotly.plot(el.nativeElement, data, layout);
+    PlotlyJs.purge(el.nativeElement);
+    PlotlyJs.plot(el.nativeElement, data, layout);
   }
 }

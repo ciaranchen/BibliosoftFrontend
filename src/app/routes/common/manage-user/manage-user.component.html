@@ -100,10 +100,10 @@
           <button type="button" class="btn btn-sm" (click)="reset_password($event)" ngbTooltip="reset password">
             <i class="fa fa-edit"></i>
           </button>
-          <!--&nbsp;-->
-          <!--<button type="button" class="btn btn-sm" (click)="remove_user($event)">-->
-            <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
-          <!--</button>-->
+          &nbsp;
+          <button type="button" class="btn btn-sm" (click)="remove_user($event)">
+            <i class="fa fa-eraser" aria-hidden="true"></i>
+          </button>
           &nbsp;
           <button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"
                   *ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">

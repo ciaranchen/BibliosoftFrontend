@@ -59,10 +59,12 @@ export class ManageUserComponent implements OnInit {
     this.stateService.only(this.role);
   }
 
+  private get_username($event: Event) {
+    return $event.srcElement.closest('tr').children[2].textContent;
+  }
+
   reset_password($event: Event) {
-    const tr = $event.srcElement.closest('tr');
-    console.log(tr);
-    const username = tr.children[2].textContent;
+    const username = this.get_username($event);
     console.log(username);
 
     const new_pass = prompt(`please input new password for "${username}"`, this.managedRole === 'reader' ? '12345678' : '00010001');
@@ -78,14 +80,14 @@ export class ManageUserComponent implements OnInit {
     // else do nothing but return.
   }
 
-  // remove_user($event: Event) {
-  //   const tr = $event.srcElement.parentElement.parentNode;
-  //   const username = tr.childNodes[2].textContent;
-  //   const confirm_remove = confirm(`Are you sure to delete "${username}"?`);
-  //   if (confirm_remove) {
-  //     // remove user
-  //   }
-  // }
+  remove_user($event: Event) {
+    const username = this.get_username($event);
+    const confirm_remove = confirm(`Are you sure to delete "${username}"?`);
+    if (confirm_remove) {
+      // todo: remove user
+      // this.apiService.
+    }
+  }
 
   search_user() {
     this.apiService.get_account(this.managedRole, this.searchText)
