@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../utils/api.service';
-import { MessageService, Message } from '../../../utils/message.service';
+import { MessageService } from '../../../utils/message.service';
 import { StateService } from '../../../utils/state.service';
 
 @Component({

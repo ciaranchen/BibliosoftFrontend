@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {StateService} from '../../../utils/state.service';
 import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 

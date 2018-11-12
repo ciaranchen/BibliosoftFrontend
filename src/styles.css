@@ -3,6 +3,10 @@
 @import '../node_modules/font-awesome/css/font-awesome.min.css';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
+.snack-bar-bottom {
+  margin-bottom: 80px !important;
+}
+
 .full-width {
   width: 100%;
 }

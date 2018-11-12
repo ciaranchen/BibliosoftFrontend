@@ -1,32 +1,24 @@
-import { Injectable } from '@angular/core';
+import {MatSnackBar} from "@angular/material";
 
-export class Message {
-  public type: string;
-
-  constructor(
-    public msg: string,
-    type?: string,
-  ) {
-    this.type = Message.isAlert(type) ? 'alert-' + type : 'alert-info';
-  }
-
-  static isAlert(alert: string): boolean {
-    return (alert === 'primary' || alert === 'secondary' || alert === 'success' || alert === 'danger'
-      || alert === 'warning' || alert === 'info' || alert === 'light' || alert === 'dark');
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
 export class MessageService {
-  get_messages(): Array<Message> {
-    return this._messages;
-  }
-
-  private _messages: Array<Message> = [];
+  constructor(
+    private snackBar: MatSnackBar
+  ) {}
 
   push_message(msg: string, type?: string): void {
-    this._messages.push(new Message(msg, type));
+    const panelClass = ['snack-bar-bottom'];
+    let action = 'Ok';
+    if (type) {
+      if (type === 'success') {
+        action = 'great';
+      } else if (type === 'danger') {
+        action = 'oh no!';
+      }
+      panelClass.push('bg-' + type);
+    }
+    this.snackBar.open(msg, action, {
+      duration: 10000,
+      panelClass: panelClass
+    });
   }
 }

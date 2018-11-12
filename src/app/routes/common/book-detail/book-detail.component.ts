@@ -6,7 +6,7 @@ import {ApiService} from '../../../utils/api.service';
 import {Book} from '../../../utils/DataStructs/Book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from '../../../utils/state.service';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import {BookLocation} from '../../../utils/DataStructs/BookLocation';
 
 @Component({

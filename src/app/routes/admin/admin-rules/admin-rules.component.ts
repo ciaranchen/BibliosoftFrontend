@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import { StateService } from '../../../utils/state.service';
 import { Rule } from '../../../utils/DataStructs/Rule';
 import { ApiService } from '../../../utils/api.service';

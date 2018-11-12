@@ -12,7 +12,6 @@ import { HomeComponent } from './routes/common/home/home.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
 import { SearchBookComponent } from './routes/common/search-book/search-book.component';
 import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
-import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
 import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.component';
@@ -34,7 +33,7 @@ import {
   ErrorStateMatcher, MatButtonModule, MatCardModule,
   MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperModule,
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSnackBarModule, MatSortModule, MatStepperModule,
   MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
@@ -48,7 +47,6 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
 @NgModule({
   declarations: [
     // component
-    MessagesComponent,
     NavbarComponent,
     PostComponent,
     PlotlyIncomeMultiLinesComponent,
@@ -106,6 +104,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatNativeDateModule,
     MatCardModule,
     MatPaginatorModule,
+    MatSnackBarModule
   ],
   providers: [
     MessageService, StateService,
