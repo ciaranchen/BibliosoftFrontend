@@ -13,7 +13,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let x of data; let i = index">
-      <th scope="row"><a [routerLink]="link_addr(x)">{{i}}</a></th>
+      <th scope="row"><a [routerLink]="link_address(x)">{{i}}</a></th>
       <td><a routerLink="/librarian/reader/profile/{{x.reader_id}}">{{x.reader_id}}</a></td>
       <td><a routerLink="/librarian/other/profile/{{x.librarian_id}}">{{x.librarian_id}}</a></td>
       <td>{{x.amount}}</td>

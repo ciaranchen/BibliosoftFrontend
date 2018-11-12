@@ -14,7 +14,7 @@ describe('DoubanService', () => {
     const service: DoubanService = TestBed.get(DoubanService);
     service.searchISBN('9787101003048')
       .then(res => {
-        // expect(res).toEqual();
+        expect(res.isbn).toEqual('9787101003048');
       });
   });
 });

@@ -23,6 +23,7 @@ export class PlotlyIncomeMultiLinesComponent {
   constructor() {}
 
   private get_layout(start: Date, end: Date): Partial<Plotly.Layout> {
+    // noinspection SpellCheckingInspection
     return {
       showlegend: true,
       title: 'Library Income',
@@ -30,7 +31,7 @@ export class PlotlyIncomeMultiLinesComponent {
         autorange: true,
         range: [
           start,
-          this.end
+          end
         ],
         title: 'Time',
         type: Date

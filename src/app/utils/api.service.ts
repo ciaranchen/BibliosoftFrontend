@@ -33,15 +33,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  static get_diff(source: object, dist: object): object {
-    const diff = {};
-    for (const key in source) {
-      if (source.hasOwnProperty(key) && source[key] !== dist[key]) {
-        diff[key] = dist[key];
-      }
-    }
-    return diff;
-  }
+  // static get_diff(source: object, dist: object): object {
+  //   const diff = {};
+  //   for (const key in source) {
+  //     if (source.hasOwnProperty(key) && source[key] !== dist[key]) {
+  //       diff[key] = dist[key];
+  //     }
+  //   }
+  //   return diff;
+  // }
 
   static get_time(x: string): string {
     return (new Date(x)).toLocaleString();

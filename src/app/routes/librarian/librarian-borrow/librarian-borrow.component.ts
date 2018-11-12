@@ -78,7 +78,7 @@ export class LibrarianBorrowComponent implements OnInit {
             'danger');
         }
       }).catch(err => {
-        this.messageService.push_message('error!', 'danger');
+        this.messageService.push_message(`error: ${err}!`, 'danger');
       });
   }
 }

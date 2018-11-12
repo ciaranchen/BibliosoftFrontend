@@ -17,9 +17,7 @@ export class HomeComponent implements OnInit {
   posts: Array<Post> = [];
 
   constructor(
-    private apiService: ApiService,
-    private stateService: StateService,
-    private messageService: MessageService
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {

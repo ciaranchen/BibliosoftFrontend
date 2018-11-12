@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {DateIncome} from '../../utils/DataStructs/DateIncome';
 import {PlotlyService, Plotly} from '../../utils/plotly.service';
 

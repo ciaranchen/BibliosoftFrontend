@@ -19,8 +19,6 @@ export class SearchBookComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  temp = 0;
-
   constructor(
     private stateService: StateService,
     private apiService: ApiService

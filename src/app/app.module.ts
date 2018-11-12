@@ -18,7 +18,6 @@ import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.comp
 import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
-import { PostComponent } from './components/post/post.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
@@ -48,7 +47,6 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
   declarations: [
     // component
     NavbarComponent,
-    PostComponent,
     PlotlyIncomeMultiLinesComponent,
     PlotlyIncomePieComponent,
     IncomeDetailComponent,

@@ -55,7 +55,7 @@ export class LibrarianProfileComponent implements OnInit {
     // never update username;
     delete this.showLibrarian['username'];
     this.apiService.update_account('librarian', this.librarian.username, this.showLibrarian)
-      .then(res => {
+      .then(() => {
         this.showLibrarian.username = this.librarian.username;
         this.librarian = this.showLibrarian;
         if (this.samePerson) {
@@ -71,11 +71,15 @@ export class LibrarianProfileComponent implements OnInit {
       return;
     }
     this.apiService.reset_self_password(this.oldPass, this.newPass)
-      .then(() => {
-        this.messageService.push_message('password changed.', 'success');
-        this.modalService.dismissAll();
-        this.stateService.logout();
-        this.stateService.back_home();
+      .then(res => {
+        if (res) {
+          this.messageService.push_message('password changed.', 'success');
+          this.modalService.dismissAll();
+          this.stateService.logout();
+          this.stateService.back_home();
+        } else {
+          this.messageService.push_message('old password not correct', 'danger');
+        }
       });
   }
 }
