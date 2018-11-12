@@ -32,9 +32,7 @@ export class AdminChangePasswordComponent implements OnInit {
     // to change pwd
     this.apiService.reset_self_password(this.old_pwd, this.new_pwd1)
       .then(res => {
-        this.messageService.messages.push(
-          new Message('success change password', 'success')
-        );
+        this.messageService.push_message('success change password', 'success');
       });
   }
 }

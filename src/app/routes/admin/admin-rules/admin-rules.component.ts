@@ -29,7 +29,7 @@ export class AdminRulesComponent implements OnInit {
   update_rule() {
     this.apiService.update_config(this.rule)
       .then(() => {
-        this.messageService.messages.push(new Message('update success!', 'success'));
+        this.messageService.push_message('update success!', 'success');
       });
   }
 }

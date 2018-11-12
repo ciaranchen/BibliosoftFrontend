@@ -30,10 +30,10 @@ export class AdminLoginComponent implements OnInit {
         this.stateService.login('admin', res, this.activatedRoute.snapshot.queryParams['path'])
           .catch(err=> {
             console.log(err);
-            this.messageService.messages.push(new Message(err, 'danger'));
+            this.messageService.push_message(err, 'danger');
           });
       }).catch((err) => {
-        this.messageService.messages.push(new Message(err.error.msg, 'danger'));
+        this.messageService.push_message(err.error.msg, 'danger');
       });
   }
 }

@@ -3,7 +3,7 @@ import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute} from '@angular/router';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import {StateService} from '../../../utils/state.service';
 import {FormControl, Validators} from '@angular/forms';
 import {Matcher} from '../../../utils/matcher';
@@ -71,9 +71,9 @@ export class ManageUserComponent implements OnInit {
     if (new_pass) {
       this.apiService.reset_password(this.managedRole, username, new_pass)
         .then(() => {
-          this.messageService.messages.push(new Message(`<strong>${username}</strong> Success to reset password`, 'success'));
+          this.messageService.push_message(`<strong>${username}</strong> Success to reset password`, 'success');
         }).catch(err => {
-        this.messageService.messages.push(new Message(`<strong>${username}</strong> fail to reset password`, 'danger'));
+        this.messageService.push_message(`<strong>${username}</strong> fail to reset password`, 'danger');
         console.error(err);
       });
     }
@@ -103,10 +103,10 @@ export class ManageUserComponent implements OnInit {
     this.apiService.add_account(this.managedRole, this.addPassword, this.addAccount)
       .then((res) => {
         if (res) {
-          this.messageService.messages.push(new Message('register account success!', 'success'));
+          this.messageService.push_message('register account success!', 'success');
           setTimeout(location.reload, waitTime);
         } else {
-          this.messageService.messages.push(new Message('this username may be used by other user', 'danger'));
+          this.messageService.push_message('this username may be used by other user', 'danger');
         }
       }).catch(err => {
         console.error(err);

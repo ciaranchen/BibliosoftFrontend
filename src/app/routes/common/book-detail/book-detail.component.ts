@@ -58,7 +58,7 @@ export class BookDetailComponent implements OnInit {
       .then(() => {
         this.books[this.editingIndex] = book;
         this.modalService.dismissAll();
-        this.messageService.messages.push(new Message('update success', 'success'));
+        this.messageService.push_message('update success', 'success');
       });
   }
 
@@ -98,12 +98,11 @@ export class BookDetailComponent implements OnInit {
     this.stateService.only('reader');
     const reservable = this.books.filter(value => value.available === true);
     if (reservable.length === 0) {
-      this.messageService.messages.push(new Message('no available book', 'danger'));
+      this.messageService.push_message('no available book', 'danger');
     } else {
       this.apiService.reserve_book(this.stateService.user.username, reservable[0].barcode)
         .then(() => {
-          this.messageService.messages.push(
-            new Message('reserve success, You need to go to library and borrow this book as fast as possible', 'success'));
+          this.messageService.push_message('reserve success, You need to go to library and borrow this book as fast as possible', 'success');
         });
     }
   }
@@ -131,7 +130,7 @@ export class BookDetailComponent implements OnInit {
       }).catch(error => {
         console.error(error);
         this.stateService.back_home()
-          .then(() => this.messageService.messages.push(new Message('no such a book', 'danger')));
+          .then(() => this.messageService.push_message('no such a book', 'danger'));
       });
 
     this.apiService.get_books(isbn).then(res => this.books = res);

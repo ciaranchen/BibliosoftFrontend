@@ -20,9 +20,13 @@ export class Message {
   providedIn: 'root'
 })
 export class MessageService {
-  messages: Array<Message> = [];
+  get_messages(): Array<Message> {
+    return this._messages;
+  }
 
-  push_message(msg: string, type: string): void {
-    this.messages.push(new Message(msg, type));
+  private _messages: Array<Message> = [];
+
+  push_message(msg: string, type?: string): void {
+    this._messages.push(new Message(msg, type));
   }
 }
