@@ -43,7 +43,7 @@ export class LibrarianReturnComponent implements OnInit {
           this.messageService.messages.push(new Message('not that user', 'danger'));
         } else {
           this.reader = res[0];
-          this.apiService.borrow_records(this.readerId, true)
+          this.apiService.borrow_records(this.readerId)
             .then(borrow => {
               // filter not return_time
               this.borrowed = borrow.filter(val => val.return_time === null);

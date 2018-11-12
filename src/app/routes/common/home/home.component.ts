@@ -28,13 +28,12 @@ export class HomeComponent implements OnInit {
       .then(res => this.books = res);
     this.apiService.get_post()
       .then(res => {
-        this.posts = res.slice(-3);
+        this.posts = res.slice(-3).reverse();
         // console.log(this.posts);
       });
   }
 
   get_time(x: string): string {
-    // console.log(x);
-    return (new Date(x)).toLocaleString();
+    return ApiService.get_time(x);
   }
 }

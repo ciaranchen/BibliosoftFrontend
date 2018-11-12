@@ -36,8 +36,4 @@ export class AdminLoginComponent implements OnInit {
         this.messageService.messages.push(new Message(err.error.msg, 'danger'));
       });
   }
-
-  want_reset_psw() {
-    // todo: finish it
-  }
 }

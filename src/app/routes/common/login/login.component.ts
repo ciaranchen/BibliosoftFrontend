@@ -58,6 +58,6 @@ export class LoginComponent implements OnInit {
   }
 
   want_reset_password() {
-    // todo: apiService
+    // todo: want reset password
   }
 }

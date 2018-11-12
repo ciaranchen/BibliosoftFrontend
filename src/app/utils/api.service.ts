@@ -43,6 +43,10 @@ export class ApiService {
     return diff;
   }
 
+  static get_time(x: string): string {
+    return (new Date(x)).toLocaleString();
+  }
+
   static download_barcode (barcode: string) {
     const canvasElem = window.document.createElement('canvas');
     JsBarcode(canvasElem, barcode);
@@ -163,16 +167,16 @@ export class ApiService {
 
   update_book(book: Book): Promise<void> {
     const url = `${this.base_url}/update_book`;
-    const body = new URLSearchParams();
-    ApiService.body_object(body, book);
-    return this.http.post<void>(url, body.toString(), postOptions).toPromise();
+    // const body = new URLSearchParams();
+    // ApiService.body_object(body, book);
+    return this.http.post<void>(url, book, postOptions).toPromise();
   }
 
   update_meta_book(metaBook: MetaBook): Promise<void> {
     const url = `${this.base_url}/update_meta_book`;
-    const body = new URLSearchParams();
-    ApiService.body_object(body, metaBook);
-    return this.http.post<void>(url, body.toString(), postOptions).toPromise();
+    // const body = new URLSearchParams();
+    // ApiService.body_object(body, metaBook);
+    return this.http.post<void>(url, metaBook, postOptions).toPromise();
   }
 
   delete_book(barcode: string): Promise<void> {
@@ -309,7 +313,7 @@ export class ApiService {
 
   update_config(rule: Rule): Promise<void> {
     const url = `${this.base_url}/update_config`;
-    return this.http.post<void>(url, ApiService.json2query(rule), postOptions).toPromise();
+    return this.http.post<void>(url, rule, postOptions).toPromise();
   }
 
   get_post(): Promise<Array<Post>> {
@@ -320,5 +324,10 @@ export class ApiService {
   add_post(post: Post): Promise<void> {
     const url = `${this.base_url}/add_post`;
     return this.http.post<void>(url, ApiService.json2query(post), postOptions).toPromise();
+  }
+
+  remove_post(id: number): Promise<void> {
+    const url = `${this.base_url}/remove_post?id=${ id.toString() }`;
+    return this.http.delete<void>(url, withCookie).toPromise();
   }
 }

@@ -16,4 +16,29 @@
   </mat-form-field>
 
   <button mat-raised-button (click)="add_post()" color="primary">add post</button>
+
+  <hr>
+
+  <div class="py-3">
+    <h2 class="display-3">Manage Post</h2>
+  </div>
+
+  <!-- show post -->
+  <div class="row">
+    <mat-card class="col-md-4" *ngFor="let post of posts.slice(-3).reverse()">
+      <mat-card-header>
+        <mat-card-title>{{ post.title }}</mat-card-title>
+        <mat-card-subtitle>{{ get_time(post.time) }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div [innerHtml]="post.content"></div>
+      </mat-card-content>
+      <mat-card-actions>
+        <p hidden class="post-id">{{ post.id }}</p>
+        <button mat-button (click)="remove_post($event)">remove it!</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
 </div>
