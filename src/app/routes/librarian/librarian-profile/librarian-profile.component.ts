@@ -38,7 +38,7 @@ export class LibrarianProfileComponent implements OnInit {
         .then(res => {
           if (res[0].username !== librarianId) {
             this.stateService.back_home()
-              .then(() => this.messageService.messages.push(new Message('no such a user', 'danger')));
+              .then(() => this.messageService.push_message('no such a user', 'danger'));
           }
           this.librarian = res[0];
         });
@@ -61,18 +61,18 @@ export class LibrarianProfileComponent implements OnInit {
         if (this.samePerson) {
           this.stateService.update_profile(this.librarian);
         }
-        this.messageService.messages.push(new Message('update success', 'success'));
+        this.messageService.push_message('update success', 'success');
       });
   }
 
   change_librarian_password() {
     if (this.newPass != this.newPass1) {
-      this.messageService.messages.push(new Message('new passwords should equal.'));
+      this.messageService.push_message('new passwords should equal.');
       return;
     }
     this.apiService.reset_self_password(this.oldPass, this.newPass)
       .then(() => {
-        this.messageService.messages.push(new Message('password changed.', 'success'));
+        this.messageService.push_message('password changed.', 'success');
         this.modalService.dismissAll();
         this.stateService.logout();
         this.stateService.back_home();

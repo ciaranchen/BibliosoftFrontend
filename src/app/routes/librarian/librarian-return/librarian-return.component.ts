@@ -40,7 +40,7 @@ export class LibrarianReturnComponent implements OnInit {
     this.apiService.get_account('reader', this.readerId)
       .then(res => {
         if (res.length === 0 || res[0].username !== this.readerId) { // not found
-          this.messageService.messages.push(new Message('not that user', 'danger'));
+          this.messageService.push_message('not that user', 'danger');
         } else {
           this.reader = res[0];
           this.apiService.borrow_records(this.readerId)
@@ -53,14 +53,14 @@ export class LibrarianReturnComponent implements OnInit {
         }
       }).catch(err => {
       console.error(err);
-      this.messageService.messages.push(new Message('not that user', 'danger'));
+      this.messageService.push_message('not that user', 'danger');
     });
   }
 
   click_return(modal) {
     const selectedOptions = (<HTMLSelectElement>document.getElementById('borrowed')).selectedOptions;
     if (selectedOptions.length === 0) {
-      this.messageService.messages.push(new Message('You have not chose any book yet', 'danger'));
+      this.messageService.push_message('You have not chose any book yet', 'danger');
       return;
     }
     const optionElem = selectedOptions[0];
@@ -88,7 +88,7 @@ export class LibrarianReturnComponent implements OnInit {
     // delete this borrow item
     this.modalService.dismissAll();
     this.borrowed.splice(this.borrowIndex, 1);
-    this.messageService.messages.push(new Message('return success', 'success'));
+    this.messageService.push_message('return success', 'success');
   }
 
   paid_fine() {

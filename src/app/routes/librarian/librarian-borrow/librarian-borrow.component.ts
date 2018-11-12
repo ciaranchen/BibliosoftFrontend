@@ -70,15 +70,15 @@ export class LibrarianBorrowComponent implements OnInit {
     this.apiService.borrow(this.readerId, this.barcode)
       .then(res => {
         if (res) {
-          this.messageService.messages.push(new Message('borrow success!', 'success'));
+          this.messageService.push_message('borrow success!', 'success');
         } else {
-          this.messageService.messages.push(new Message(
+          this.messageService.push_message(
             'borrow fail! May be this book is be borrowed by other. check book status: ' +
               'http://bibliosoft.ciaran.cn/book-detail/' + this.book.isbn,
-            'danger'));
+            'danger');
         }
       }).catch(err => {
-        this.messageService.messages.push(new Message('error!', 'danger'));
+        this.messageService.push_message('error!', 'danger');
       });
   }
 }

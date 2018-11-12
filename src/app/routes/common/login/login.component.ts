@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
         this.stateService.login(this.role, res, this.activatedRoute.snapshot.queryParams['path'])
           .catch(err => {
             // console.error(err);
-            this.messageService.messages.push(new Message(err, 'danger'));
+            this.messageService.push_message(err, 'danger');
           });
       }).catch((err) => {
-        this.messageService.messages.push(new Message(err.error.msg, 'danger'));
+        this.messageService.push_message(err.error.msg, 'danger');
       });
   }
 
