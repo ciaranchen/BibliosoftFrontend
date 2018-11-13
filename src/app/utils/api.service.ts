@@ -16,6 +16,10 @@ const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
   .set('Accept', 'application/json');
 
+const updateHeaders = new HttpHeaders()
+.set('Content-Type', 'application/json')
+.set('Accept', 'application/json');
+
 const postOptions = {
   headers: postHeaders,
   withCredentials: true
@@ -169,14 +173,20 @@ export class ApiService {
     const url = `${this.base_url}/update_book`;
     // const body = new URLSearchParams();
     // ApiService.body_object(body, book);
-    return this.http.post<void>(url, book, postOptions).toPromise();
+    return this.http.post<void>(url, book, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   update_meta_book(metaBook: MetaBook): Promise<void> {
     const url = `${this.base_url}/update_meta_book`;
     // const body = new URLSearchParams();
     // ApiService.body_object(body, metaBook);
-    return this.http.post<void>(url, metaBook, postOptions).toPromise();
+    return this.http.post<void>(url, metaBook, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   delete_book(barcode: string): Promise<void> {
@@ -313,7 +323,10 @@ export class ApiService {
 
   update_config(rule: Rule): Promise<void> {
     const url = `${this.base_url}/update_config`;
-    return this.http.post<void>(url, rule, postOptions).toPromise();
+    return this.http.post<void>(url, rule, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   get_post(): Promise<Array<Post>> {

@@ -34,7 +34,7 @@ import {
   MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
   MatListModule, MatNativeDateModule, MatPaginatorModule, MatSnackBarModule, MatSortModule, MatStepperModule,
-  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher
+  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher, MatChipsModule
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
@@ -104,7 +104,8 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatNativeDateModule,
     MatCardModule,
     MatPaginatorModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatChipsModule,
   ],
   providers: [
     MessageService, StateService,
