@@ -56,8 +56,4 @@ export class LoginComponent implements OnInit {
         this.messageService.push_message(err.error.msg, 'danger');
       });
   }
-
-  want_reset_password() {
-    // todo: want reset password
-  }
 }

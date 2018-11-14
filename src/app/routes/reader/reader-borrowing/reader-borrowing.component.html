@@ -4,8 +4,41 @@
     <h2> of {{ readerId }}</h2>
   </div>
 
+  <div id="reserve" *ngIf="reserves && stateService.role === 'reader'">
+    <div>
+      <h3 class="title">Reserve History</h3>
+    </div>
+
+    <div class="content table-responsive table-full-width" *ngIf="reserves.length !== 0">
+      <table class="table table-hover table-striped">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Id</th>
+          <th scope="col">barcode</th>
+          <th scope="col">borrow time</th>
+          <th scope="col">operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let x of reserves; let i = index;">
+          <th scope="row">{{i}}</th>
+          <td><a routerLink="/borrow/{{x.id}}">{{x.id}}</a></td>
+          <td><a routerLink="/book_by_barcode/{{x.barcode}}">{{x.barcode}}</a></td>
+          <td>{{ get_valid_time(x.valid_until) }}</td>
+          <td>
+            <button type="button" class="btn btn-sm" (click)="remove_reserve(x)"  ngbTooltip="cancel reserve">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div>
-    <h3 class="title">Borrowing Book</h3>
+    <h3 class="title">Borrow History</h3>
   </div>
   <div class="content table-responsive table-full-width" *ngIf="borrowing.length !== 0">
     <table class="table table-hover table-striped">
@@ -14,6 +47,7 @@
         <th scope="col">#</th>
         <th scope="col">Id</th>
         <th scope="col">barcode</th>
+        <th scope="col">Librarian</th>
         <th scope="col">borrow time</th>
       </tr>
       </thead>
@@ -22,6 +56,7 @@
         <th scope="row">{{i}}</th>
         <td><a routerLink="/borrow/{{x.id}}">{{x.id}}</a></td>
         <td><a routerLink="/book_by_barcode/{{x.barcode}}">{{x.barcode}}</a></td>
+        <td>{{x.librarian_id}}</td>
         <td>{{ get_date(x.borrow_time) }}</td>
       </tr>
       </tbody>
@@ -29,15 +64,16 @@
   </div>
 
   <div>
-    <h3 class="title">Borrowing Book</h3>
+    <h3 class="title">Return History</h3>
   </div>
-  <div class="content table-responsive table-full-width" *ngIf="borrowed.length !== 0">
+  <div class="content table-responsive full-width" *ngIf="borrowed.length !== 0">
     <table class="table table-hover table-striped">
       <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Id</th>
         <th scope="col">barcode</th>
+        <th scope="col">librarian</th>
         <th scope="col">borrow time</th>
         <th scope="col">return time</th>
       </tr>
@@ -47,6 +83,7 @@
         <th scope="row">{{i}}</th>
         <td><a routerLink="/borrow/{{x.id}}">{{x.id}}</a></td>
         <td><a routerLink="/book_by_barcode/{{x.barcode}}">{{x.barcode}}</a></td>
+        <td>{{x.librarian_id}}</td>
         <td>{{ get_date(x.borrow_time) }}</td>
         <td>{{ get_date(x.return_time) }}</td>
       </tr>

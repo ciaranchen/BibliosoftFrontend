@@ -143,7 +143,7 @@
         <div *ngIf="metaBook.category && metaBook.category !== 'All'">
           <span>Category: </span>
           <span class="badge badge-pill badge-secondary">{{ metaBook.category }}</span>
-        </div> 
+        </div>
         <div *ngIf="metaBook.publish_year && metaBook.publish_year !== 1900"><span>Publish year: </span>{{metaBook.publish_year}}</div>
         <div *ngIf="metaBook.pages && metaBook.pages !== -1"><span>Pages: </span>{{metaBook.pages}}</div>
         <div *ngIf="metaBook.keyword"><span>Keywords: </span>{{metaBook.keyword}}</div>
@@ -162,11 +162,11 @@
 
   <br>
 
-  <div class="alert alert-info" role="alert" *ngIf="!books">
+  <div class="alert alert-info" role="alert" *ngIf="books.length === 0">
     This book is not in Library!
   </div>
 
-  <div class="table-responsive" *ngIf="books">
+  <div class="table-responsive" *ngIf="books.length !== 0">
     <table class="table table-hover table-striped">
       <thead class="thead-light">
         <tr>
@@ -204,9 +204,14 @@
   </div>
 
   <div id="reader_operation" *ngIf="login==='reader'">
-    <button type="button" class="btn btn-info" (click)="reserve_book()" [disabled]="disable_reserve()">
-      reserve this book
-    </button>
+    <div *ngIf="!reserve">
+      <button type="button" class="btn btn-info" (click)="reserve_book()" [disabled]="disable_reserve()">
+        reserve this book
+      </button>
+    </div>
+    <div class="alert alert-info" role="alert" *ngIf="reserve">
+      You have reserve this book, you should borrow it before {{ get_reserve_time(reserve.valid_until) }}
+    </div>
   </div>
   <div id="librarian_operation" *ngIf="login==='librarian'">
     <button type="button" class="btn btn-info" (click)="modalService.open(editMetaBookModal, { size: 'lg' })">

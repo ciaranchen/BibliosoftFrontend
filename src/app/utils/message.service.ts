@@ -5,7 +5,7 @@ export class MessageService {
     private snackBar: MatSnackBar
   ) {}
 
-  push_message(msg: string, type?: string): void {
+  push_message(msg: string, type?: string, duration?: number): void {
     const panelClass = ['snack-bar-bottom'];
     let action = 'Ok';
     if (type) {
@@ -17,7 +17,7 @@ export class MessageService {
       panelClass.push('bg-' + type);
     }
     this.snackBar.open(msg, action, {
-      duration: 10000,
+      duration: duration || 10000,
       panelClass: panelClass
     });
   }

@@ -33,7 +33,7 @@ import {
   MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
   MatListModule, MatNativeDateModule, MatPaginatorModule, MatSnackBarModule, MatSortModule, MatStepperModule,
-  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher, MatChipsModule
+  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher, MatChipsModule, MatSlideToggleModule
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
@@ -42,6 +42,7 @@ import { PlotlyIncomeMultiLinesComponent } from './components/plotly-income-mult
 import { PlotlyIncomePieComponent } from './components/plotly-income-pie/plotly-income-pie.component';
 import { IncomeDetailComponent } from './components/income-detail/income-detail.component';
 import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-detail.component';
+import { ResetPasswordComponent } from './routes/common/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     ReaderFineComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +106,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatPaginatorModule,
     MatSnackBarModule,
     MatChipsModule,
+    MatSlideToggleModule
   ],
   providers: [
     MessageService, StateService,

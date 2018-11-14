@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {StateService} from '../../../utils/state.service';
 import {MessageService} from '../../../utils/message.service';
 import {BookLocation} from '../../../utils/DataStructs/BookLocation';
+import {Reserve} from "../../../utils/DataStructs/Reserve";
 
 @Component({
   selector: 'app-book-detail',
@@ -16,13 +17,14 @@ import {BookLocation} from '../../../utils/DataStructs/BookLocation';
 })
 export class BookDetailComponent implements OnInit {
   metaBook: MetaBook;
-  books: Array<Book>;
+  books: Array<Book> = [];
   isbn: string;
   login: string;
 
   showMetaBook: MetaBook = new MetaBook('', '', '', '');
   editingIndex: number;
   location: BookLocation = new BookLocation();
+  reserve: Reserve;
 
   constructor(
     private messageService: MessageService,
@@ -101,10 +103,11 @@ export class BookDetailComponent implements OnInit {
       this.messageService.push_message('no available book', 'danger');
     } else {
       this.apiService.reserve_book(this.stateService.user.username, reservable[0].barcode)
-        .then(() => {
+        .then(res => {
           this.messageService.push_message(
             'reserve success, You need to go to library and borrow this book as fast as possible',
             'success');
+          this.reserve = res;
         });
     }
   }
@@ -136,11 +139,29 @@ export class BookDetailComponent implements OnInit {
           .then(() => this.messageService.push_message('no such a book', 'danger'));
       });
 
-    this.apiService.get_books(isbn).then(res => this.books = res);
+    this.apiService.get_books(isbn).then(res => this.books = res)
+      .then(res => {
+        this.books = res;
+        this.check_reserve();
+      });
+  }
+
+  private check_reserve() {
+    if (this.login === 'reader') {
+      this.apiService.get_reserves().then(reserves => {
+        const rs = reserves.filter(value => value.usable);
+        console.log(rs);
+        this.reserve = rs.find(r => this.books.find(book => book.barcode === r.barcode) !== undefined);
+      });
+    }
+  }
+
+  get_reserve_time(time: string): string {
+    return new Date(time).toLocaleString('en');
   }
 
   get_date_time(time: string): string {
     const date = new Date(time);
-    return this.login === 'librarian' ? date.toLocaleString() : date.toLocaleDateString();
+    return this.login === 'librarian' ? date.toLocaleString('en') : date.toLocaleDateString('en');
   }
 }

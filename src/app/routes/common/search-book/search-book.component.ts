@@ -19,12 +19,11 @@ export class SearchBookComponent implements OnInit {
 
   displayedColumns = ['title', 'isbn', 'author', 'publisher'];
   dataSource: MatTableDataSource<MetaBook> = new MatTableDataSource<MetaBook>();
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   categories: Category[] = [];
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private stateService: StateService,
