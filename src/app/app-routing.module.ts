@@ -19,7 +19,7 @@ import { ReaderProfileComponent } from './routes/reader/reader-profile/reader-pr
 import { ReaderBorrowingComponent } from './routes/reader/reader-borrowing/reader-borrowing.component';
 import {ReaderFineComponent} from './routes/reader/reader-fine/reader-fine.component';
 import {LibrarianIncomeComponent} from './routes/librarian/librarian-income/librarian-income.component';
-import {AdminPostComponent} from './routes/admin/admin-post/admin-post.component';
+import {LibrarianPostComponent} from './routes/librarian/librarian-post/librarian-post.component';
 import {LibrarianProfileComponent} from './routes/librarian/librarian-profile/librarian-profile.component';
 import {BorrowDetailComponent} from './routes/common/borrow-detail/borrow-detail.component';
 import {ResetPasswordComponent} from "./routes/common/reset-password/reset-password.component";
@@ -43,7 +43,7 @@ const routes: Routes = [
   { path: 'admin/rules', component: AdminRulesComponent },
   { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/password', component: AdminChangePasswordComponent },
-  { path: 'admin/post', component: AdminPostComponent },
+  { path: 'librarian/post', component: LibrarianPostComponent },
   // librarian/*
   { path: 'librarian/profile', component: LibrarianProfileComponent },
   { path: 'librarian/add_book', component: LibrarianAddBookComponent },

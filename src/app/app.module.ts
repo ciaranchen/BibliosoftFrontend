@@ -36,7 +36,7 @@ import {
   MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher, MatChipsModule, MatSlideToggleModule
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
-import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
+import { LibrarianPostComponent } from './routes/librarian/librarian-post/librarian-post.component';
 import { MAT_STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PlotlyIncomeMultiLinesComponent } from './components/plotly-income-multilines/plotly-income-multi-lines.component';
 import { PlotlyIncomePieComponent } from './components/plotly-income-pie/plotly-income-pie.component';
@@ -67,7 +67,7 @@ import { ResetPasswordComponent } from './routes/common/reset-password/reset-pas
     BorrowDetailComponent,
     // - admin pages
     AdminLoginComponent,
-    AdminPostComponent,
+    LibrarianPostComponent,
     AdminChangePasswordComponent,
     // - librarian pages
     LibrarianAddBookComponent,

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPostComponent } from './admin-post.component';
+import { LibrarianPostComponent } from './librarian-post.component';
 
-describe('AdminPostComponent', () => {
-  let component: AdminPostComponent;
-  let fixture: ComponentFixture<AdminPostComponent>;
+describe('LibrarianPostComponent', () => {
+  let component: LibrarianPostComponent;
+  let fixture: ComponentFixture<LibrarianPostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminPostComponent ]
+      declarations: [ LibrarianPostComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminPostComponent);
+    fixture = TestBed.createComponent(LibrarianPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

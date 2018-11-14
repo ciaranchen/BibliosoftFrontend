@@ -23,7 +23,7 @@
     <!-- Admin activatedRoute -->
     <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='admin'">
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/rules">Library Rules</a></li>
-      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/post">Library Post</a></li>
+
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/manage_user">Manage Librarian</a></li>
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/admin/password">Change password</a></li>
     </mat-nav-list>
@@ -31,6 +31,7 @@
     <!-- Librarian activatedRoute -->
     <mat-nav-list class="nav navbar-nav navbar-right" *ngIf="(loginService.role)==='librarian'">
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/search">Search</a></li>
+      <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/post">Library Post</a></li>
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/profile">Profile</a></li>
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/manage_user">Manage Reader</a></li>
       <li class="nav-item"><a mat-list-item class="nav-link" routerLink="/librarian/add_book">Add Book</a></li>

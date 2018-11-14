@@ -7,10 +7,10 @@ import {MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-admin-new-post',
-  templateUrl: './admin-post.component.html',
-  styleUrls: ['./admin-post.component.css']
+  templateUrl: './librarian-post.component.html',
+  styleUrls: ['./librarian-post.component.css']
 })
-export class AdminPostComponent implements OnInit {
+export class LibrarianPostComponent implements OnInit {
   posts: Array<Post> = [];
   addPost: Post = new Post('', '');
 
@@ -23,7 +23,7 @@ export class AdminPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.stateService.only('admin');
+    this.stateService.only('librarian');
     this.apiService.get_post().then(res => this.posts = res);
   }
 
