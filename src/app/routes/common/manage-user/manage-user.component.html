@@ -115,7 +115,7 @@
           <th mat-header-cell *matHeaderCellDef> <b>Username</b> </th>
           <td mat-cell *matCellDef="let x">
             <div *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></div>
-            <div *ngIf="managedRole==='librarian'">{{x.username}}</div>
+            <div *ngIf="managedRole==='librarian'"><a routerLink="/admin/librarian/{{x.username}}">{{x.username}}</a></div>
           </td>
         </ng-container>
 

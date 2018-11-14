@@ -17,6 +17,7 @@ export class LibrarianReturnComponent implements OnInit {
 
   reader: User;
   borrowed: Array<Borrow> = [];
+  fine: number;
 
   borrowIndex: number;
 

@@ -49,8 +49,8 @@ export class ReaderProfileComponent implements OnInit {
 
   submit() {
     // never exists update username;
-    delete this.showReader['username'];
-    this.apiService.update_account('reader', this.reader.username, this.showReader)
+    this.showReader.username = this.reader.username;
+    this.apiService.update_account('reader', this.showReader)
       .then(() => {
         this.showReader.username = this.reader.username;
         this.reader = this.showReader;

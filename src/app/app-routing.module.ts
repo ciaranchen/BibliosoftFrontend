@@ -59,7 +59,8 @@ const routes: Routes = [
 
   // testing url
   { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
-  { path: 'reset_password', component: ResetPasswordComponent }
+  { path: 'reset_password', component: ResetPasswordComponent },
+  { path: 'admin/librarian/:librarian', component: LibrarianProfileComponent }
 ];
 
 @NgModule({

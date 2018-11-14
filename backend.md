@@ -248,14 +248,15 @@ Accept: application/json
 ###
 
 # Pay fine
-POST http://localhost:80/pay_fine
+POST http://localhost:80/return_with_pay_fine
 Content-Type: application/x-www-form-urlencoded
 
 borrow_id=99
 
 Response status:
 1. BAD_REQUEST, fine not exist or have been paid
-2. OK
+2. CONFLICT, fine has been paid, should not pay it again
+3. OK
 
 ###
 
@@ -288,6 +289,12 @@ Response Status:
 1. OK 200, registered account
 2. CONFLICT 409, username already exsits
 3. BadRequest 400
+
+###
+
+# Remove librarian
+DELETE http://localhost:80/remove_librarian?librarian=xx
+Accept: application/json # msg only
 
 ###
 
@@ -329,6 +336,11 @@ POST http://localhost:80/reset_reader_password
 ###
 # Update reader info
 POST http://localhost:80/update_reader
+
+###
+# Remove reader
+DELETE http://localhost:80/remove_reader?reader=xx
+Accept: application/json
 
 ###
 
@@ -431,7 +443,7 @@ Accept: application/json
 
 ###
 
-# Add Post
+# Remove post, status code 200 for success
 POST http://localhost:80/add_post
 Content-Type: application/x-www-form-urlencoded
 Accept: application/json
@@ -454,3 +466,18 @@ Content-Type: application/x-www-form-urlencoded
 
 ###
 
+# Reset password,
+# Usage 1: Pass `username` only, send token email
+# Usage 2: Pass `username`, `token`, `new_password`, verify token and reset password
+# Result:
+# HttpStatus.FORBIDDEN, bad token
+# HttpStatus.SERVICE_UNAVAILABLE, send fail
+# HttpStatus.OK, send/reset success
+# HttpStatus.BAD_REQUEST, user not exsit or user is admin
+# HttpStatus.PRECONDITION_REQUIRED, bad email
+POST http://localhost:80/reset_password
+Content-Type: application/x-www-form-urlencoded
+
+username=xx[&token=xx&new_password=xx]
+
+###

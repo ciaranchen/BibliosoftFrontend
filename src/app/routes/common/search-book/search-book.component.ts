@@ -26,7 +26,7 @@ export class SearchBookComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(
-    private stateService: StateService,
+    public stateService: StateService,
     private apiService: ApiService,
     private messageService: MessageService,
   ) { }

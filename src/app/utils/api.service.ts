@@ -270,7 +270,7 @@ export class ApiService {
   }
 
   pay_fine(borrowId: string): Promise<void> {
-    const url = `${this.base_url}/pay_fine`;
+    const url = `${this.base_url}/return_with_pay_fine`;
     const body = new URLSearchParams();
     body.set('borrow_id', borrowId);
     return this.http.post<void>(url, body.toString(), postOptions).toPromise();
@@ -311,11 +311,9 @@ export class ApiService {
       this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
   }
 
-  update_account(role: string, username: string, diff: object): Promise<void> {
+  update_account(role: string, user: User): Promise<void> {
     const url = `${this.base_url}/update_${role}`,
-      body = new URLSearchParams();
-    body.set('username', username);
-    ApiService.body_object(body, diff);
+      body = ApiService.json2query(user);
     return ApiService.reader_and_librarian(role) ?
       this.http.post<void>(url, body.toString(), postOptions).toPromise() : undefined;
   }

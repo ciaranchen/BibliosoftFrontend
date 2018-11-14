@@ -14,7 +14,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class LibrarianProfileComponent implements OnInit {
   librarian: User;
   showLibrarian: User = new User();
-  samePerson = true;
+  couldManage = true;
 
   oldPass = '';
   newPass = '';
@@ -23,29 +23,44 @@ export class LibrarianProfileComponent implements OnInit {
   constructor(
     public modalService: NgbModal,
     private messageService: MessageService,
-    private stateService: StateService,
+    public stateService: StateService,
     private apiService: ApiService,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.stateService.only('librarian');
-    if (location.pathname.startsWith('/librarian/others')) {
-      console.log('no same person');
-      this.samePerson = false;
-      const librarianId = this.activatedRoute.snapshot.paramMap.get('reader');
+    this.stateService.only2('librarian', 'admin');
+    if (this.stateService.role === 'admin') {
+      this.couldManage = true;
+      const librarianId = this.activatedRoute.snapshot.paramMap.get('librarian');
       this.apiService.get_account('librarian', librarianId)
         .then(res => {
+          console.log(res);
           if (res[0].username !== librarianId) {
             this.stateService.back_home()
               .then(() => this.messageService.push_message('no such a user', 'danger'));
           }
           this.librarian = res[0];
+          Object.assign(this.showLibrarian, this.librarian);
         });
-    } else {
-      console.log('same');
-      this.samePerson = true;
-      this.librarian = this.stateService.user;
+    } else if (this.stateService.role === 'librarian') {
+      if (location.pathname.startsWith('/librarian/other')) {
+        this.couldManage = false;
+        const librarianId = this.activatedRoute.snapshot.paramMap.get('librarian');
+        this.apiService.get_account('librarian', librarianId)
+          .then(res => {
+            if (res[0].username !== librarianId) {
+              this.stateService.back_home()
+                .then(() => this.messageService.push_message('no such a user', 'danger'));
+            }
+            this.librarian = res[0];
+            Object.assign(this.showLibrarian, this.librarian);
+          });
+      } else {
+        this.couldManage = true;
+        this.librarian = this.stateService.user;
+        Object.assign(this.showLibrarian, this.librarian);
+      }
     }
     console.log(this.stateService.user);
     Object.assign(this.showLibrarian, this.librarian);
@@ -53,12 +68,12 @@ export class LibrarianProfileComponent implements OnInit {
 
   submit() {
     // never update username;
-    delete this.showLibrarian['username'];
-    this.apiService.update_account('librarian', this.librarian.username, this.showLibrarian)
+    this.showLibrarian.username = this.librarian.username;
+    this.apiService.update_account('librarian', this.showLibrarian)
       .then(() => {
-        this.showLibrarian.username = this.librarian.username;
+        console.log(this.showLibrarian);
         this.librarian = this.showLibrarian;
-        if (this.samePerson) {
+        if (this.couldManage) {
           this.stateService.update_profile(this.librarian);
         }
         this.messageService.push_message('update success', 'success');

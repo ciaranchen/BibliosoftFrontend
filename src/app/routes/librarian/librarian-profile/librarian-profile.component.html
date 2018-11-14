@@ -48,7 +48,7 @@
       <div class="input-group-prepend">
         <label for="nickname"><span class="input-group-text">Nickname</span></label>
       </div>
-      <input type="text" class="form-control" id="nickname" [disabled]="!samePerson"
+      <input type="text" class="form-control" id="nickname" [disabled]="!couldManage"
              placeholder="nickname" [(ngModel)]="showLibrarian.nickname" required>
     </div>
 
@@ -56,7 +56,7 @@
       <div class="input-group-prepend">
         <label for="email"><span class="input-group-text">Email</span></label>
       </div>
-      <input type="email" class="form-control" id="email" [disabled]="!samePerson"
+      <input type="email" class="form-control" id="email" [disabled]="!couldManage"
              placeholder="email address" [(ngModel)]="showLibrarian.email" required>
     </div>
 
@@ -64,7 +64,7 @@
       <div class="input-group-prepend">
         <label for="address"><span class="input-group-text">Address</span></label>
       </div>
-      <input type="text" class="form-control" id="address" [disabled]="!samePerson"
+      <input type="text" class="form-control" id="address" [disabled]="!couldManage"
              placeholder="your address" [(ngModel)]="showLibrarian.address" required>
     </div>
 
@@ -72,15 +72,17 @@
       <div class="input-group-prepend">
         <label for="slogan"><span class="input-group-text">Slogan</span></label>
       </div>
-      <input type="text" class="form-control" id="slogan" [disabled]="!samePerson"
+      <input type="text" class="form-control" id="slogan" [disabled]="!couldManage"
              placeholder="slogan" [(ngModel)]="showLibrarian.slogan" required>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="couldManage">
       <button type="button" class="btn btn-info" (click)="submit()">update Account</button>
-      <div *ngIf="samePerson">
-        <button type="button" class="btn btn-warning" (click)="modalService.open(cpModal)">change password</button>
-      </div>
+      <button type="button" class="btn btn-warning"
+              (click)="modalService.open(cpModal)"
+              *ngIf="stateService.role === 'librarian'">
+        change password
+      </button>
     </div>
   </div>
 </div>
