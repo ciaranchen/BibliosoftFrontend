@@ -4,6 +4,8 @@ import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {StateService} from '../../../utils/state.service';
 import {MatPaginator, MatTableDataSource, MatChipInputEvent} from '@angular/material';
 import { Category } from 'src/app/utils/DataStructs/Category';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MessageService } from 'src/app/utils/message.service';
 
 @Component({
   selector: 'app-librarian-search-book',
@@ -19,27 +21,30 @@ export class SearchBookComponent implements OnInit {
   dataSource: MatTableDataSource<MetaBook> = new MatTableDataSource<MetaBook>();
 
   categories: Category[] = [];
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private stateService: StateService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit() {
     this.stateService.only_rl();
     this.dataSource.paginator = this.paginator;
-    // this.apiService.get_all_category()
-    //   .then(res => categories = res);
+    this.apiService.get_all_category()
+      .then(res => this.categories = res);
   }
 
-  category_book(category: string) {
-    // this.apiService.get_category(category)
-    //   .then(res => {
-    //     this.searched = true;
-    //     this.update_books(res);
-    //   });
+  category_book(category: Category) {
+    this.apiService.get_category(category)
+      .then(res => {
+        this.searched = true;
+        this.update_books(res);
+      });
   }
 
   search_book(): void {
@@ -78,10 +83,13 @@ export class SearchBookComponent implements OnInit {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
-      this.categories.push({msg: value.trim()});
-      // todo: add category
+      const newCategory = new Category(value.trim());
+      this.categories.push(newCategory);
+      this.apiService.add_category(newCategory)
+        .then(() => {
+          this.messageService.push_message('add a category.');
+        });
     }
 
     // Reset the input value
@@ -95,7 +103,10 @@ export class SearchBookComponent implements OnInit {
 
     if (index >= 0) {
       this.categories.splice(index, 1);
-      // todo: remove category
+      this.apiService.remove_category(category)
+        .then(() => {
+          this.messageService.push_message('remove a category');
+        });
     }
   }
 }
