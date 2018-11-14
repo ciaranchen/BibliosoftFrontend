@@ -36,7 +36,7 @@ export class LibrarianAddBookComponent implements OnInit {
   secondFormGroup: FormGroup = this.formBuilder.group({
     titleCtrl: [{}, Validators.required], subtitleCtrl: [{}],
     authorCtrl: [{}, Validators.required], publisherCtrl: [{}, Validators.required],
-    coverCtrl: [{}], priceCtrl: [{}],
+    coverCtrl: [{}], categoryCtrl: [{}, Validators.required], priceCtrl: [{}],
     keywordCtrl: [{}], publishYearCtrl: [{}], pagesCtrl: [{}],
     summaryCtrl: [{}],
   });

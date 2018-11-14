@@ -13,6 +13,7 @@ export class MetaBook {
     public cover?: string,
     public subtitle?: string,
     public desc_html?: string,
-    public price?: number
+    public price?: number,
+    public category: string = 'All'
   ) {}
 }
