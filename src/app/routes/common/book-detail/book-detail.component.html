@@ -46,10 +46,16 @@
     </div>
 
     <div class="row">
-      <mat-form-field class="col-md-9 mb-3">
+      <mat-form-field class="col-md-6 mb-3">
         <mat-label>Cover Url<span>(Optional)</span></mat-label>
         <input type="text" id="cover" matInput
                [(ngModel)]="showMetaBook.cover" placeholder="cover url">
+      </mat-form-field>
+
+      <mat-form-field class="col-md-3 mb-3">
+        <mat-label>Category</mat-label>
+        <input type="text" id="category" matInput
+               [(ngModel)]="showMetaBook.category" placeholder="category" required>
       </mat-form-field>
 
       <mat-form-field class="col-md-3 mb-3">
@@ -124,7 +130,7 @@
   </div>
 </ng-template>
 
-<div class="app-wrapper" >
+<div class="app-wrapper">
   <div *ngIf="metaBook">
     <h2> {{ metaBook.title }} </h2>
     <div class="lead">{{ metaBook.subtitle }}</div>
@@ -134,6 +140,10 @@
         <button class="badge badge-info">{{metaBook.author}}</button>
         <div><span>ISBN: </span>{{metaBook.isbn}}</div>
         <div><span>Publisher: </span> {{metaBook.publisher}}</div>
+        <div *ngIf="metaBook.category && metaBook.category !== 'All'">
+          <span>Category: </span>
+          <span class="badge badge-pill badge-secondary">{{ metaBook.category }}</span>
+        </div> 
         <div *ngIf="metaBook.publish_year && metaBook.publish_year !== 1900"><span>Publish year: </span>{{metaBook.publish_year}}</div>
         <div *ngIf="metaBook.pages && metaBook.pages !== -1"><span>Pages: </span>{{metaBook.pages}}</div>
         <div *ngIf="metaBook.keyword"><span>Keywords: </span>{{metaBook.keyword}}</div>

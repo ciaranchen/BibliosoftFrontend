@@ -11,10 +11,15 @@ import {Rule} from './DataStructs/Rule';
 import {BookLocation} from './DataStructs/BookLocation';
 import * as JsBarcode from 'jsbarcode';
 import {Post} from './DataStructs/Post';
+import { Category } from './DataStructs/Category';
 
 const postHeaders = new HttpHeaders()
   .set('Content-Type', 'application/x-www-form-urlencoded')
   .set('Accept', 'application/json');
+
+const updateHeaders = new HttpHeaders()
+.set('Content-Type', 'application/json')
+.set('Accept', 'application/json');
 
 const postOptions = {
   headers: postHeaders,
@@ -169,14 +174,20 @@ export class ApiService {
     const url = `${this.base_url}/update_book`;
     // const body = new URLSearchParams();
     // ApiService.body_object(body, book);
-    return this.http.post<void>(url, book, postOptions).toPromise();
+    return this.http.post<void>(url, book, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   update_meta_book(metaBook: MetaBook): Promise<void> {
     const url = `${this.base_url}/update_meta_book`;
     // const body = new URLSearchParams();
     // ApiService.body_object(body, metaBook);
-    return this.http.post<void>(url, metaBook, postOptions).toPromise();
+    return this.http.post<void>(url, metaBook, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   delete_book(barcode: string): Promise<void> {
@@ -313,7 +324,10 @@ export class ApiService {
 
   update_config(rule: Rule): Promise<void> {
     const url = `${this.base_url}/update_config`;
-    return this.http.post<void>(url, rule, postOptions).toPromise();
+    return this.http.post<void>(url, rule, {
+      headers: updateHeaders,
+      withCredentials: true
+    }).toPromise();
   }
 
   get_post(): Promise<Array<Post>> {
@@ -329,5 +343,35 @@ export class ApiService {
   remove_post(id: number): Promise<void> {
     const url = `${this.base_url}/remove_post?id=${ id.toString() }`;
     return this.http.delete<void>(url, withCookie).toPromise();
+  }
+
+  add_category(category: Category): Promise<void> {
+    const url = `${this.base_url}/add_category`;
+    return this.http.post<void>(url, ApiService.json2query({category: category.msg}), postOptions).toPromise();
+  }
+
+  remove_category(category: Category): Promise<void> {
+    const url = `${this.base_url}/remove_category?category=${category.msg}`;
+    return this.http.delete<void>(url, withCookie).toPromise();
+  }
+
+  get_all_category(): Promise<Category[]> {
+    const url = `${this.base_url}/categories`;
+    return this.http.get<string[]>(url, withCookie).toPromise()
+      .then(res => res.map(val => new Category(val)));
+  }
+
+  get_category(category: Category): Promise<MetaBook[]> {
+    const url = `${this.base_url}/category/${category.msg}`;
+    return this.http.get<MetaBook[]>(url, withCookie).toPromise();
+  }
+
+  cancel_reserve(reserve_id: number): Promise<void> {
+    const url = `${this.base_url}/cancel_reserve`;
+    return this.http.post<void>(url, ApiService.json2query({reserve_id: reserve_id}), postOptions).toPromise();
+  }
+
+  get_reserve() {
+    // todo: finish it;
   }
 }

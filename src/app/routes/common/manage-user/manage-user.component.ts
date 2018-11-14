@@ -84,6 +84,7 @@ export class ManageUserComponent implements OnInit {
     const username = this.get_username($event);
     const confirm_remove = confirm(`Are you sure to delete "${username}"?`);
     if (confirm_remove) {
+      // todo: check infomation
       // todo: remove user
       // this.apiService.
     }

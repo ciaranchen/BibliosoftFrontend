@@ -102,16 +102,19 @@ export class BookDetailComponent implements OnInit {
     } else {
       this.apiService.reserve_book(this.stateService.user.username, reservable[0].barcode)
         .then(() => {
-          this.messageService.push_message('reserve success, You need to go to library and borrow this book as fast as possible', 'success');
+          this.messageService.push_message(
+            'reserve success, You need to go to library and borrow this book as fast as possible',
+            'success');
         });
     }
   }
 
   submit_edit_metabook() {
     this.stateService.only('librarian');
+    this.showMetaBook.isbn = this.metaBook.isbn;
     this.apiService.update_meta_book(this.showMetaBook)
       .then(() => {
-        this.showMetaBook = this.metaBook;
+        this.metaBook = this.showMetaBook;
         this.modalService.dismissAll();
       });
   }

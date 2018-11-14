@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div class="app-wrapper">
   <div class="input-group mb-3">
     <input type="text" class="form-control form-control-lg"
@@ -8,6 +10,22 @@
         <i class="fa fa-search"></i>
       </button>
     </div>
+  </div>
+  <div>
+    <mat-form-field class="full-width">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let category of categories" [selectable]="selectable"
+                 [removable]="true" (removed)="remove_category(category)" (click)="category_book(category)">
+          {{ category.msg }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Categories:"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+               [matChipInputAddOnBlur]="addOnBlur"
+               (matChipInputTokenEnd)="add_category($event)">
+      </mat-chip-list>
+    </mat-form-field>
   </div>
   <small id="search-help" class="form-text text-muted">Search Result will show below.</small>
 

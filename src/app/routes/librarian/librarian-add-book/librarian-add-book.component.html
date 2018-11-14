@@ -70,16 +70,26 @@
           </div>
 
           <div class="row">
-            <mat-form-field class="col-md-9 mb-3">
+            <mat-form-field class="col-md-6 mb-3">
               <mat-label>Cover Url<span>(Optional)</span></mat-label>
               <input type="text" id="cover" matInput formControlName="coverCtrl"
                      [(ngModel)]="book.cover" placeholder="cover url">
             </mat-form-field>
 
             <mat-form-field class="col-md-3 mb-3">
+              <mat-label>Category</mat-label>
+              <input type="text" id="category" matInput formControlName="categoryCtrl"
+                     [(ngModel)]="book.category" placeholder="category" required>
+              <mat-hint>By default, category is 'All'</mat-hint>
+              <mat-error *ngIf="secondFormGroup.get('categoryCtrl').invalid">
+                Valid Category is <strong>required</strong>.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3 mb-3">
               <mat-label>Price<span>(Optional)</span></mat-label>
               <input type="text" id="price" matInput formControlName="priceCtrl"
-                     [(ngModel)]="book.price" placeholder="cover url">
+                     [(ngModel)]="book.price" placeholder="price">
             </mat-form-field>
           </div>
 
