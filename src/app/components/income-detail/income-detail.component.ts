@@ -14,7 +14,7 @@ export class IncomeDetailComponent implements OnInit {
 
   ngOnInit() {}
 
-  link_addr(x: Income): string {
+  link_address(x: Income): string {
     return this.role === 1 ? `/borrow/${x.borrow_id}` : `/librarian/reader/profile/${x.reader_id}`;
   }
 

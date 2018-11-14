@@ -3,7 +3,7 @@ import {User} from '../../../utils/DataStructs/User';
 import {ApiService} from '../../../utils/api.service';
 import {ActivatedRoute} from '@angular/router';
 import {StateService} from '../../../utils/state.service';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -51,7 +51,7 @@ export class ReaderProfileComponent implements OnInit {
     // never exists update username;
     delete this.showReader['username'];
     this.apiService.update_account('reader', this.reader.username, this.showReader)
-      .then(res => {
+      .then(() => {
         this.showReader.username = this.reader.username;
         this.reader = this.showReader;
         // don't forget to change it in the stateService
@@ -68,9 +68,13 @@ export class ReaderProfileComponent implements OnInit {
       return;
     }
     this.apiService.reset_self_password(this.oldPass, this.newPass)
-      .then(() => {
-        this.messageService.push_message('password changed.', 'success');
-        this.modalService.dismissAll();
+      .then(res => {
+        if (res) {
+          this.messageService.push_message('password changed.', 'success');
+          this.modalService.dismissAll();
+        } else {
+          this.messageService.push_message('old password is wrong', 'danger');
+        }
       });
   }
 }

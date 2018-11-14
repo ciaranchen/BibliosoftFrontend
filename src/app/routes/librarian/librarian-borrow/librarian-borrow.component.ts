@@ -3,7 +3,7 @@ import {ApiService} from '../../../utils/api.service';
 import {User} from '../../../utils/DataStructs/User';
 import {MetaBook} from '../../../utils/DataStructs/MetaBook';
 import {Book} from '../../../utils/DataStructs/Book';
-import {Message, MessageService} from '../../../utils/message.service';
+import {MessageService} from '../../../utils/message.service';
 import {StateService} from '../../../utils/state.service';
 
 @Component({
@@ -78,7 +78,7 @@ export class LibrarianBorrowComponent implements OnInit {
             'danger');
         }
       }).catch(err => {
-        this.messageService.push_message('error!', 'danger');
+        this.messageService.push_message(`error: ${err}!`, 'danger');
       });
   }
 }

@@ -12,14 +12,12 @@ import { HomeComponent } from './routes/common/home/home.component';
 import { LibrarianAddBookComponent } from './routes/librarian/librarian-add-book/librarian-add-book.component';
 import { SearchBookComponent } from './routes/common/search-book/search-book.component';
 import { BookDetailComponent } from './routes/common/book-detail/book-detail.component';
-import { MessagesComponent } from './components/messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminLoginComponent } from './routes/admin/admin-login/admin-login.component';
 import { AdminRulesComponent } from './routes/admin/admin-rules/admin-rules.component';
 import { LogoutComponent } from './routes/common/logout/logout.component';
 import { AboutComponent } from './routes/common/about/about.component';
 import { LoginComponent } from './routes/common/login/login.component';
-import { PostComponent } from './components/post/post.component';
 import { LibrarianBorrowComponent } from './routes/librarian/librarian-borrow/librarian-borrow.component';
 import { ReaderFineComponent } from './routes/reader/reader-fine/reader-fine.component';
 import { ManageUserComponent } from './routes/common/manage-user/manage-user.component';
@@ -34,8 +32,8 @@ import {
   ErrorStateMatcher, MatButtonModule, MatCardModule,
   MatDatepickerModule, MatExpansionModule,
   MatGridListModule, MatIconModule, MatInputModule,
-  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSortModule, MatStepperModule,
-  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher
+  MatListModule, MatNativeDateModule, MatPaginatorModule, MatSnackBarModule, MatSortModule, MatStepperModule,
+  MatTableModule, MatToolbarModule, ShowOnDirtyErrorStateMatcher, MatChipsModule, MatSlideToggleModule
 } from '@angular/material';
 import { LibrarianProfileComponent } from './routes/librarian/librarian-profile/librarian-profile.component';
 import { AdminPostComponent } from './routes/admin/admin-post/admin-post.component';
@@ -44,13 +42,12 @@ import { PlotlyIncomeMultiLinesComponent } from './components/plotly-income-mult
 import { PlotlyIncomePieComponent } from './components/plotly-income-pie/plotly-income-pie.component';
 import { IncomeDetailComponent } from './components/income-detail/income-detail.component';
 import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-detail.component';
+import { ResetPasswordComponent } from './routes/common/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     // component
-    MessagesComponent,
     NavbarComponent,
-    PostComponent,
     PlotlyIncomeMultiLinesComponent,
     PlotlyIncomePieComponent,
     IncomeDetailComponent,
@@ -81,6 +78,7 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     ReaderFineComponent,
     ReaderBorrowingComponent,
     ReaderProfileComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,6 +104,9 @@ import { BorrowDetailComponent } from './routes/common/borrow-detail/borrow-deta
     MatNativeDateModule,
     MatCardModule,
     MatPaginatorModule,
+    MatSnackBarModule,
+    MatChipsModule,
+    MatSlideToggleModule
   ],
   providers: [
     MessageService, StateService,

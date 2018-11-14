@@ -6,7 +6,7 @@ export class Borrow {
   public reader_id = '';
   public borrow_time: number;
   public return_time: number;
-  public fine_update_date: number;
+  // public fine_update_date: number;
 
   constructor() {}
 }

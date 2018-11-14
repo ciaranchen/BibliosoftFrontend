@@ -22,6 +22,7 @@ import {LibrarianIncomeComponent} from './routes/librarian/librarian-income/libr
 import {AdminPostComponent} from './routes/admin/admin-post/admin-post.component';
 import {LibrarianProfileComponent} from './routes/librarian/librarian-profile/librarian-profile.component';
 import {BorrowDetailComponent} from './routes/common/borrow-detail/borrow-detail.component';
+import {ResetPasswordComponent} from "./routes/common/reset-password/reset-password.component";
 
 const routes: Routes = [
   // home pages
@@ -58,6 +59,7 @@ const routes: Routes = [
 
   // testing url
   { path: 'librarian/other/profile/:librarian', component: LibrarianProfileComponent },
+  { path: 'reset_password', component: ResetPasswordComponent }
 ];
 
 @NgModule({

@@ -11,21 +11,10 @@ describe('ApiService', () => {
   });
 
   // noinspection SpellCheckingInspection
-  // noinspection SpellCheckingInspection
-  // noinspection SpellCheckingInspection
-  // noinspection SpellCheckingInspection
   it('should user_login success', function () {
     const service: ApiService = TestBed.get(ApiService);
     // 'YiiPmt', 'YiiPmtvMYz0zGNMXVHq6'
     // noinspection SpellCheckingInspection
-    // service.user_login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res).toBe(true); });
-  });
-
-  // noinspection SpellCheckingInspection
-  // noinspection SpellCheckingInspection
-  it('should user_login failed', function () {
-    const service: ApiService = TestBed.get(ApiService);
-    // noinspection SpellCheckingInspection
-    // service.user_login('qweasd', 'qweasdzxc', 3).then(res => expect(res).toBe(false));
+    service.login('YiiPmt', 'YiiPmtvMYz0zGNMXVHq6', 3).then(res => { expect(res.username).toBe('YiiPmt'); });
   });
 });

@@ -7,18 +7,18 @@
   </div>
   <div class="modal-body">
     <mat-form-field class="full-width">
-      <input matInput placeholder="Username" [formControl]="requiredFormControl"
+      <input matInput placeholder="Username" [formControl]="usernameFormControl"
              [errorStateMatcher]="matcher" [(ngModel)]="addAccount.username" required>
       <!--<mat-hint>Username should be the phone of user!</mat-hint>-->
-      <mat-error *ngIf="requiredFormControl.hasError('required')">
+      <mat-error *ngIf="usernameFormControl.hasError('required')">
         Username is <strong>required</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <input matInput placeholder="Password" [formControl]="requiredFormControl"
+      <input matInput placeholder="Password" [formControl]="passwordFormControl"
              [errorStateMatcher]="matcher" [(ngModel)]="addPassword" required>
-      <mat-error *ngIf="requiredFormControl.hasError('required')">
+      <mat-error *ngIf="passwordFormControl.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
     </mat-form-field>
@@ -49,7 +49,34 @@
     </mat-form-field>
 
 
-    <button type="button" class="btn btn-info" (click)="submit_register()">add Account</button>
+    <button type="button" class="btn btn-info" (click)="submit_register(depositModal)">add Account</button>
+  </div>
+</ng-template>
+
+<ng-template #depositModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="deposit-modal-title">Deposit</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This reader should pay {{ deposit }} yuan for deposit.
+    <button type="button" class="btn btn-info" (click)="modalService.dismissAll()">Done</button>
+  </div>
+</ng-template>
+
+<ng-template #removeModal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="remove-modal-title">Remove {{ managedRole }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalService.dismissAll()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Reader has paid for deposit. <br>
+    {{ remove_msg }}
+    <button type="button" class="btn btn-info" (click)="modalService.dismissAll()">Done</button>
   </div>
 </ng-template>
 
@@ -77,47 +104,103 @@
 
   <div class="content table-responsive full-width" *ngIf="data.length !== 0">
     <hr>
-    <table class="table table-hover table-striped">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Email</th>
-        <th scope="col">Username</th>
-        <th scope="col">Nickname</th>
-        <th scope="col">Address</th>
-        <th scope="col">Operation</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let x of data; let i = index" ngbPopover="slogan: {{x.slogan}}">
-        <th scope="row">{{i}}</th>
-        <td>{{x.email}}</td>
-        <td *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></td>
-        <td *ngIf="managedRole==='librarian'">{{x.username}}</td>
-        <td>{{x.nickname}}</td>
-        <td>{{x.address}}</td>
-        <td>
-          <button type="button" class="btn btn-sm" (click)="reset_password($event)" ngbTooltip="reset password">
-            <i class="fa fa-edit"></i>
-          </button>
-          &nbsp;
-          <button type="button" class="btn btn-sm" (click)="remove_user($event)">
-            <i class="fa fa-eraser" aria-hidden="true"></i>
-          </button>
-          &nbsp;
-          <button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"
-                  *ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">
-            <i class="fa fa-book"></i>
-          </button>
-          &nbsp;
-          <button type="button" class="btn btn-sm" routerLink="/librarian/reader/fine/{{x.username}}"
-                  *ngIf="managedRole==='reader'" ngbTooltip="Fine record">
-            <i class="fa fa-paperclip"></i>
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="">
+      <table mat-table [dataSource]="dataSource" class="full-width table-striped">
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> <b>Email</b> </th>
+          <td mat-cell *matCellDef="let x"> {{x.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef> <b>Username</b> </th>
+          <td mat-cell *matCellDef="let x">
+            <div *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></div>
+            <div *ngIf="managedRole==='librarian'">{{x.username}}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nickname">
+          <th mat-header-cell *matHeaderCellDef> <b>Nickname</b> </th>
+          <td mat-cell *matCellDef="let element"> {{element.nickname}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef> <b>Address</b> </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="operation">
+          <th mat-header-cell *matHeaderCellDef> <b>Operation</b> </th>
+          <td mat-cell *matCellDef="let x">
+            <button type="button" class="btn btn-sm" (click)="reset_password(x)" ngbTooltip="reset password">
+              <i class="fa fa-edit"></i>
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-sm" (click)="remove_user(x, removeModal)"  ngbTooltip="remove user">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"
+                    *ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">
+              <i class="fa fa-book"></i>
+            </button>
+            &nbsp;
+            <button type="button" class="btn btn-sm" routerLink="/librarian/reader/fine/{{x.username}}"
+                    *ngIf="managedRole==='reader'" ngbTooltip="Fine record">
+              <i class="fa fa-paperclip"></i>
+            </button>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+    <!--<table class="table table-hover table-striped">-->
+      <!--<thead class="thead-light">-->
+      <!--<tr>-->
+        <!--<th scope="col">#</th>-->
+        <!--<th scope="col">Email</th>-->
+        <!--<th scope="col">Username</th>-->
+        <!--<th scope="col">Nickname</th>-->
+        <!--<th scope="col">Address</th>-->
+        <!--<th scope="col">Operation</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr *ngFor="let x of data; let i = index" ngbPopover="slogan: {{x.slogan}}">-->
+        <!--<th scope="row">{{i}}</th>-->
+        <!--<td>{{x.email}}</td>-->
+        <!--<td *ngIf="managedRole==='reader'"><a routerLink="/librarian/reader/profile/{{x.username}}">{{x.username}}</a></td>-->
+        <!--<td *ngIf="managedRole==='librarian'">{{x.username}}</td>-->
+        <!--<td>{{x.nickname}}</td>-->
+        <!--<td>{{x.address}}</td>-->
+        <!--<td>-->
+          <!--<button type="button" class="btn btn-sm" (click)="reset_password(x)" ngbTooltip="reset password">-->
+            <!--<i class="fa fa-edit"></i>-->
+          <!--</button>-->
+          <!--&nbsp;-->
+          <!--<button type="button" class="btn btn-sm" (click)="remove_user(x)">-->
+            <!--<i class="fa fa-eraser" aria-hidden="true"></i>-->
+          <!--</button>-->
+          <!--&nbsp;-->
+          <!--<button type="button" class="btn btn-sm" routerLink="/librarian/reader/borrowed/{{x.username}}"-->
+                  <!--*ngIf="managedRole==='reader'" ngbTooltip="Borrowed record">-->
+            <!--<i class="fa fa-book"></i>-->
+          <!--</button>-->
+          <!--&nbsp;-->
+          <!--<button type="button" class="btn btn-sm" routerLink="/librarian/reader/fine/{{x.username}}"-->
+                  <!--*ngIf="managedRole==='reader'" ngbTooltip="Fine record">-->
+            <!--<i class="fa fa-paperclip"></i>-->
+          <!--</button>-->
+        <!--</td>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
   </div>
 </div>
 

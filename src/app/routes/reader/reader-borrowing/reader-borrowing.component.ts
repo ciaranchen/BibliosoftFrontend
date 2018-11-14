@@ -3,6 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {ApiService} from '../../../utils/api.service';
 import {Borrow} from '../../../utils/DataStructs/Borrow';
 import {StateService} from '../../../utils/state.service';
+import {Reserve} from "../../../utils/DataStructs/Reserve";
+import {MessageService} from "../../../utils/message.service";
 
 @Component({
   selector: 'app-reader-borrowing',
@@ -14,10 +16,13 @@ export class ReaderBorrowingComponent implements OnInit {
   borrowing: Array<Borrow> = [];
   borrowed: Array<Borrow> = [];
 
+  reserves: Reserve[] = [];
+
   constructor(
-    private stateService: StateService,
+    public stateService: StateService,
     private apiService: ApiService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public messageService: MessageService,
   ) { }
 
   get_date(time: number): string {
@@ -37,6 +42,21 @@ export class ReaderBorrowingComponent implements OnInit {
       .then(res => {
         this.borrowing = res.filter(value => value.return_time === null);
         this.borrowed = res.filter(value => value.return_time !== null);
+      });
+    this.apiService.get_reserves()
+      .then(res => this.reserves = res.filter(value => value.usable));
+  }
+
+  get_valid_time(valid_until: string): string {
+    return new Date(valid_until).toLocaleString('en');
+  }
+
+  remove_reserve(x: Reserve) {
+    this.apiService.cancel_reserve(x.id)
+      .then(() => {
+        const index = this.reserves.findIndex(val => val === x);
+        this.reserves.splice(index, 1);
+        this.messageService.push_message('cancel success', 'success');
       });
   }
 }
